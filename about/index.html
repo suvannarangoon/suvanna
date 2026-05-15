@@ -42,49 +42,51 @@
   .about-hero {
     margin-top: 52px;
     background: #111;
-    padding: 80px 24px;
+    padding: 80px 24px 60px;
     text-align: center;
   }
   .about-hero-eyebrow { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: #666; margin-bottom: 16px; }
-  .about-hero-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: #fff; letter-spacing: 0; line-height: 1.2; margin-bottom: 16px; }
-  .about-hero-sub { font-size: 0.85rem; color: #666; font-weight: 300; letter-spacing: 1px; }
+  .about-hero-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: #fff; letter-spacing: 0; line-height: 1.2; margin-bottom: 12px; }
+  .about-hero-sub { font-size: 0.85rem; color: #666; font-weight: 300; letter-spacing: 0; margin-bottom: 32px; }
+
+  /* TAGLINE ANIMATION */
+  .tagline-wrap { margin-top: 8px; min-height: 28px; }
+  .tagline {
+    font-size: 0.9rem;
+    color: #aaa;
+    font-weight: 300;
+    letter-spacing: 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .tagline.visible { opacity: 1; transform: translateY(0); }
+  .tagline span { display: block; }
 
   /* CONTENT */
   .about-wrap { max-width: 680px; margin: 0 auto; padding: 64px 24px 80px; }
 
-  .about-block { margin-bottom: 48px; }
-  .about-block:last-child { margin-bottom: 0; }
-
-  .about-text {
-    font-size: 1rem;
-    color: #333;
-    line-height: 2;
-    font-weight: 300;
-    letter-spacing: 0;
-  }
-
-  .about-text strong {
-    font-weight: 600;
-    color: #111;
-  }
-
-  .divider { height: 1px; background: #f0f0f0; margin: 48px 0; }
-
   /* STATS */
-  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; margin: 64px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; margin-bottom: 64px; }
   .stat-item { }
-  .stat-number { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 6px; }
+  .stat-number { font-size: 2rem; font-weight: 700; color: #111; margin-bottom: 6px; letter-spacing: 0; }
   .stat-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: #aaa; }
 
+  .divider { height: 1px; background: #f0f0f0; margin: 40px 0; }
+
+  .about-block { margin-bottom: 40px; }
+  .about-text { font-size: 1rem; color: #333; line-height: 2; font-weight: 300; letter-spacing: 0; }
+  .about-text strong { font-weight: 600; color: #111; }
+
   /* VALUES */
-  .values-section { background: #f9f9f9; padding: 48px 24px; margin: 0 -24px; border-radius: 12px; margin-bottom: 48px; }
-  .values-title { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-bottom: 32px; }
-  .values-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .values-section { background: #f9f9f9; padding: 40px 24px; border-radius: 12px; margin-bottom: 48px; }
+  .values-title { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: #aaa; margin-bottom: 28px; }
+  .values-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
   @media (min-width: 500px) { .values-grid { grid-template-columns: 1fr 1fr; } }
   .value-item { }
-  .value-icon { font-size: 1.4rem; margin-bottom: 10px; }
-  .value-name { font-size: 0.85rem; font-weight: 600; color: #111; margin-bottom: 6px; }
-  .value-desc { font-size: 0.8rem; color: #888; line-height: 1.7; font-weight: 300; }
+  .value-icon { font-size: 1.4rem; margin-bottom: 8px; }
+  .value-name { font-size: 0.85rem; font-weight: 600; color: #111; margin-bottom: 4px; letter-spacing: 0; }
+  .value-desc { font-size: 0.8rem; color: #888; line-height: 1.7; font-weight: 300; letter-spacing: 0; }
 
   /* FOOTER */
   footer { background: #000; padding: 40px 0 32px; }
@@ -93,17 +95,16 @@
   .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 36px; }
   @media (min-width: 600px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
   .footer-col-title { font-size: 0.65rem; font-weight: 600; color: #fff; letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; }
-  .footer-link { display: block; font-size: 0.8rem; color: #888; text-decoration: none; margin-bottom: 8px; }
+  .footer-link { display: block; font-size: 0.8rem; color: #888; text-decoration: none; margin-bottom: 8px; letter-spacing: 0; }
   .footer-link:hover { color: #fff; }
   .footer-social { display: flex; justify-content: center; gap: 20px; margin-bottom: 24px; }
   .social-icon { background: none; border: none; cursor: pointer; color: #666; display: flex; align-items: center; transition: color 0.2s; padding: 4px; }
   .social-icon:hover { color: #fff; }
-  .footer-bottom { text-align: center; font-size: 0.72rem; color: #555; border-top: 1px solid #222; padding-top: 20px; }
+  .footer-bottom { text-align: center; font-size: 0.72rem; color: #555; border-top: 1px solid #222; padding-top: 20px; letter-spacing: 0; }
 </style>
 </head>
 <body>
 
-<!-- MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 <div class="dropdown-menu" id="dropdownMenu">
   <button class="menu-item" onclick="window.location.href='../home'">Home</button>
@@ -114,7 +115,6 @@
   <button class="menu-item" onclick="window.location.href='../contact'">Contact</button>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="https://suvannarangoon.github.io/suvanna/home">
@@ -134,19 +134,24 @@
   <div class="about-hero-eyebrow">Our Story</div>
   <div class="about-hero-title">Suvanna Rangoon</div>
   <div class="about-hero-sub">Made in Myanmar · Inspired by the World</div>
+  <div class="tagline-wrap">
+    <div class="tagline" id="tagline">
+      <span>play with scent,</span>
+      <span>make your world perfect.</span>
+    </div>
+  </div>
 </div>
 
 <!-- CONTENT -->
 <div class="about-wrap">
 
-  <!-- STATS -->
   <div class="stats-grid">
     <div class="stat-item">
-      <div class="stat-number">70+</div>
+      <div class="stat-number" id="count1" data-target="70">0</div>
       <div class="stat-label">Scents</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number">2</div>
+      <div class="stat-number" id="count2" data-target="2">0</div>
       <div class="stat-label">Sizes</div>
     </div>
     <div class="stat-item">
@@ -157,7 +162,6 @@
 
   <div class="divider"></div>
 
-  <!-- PARA 1 -->
   <div class="about-block">
     <p class="about-text">
       <strong>Suvanna Rangoon</strong> သည် အရည်အသွေးမြင့် Inspired Perfume များကို ဈေးနှုန်းသင့်တင့်စွာဖြင့် ပေးစွမ်းနိုင်ရန် ရည်ရွယ်၍ ဖန်တီးထားသော Myanmar Brand တစ်ခုဖြစ်ပါသည်။
@@ -166,7 +170,6 @@
 
   <div class="divider"></div>
 
-  <!-- PARA 2 -->
   <div class="about-block">
     <p class="about-text">
       <strong>Made in Myanmar</strong> အဖြစ် ပြည်တွင်းတွင် ထုတ်လုပ်ထားပြီး အဆင့်မြင့်ကုန်ကြမ်းများကို အသုံးပြုကာ ကမ္ဘာကျော်ရေမွှေးအနံ့များနှင့် ဆင်တူသော Quality Inspired Perfume များကို ဂရုတစိုက် ဖန်တီးထုတ်လုပ်ထားပါသည်။
@@ -175,7 +178,6 @@
 
   <div class="divider"></div>
 
-  <!-- PARA 3 -->
   <div class="about-block">
     <p class="about-text">
       Suvanna Rangoon သည် အနံ့အသက်ကောင်းမွန်မှုသာမက <strong>ယုံကြည်မှု၊ စတိုင်နှင့် ကိုယ်ပိုင်အမှတ်တရ</strong>များကိုလည်း ပေးစွမ်းနိုင်ရန် ရည်ရွယ်ထားပါသည်။
@@ -184,7 +186,6 @@
 
   <div class="divider"></div>
 
-  <!-- PARA 4 -->
   <div class="about-block">
     <p class="about-text">
       လူတိုင်း <strong>Luxury Fragrance Experience</strong> ကို အလွယ်တကူ ခံစားနိုင်စေရန် အရည်အသွေးကောင်းမွန်ပြီး ဈေးနှုန်းသင့်တင့်သော ရေမွှေးများကို ဆက်လက်ဖန်တီးပေးသွားမည်ဖြစ်ပါသည်။
@@ -193,7 +194,6 @@
 
   <div class="divider"></div>
 
-  <!-- VALUES -->
   <div class="values-section">
     <div class="values-title">Our Values</div>
     <div class="values-grid">
@@ -283,6 +283,45 @@ function toggleMenu() {
   document.getElementById('dropdownMenu').classList.toggle('open');
   document.getElementById('menuOverlay').classList.toggle('open');
 }
+
+// Tagline animation
+setTimeout(() => {
+  document.getElementById('tagline').classList.add('visible');
+}, 600);
+
+// Counting animation
+function countUp(el, target, suffix) {
+  let start = 0;
+  const duration = 1500;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) {
+      start = target;
+      clearInterval(timer);
+      el.textContent = target + (suffix || '');
+    } else {
+      el.textContent = Math.floor(start) + (suffix || '');
+    }
+  }, 16);
+}
+
+// Intersection Observer — scroll into view မှ count start
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.getAttribute('data-target'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      countUp(el, target, suffix);
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.getElementById('count1').setAttribute('data-suffix', '+');
+observer.observe(document.getElementById('count1'));
+observer.observe(document.getElementById('count2'));
 </script>
 </body>
 </html>
