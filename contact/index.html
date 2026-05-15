@@ -102,11 +102,12 @@
 <!-- MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 <div class="dropdown-menu" id="dropdownMenu">
+  <button class="menu-item" onclick="window.location.href='../home'">Home</button>
   <button class="menu-item">A Moment</button>
   <button class="menu-item">Shop</button>
   <button class="menu-item">Store</button>
   <button class="menu-item">About</button>
-  <button class="menu-item" onclick="window.location.href='../contact'">Contact</button>
+  <button class="menu-item">Contact</button>
 </div>
 
 <!-- NAV -->
@@ -116,14 +117,9 @@
       <img src="../home/logo.PNG" alt="Suvanna">
     </a>
     <div class="nav-right">
-      <button class="nav-icon-btn" title="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
-        </svg>
-      </button>
       <button class="burger" id="burgerBtn" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
+      <span></span>
+      <span></span>
       </button>
     </div>
   </div>
