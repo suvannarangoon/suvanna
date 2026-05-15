@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suvanna Rangoon</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --radius: 12px; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Open Sans', sans-serif; background: #fff; color: #222; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+  }
+  .nav-logo img { height: 25px; width: auto; }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-icon-btn { background: none; border: none; cursor: pointer; color: #333; display: flex; align-items: center; padding: 4px; }
+
+  .burger { display: flex; flex-direction: column; gap: 6px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .burger span {
+    display: block; width: 22px; height: 1.5px; background: #333;
+    transition: all 0.3s ease; transform-origin: center;
+  }
+  .burger.open span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+  .burger.open span:nth-child(2) { transform: translateY(-3.75px) rotate(-45deg); }
+
+  /* MENU */
+  .menu-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.3);
+    z-index: 90; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .menu-overlay.open { opacity: 1; pointer-events: all; }
+  .dropdown-menu {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 280px; background: #fff;
+    z-index: 95; padding: 80px 32px 32px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .dropdown-menu.open { transform: translateX(0); }
+  .menu-item-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: #bbb; margin-top: 16px; margin-bottom: 8px; }
+  .menu-item {
+    display: block; padding: 14px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem; font-weight: 400;
+    color: #222; text-decoration: none;
+    letter-spacing: 1px; cursor: pointer;
+    background: none; border-left: none; border-right: none; border-top: none;
+    text-align: left; width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    transition: color 0.2s;
+  }
+  .menu-item:hover { color: #888; }
+
+  /* HERO */
+  .hero-section {
+    height: 100vh; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; background: #e8e8e8;
+    border-radius: 0 0 32px 32px;
+  }
+  .hero-section img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover; opacity: 0.7;
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    text-align: center; padding: 20px;
+  }
+  .hero-handle {
+    width: 40px; height: 4px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 999px;
+    margin: 0 auto 40px;
+  }
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; color: #555; margin-bottom: 16px; }
+  .hero-title { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 300; letter-spacing: 6px; color: #111; margin-bottom: 28px; }
+  .hero-btn {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,0,0,0.15);
+    padding: 14px 40px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: #111; cursor: pointer; border-radius: var(--radius);
+    transition: all 0.3s;
+  }
+  .hero-btn:hover { background: rgba(255,255,255,0.5); }
+
+  /* REFLECTION */
+  .reflection-section {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .reflection-eyebrow { font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: #aaa; margin-bottom: 16px; }
+  .reflection-title { font-size: 2rem; font-weight: 300; letter-spacing: 3px; color: #111; margin-bottom: 8px; }
+  .reflection-subtitle { font-size: 0.9rem; color: #888; font-weight: 300; margin-bottom: 60px; }
+  .reflection-img-placeholder {
+    width: 100%; max-width: 700px; height: 400px;
+    background: #e8e8e8; border-radius: var(--radius);
+    margin: 0 auto 60px;
+    display: flex; align-items: center; justify-content: center;
+    color: #bbb; font-size: 0.8rem; letter-spacing: 2px;
+  }
+
+  /* PRODUCT CARDS */
+  .products-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 800px; margin: 0 auto; }
+  .product-card {
+    background: #f9f9f9; border: 1px solid #e8e8e8;
+    border-radius: var(--radius); padding: 40px 32px;
+    text-align: left; transition: box-shadow 0.3s;
+  }
+  .product-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .product-vol { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: #bbb; margin-bottom: 12px; }
+  .product-name { font-size: 1.2rem; font-weight: 600; color: #111; margin-bottom: 8px; }
+  .product-tagline { font-size: 0.85rem; color: #888; font-weight: 300; margin-bottom: 24px; line-height: 1.6; }
+  .explore-btn {
+    background: #111; color: #fff; border: none;
+    padding: 10px 24px; font-family: 'Open Sans', sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; border-radius: var(--radius); transition: background 0.3s;
+  }
+  .explore-btn:hover { background: #444; }
+
+  /* FOOTER */
+  footer { background: #f5f5f5; border-top: 1px solid #e8e8e8; padding: 60px 40px 32px; }
+  .footer-top { display: flex; justify-content: center; gap: 16px; margin-bottom: 32px; }
+  .social-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #222; display: flex; align-items: center;
+    justify-content: center; cursor: pointer;
+    transition: background 0.3s; border: none;
+  }
+  .social-btn:hover { background: #555; }
+  .social-btn svg { width: 20px; height: 20px; fill: #fff; }
+  .footer-contact { text-align: center; margin-bottom: 48px; }
+  .footer-contact p { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #aaa; margin-bottom: 6px; }
+  .footer-contact a { font-size: 0.9rem; color: #333; text-decoration: none; }
+  .footer-contact a:hover { text-decoration: underline; }
+  .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 48px; }
+  .footer-col-title { font-size: 0.75rem; font-weight: 600; color: #111; letter-spacing: 1px; margin-bottom: 16px; text-transform: uppercase; }
+  .footer-link { display: block; font-size: 0.85rem; color: #666; text-decoration: none; margin-bottom: 10px; }
+  .footer-link:hover { color: #111; }
+  .footer-bottom { text-align: center; font-size: 0.75rem; color: #bbb; border-top: 1px solid #e8e8e8; padding-top: 24px; }
+
+  @media (max-width: 600px) {
+    .products-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .reflection-section { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.PNG" alt="Suvanna">
+  </div>
+  <div class="nav-right">
+    <!-- Shop Icon -->
+    <button class="nav-icon-btn" title="Shop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/>
+      </svg>
+    </button>
+    <!-- Search Icon -->
+    <button class="nav-icon-btn" title="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
+      </svg>
+    </button>
+    <!-- Burger 2 lines -->
+    <button class="burger" id="burgerBtn" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- DROPDOWN MENU -->
+<div class="dropdown-menu" id="dropdownMenu">
+  <div class="menu-item-label">Menu</div>
+  <button class="menu-item">A Moment</button>
+  <button class="menu-item">Shop</button>
+  <button class="menu-item">Store</button>
+  <button class="menu-item">About</button>
+  <button class="menu-item">Contact</button>
+</div>
+
+<!-- HERO -->
+<section class="hero-section">
+  <img src="amoment.JPG" alt="A Moment">
+  <div class="hero-content">
+    <div class="hero-handle"></div>
+    <div class="hero-eyebrow">Soon to Launch</div>
+    <div class="hero-title">A Moment</div>
+    <button class="hero-btn">Coming Soon</button>
+  </div>
+</section>
+
+<!-- REFLECTION SERIES -->
+<section class="reflection-section">
+  <div class="reflection-eyebrow">Collection</div>
+  <div class="reflection-title">Reflection Series</div>
+  <div class="reflection-subtitle">Affordable Mirror of Masterpiece</div>
+
+  <div class="reflection-img-placeholder">
+    Photo Coming Soon
+  </div>
+
+  <div class="products-row">
+    <div class="product-card">
+      <div class="product-vol">30ml</div>
+      <div class="product-name">Suvanna 30ml</div>
+      <div class="product-tagline">Go Big to Glow</div>
+      <button class="explore-btn">Explore</button>
+    </div>
+    <div class="product-card">
+      <div class="product-vol">10ml</div>
+      <div class="product-name">Suvanna 10ml</div>
+      <div class="product-tagline">Pocket Luxury</div>
+      <button class="explore-btn">Explore</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <button class="social-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+      </svg>
+    </button>
+    <button class="social-btn">
+      <svg viewBox="0 0 24 24">
+        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="footer-contact">
+    <p>Contact us</p>
+    <a href="mailto:office@suvannarangoon.com">office@suvannarangoon.com</a>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <div class="footer-col-title">Products</div>
+      <a class="footer-link" href="#">Catalog</a>
+      <a class="footer-link" href="#">Shop</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Suvanna Store</div>
+      <a class="footer-link" href="#">Find a Store</a>
+      <a class="footer-link" href="#">Online Store</a>
+    </div>
+    <div>
+      <div class="footer-col-title">Customer Care</div>
+      <a class="footer-link" href="#">Returns</a>
+      <a class="footer-link" href="#">Delivery</a>
+      <a class="footer-link" href="#">Shipping</a>
+      <a class="footer-link" href="#">Contact Us</a>
+    </div>
+    <div>
+      <div class="footer-col-title">About Suvanna</div>
+      <a class="footer-link" href="#">About Us</a>
+      <a class="footer-link" href="#">Career Opportunities</a>
+      <a class="footer-link" href="#">Investors</a>
+      <a class="footer-link" href="#">Staff Training</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Suvanna Rangoon. All rights reserved.
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  const burger = document.getElementById('burgerBtn');
+  const menu = document.getElementById('dropdownMenu');
+  const overlay = document.getElementById('menuOverlay');
+  burger.classList.toggle('open');
+  menu.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+</script>
+</body>
+</html>
