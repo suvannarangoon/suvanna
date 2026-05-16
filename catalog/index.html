@@ -36,7 +36,7 @@
 
   .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
   .menu-overlay.open { opacity: 1; pointer-events: all; }
-  .dropdown-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 260px; background: #fff; z-index: 95; padding: 72px 28px 32px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+  .dropdown-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 260px; background: #fff; z-index: 95; padding: 72px 28px 32px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; overflow-y: auto; }
   .dropdown-menu.open { transform: translateX(0); }
   .menu-item { display: block; padding: 13px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #222; cursor: pointer; background: none; border-left: none; border-right: none; border-top: none; text-align: left; width: 100%; font-family: 'Open Sans', sans-serif; transition: color 0.2s; }
   .menu-item:hover { color: #888; }
@@ -80,11 +80,7 @@
   .vol-popup-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; margin-bottom: 4px; }
   .vol-popup-name { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
 
-  @keyframes spinPause {
-    0%   { transform: rotate(0deg); }
-    70%  { transform: rotate(360deg); }
-    100% { transform: rotate(360deg); }
-  }
+  @keyframes spinPause { 0% { transform: rotate(0deg); } 70% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
   @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
   .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; grid-column: 1/-1; gap: 14px; }
@@ -99,12 +95,17 @@
   .bottle-price { font-size: 0.75rem; font-weight: 700; color: #111; }
   .bottle-slot.inactive .bottle-price { color: #bbb; }
   .bottle-slot.active .bottle-svg-wrap { animation: floatUp 1.8s ease-in-out infinite; }
+  .bottle-sale-price { font-size: 0.68rem; color: #e53935; font-weight: 700; }
+  .bottle-orig-price { font-size: 0.62rem; color: #bbb; text-decoration: line-through; }
 
   .vol-options { display: flex; gap: 10px; margin-bottom: 20px; }
-  .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
+  .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; position: relative; }
   .vol-opt-btn.selected { border-color: #111; background: #111; color: #fff; }
   .vol-opt-btn .vol-size { font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 2px; }
   .vol-opt-btn .vol-p { font-size: 0.7rem; opacity: 0.8; }
+  .vol-opt-btn .vol-sale { font-size: 0.65rem; color: #e53935; font-weight: 700; }
+  .vol-opt-btn.selected .vol-sale { color: #ffcdd2; }
+  .vol-opt-btn .vol-orig { font-size: 0.62rem; text-decoration: line-through; opacity: 0.5; }
   .vol-confirm-btn { width: 100%; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; margin-bottom: 10px; }
   .vol-confirm-btn:hover { background: #333; }
   .vol-confirm-btn.added { background: #2e7d32; }
@@ -129,7 +130,7 @@
   .filter-btn.active { background: #111; color: #fff; border-color: #111; }
   .results-info { padding: 10px 20px 6px; max-width: 900px; margin: 0 auto; font-size: 0.68rem; color: #ccc; }
 
-  /* GRID — no box shadow, white bg, gap */
+  /* GRID */
   .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; background: #fff; max-width: 900px; margin: 0 auto; padding: 0 16px; }
   @media (min-width: 600px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 20px; } }
 
@@ -140,15 +141,15 @@
   .product-card:hover .product-img { transform: scale(1.04); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  /* badge top row — left cat, right stock */
-  .badge-top-row { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: flex-end; /* ← အောက်ခြေ ညှိ */ z-index: 1; }
+  /* badge top row */
+  .badge-top-row { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 1; }
   .badge-left { display: flex; flex-direction: column; gap: 3px; }
   .badge { font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .badge-new { background: #e53935; color: #fff; }
+  .badge-promo { background: #e53935; color: #fff; }
   .badge-cat-men { background: #111; color: #fff; border-radius: 3px; }
   .badge-cat-women { background: #e91e8c; color: #fff; border-radius: 3px; }
   .badge-cat-unisex { background: #7b5ea7; color: #fff; border-radius: 3px; }
-
   .stock-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .stock-badge-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
   .stock-badge-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
@@ -157,12 +158,13 @@
   .product-info { padding: 8px 4px 12px; }
   .product-type { font-family: 'Courier New', monospace; font-size: 0.58rem; color: #ccc; margin-bottom: 2px; }
   .product-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
-  .product-price { font-size: 0.8rem; font-weight: 600; color: #111; margin-bottom: 7px; }
+  .product-price-wrap { margin-bottom: 7px; }
+  .product-price { font-size: 0.8rem; font-weight: 600; color: #111; }
+  .product-price-orig { font-size: 0.72rem; color: #bbb; text-decoration: line-through; margin-right: 4px; }
+  .product-price-sale { font-size: 0.8rem; font-weight: 700; color: #e53935; }
 
-  /* Add to bag — gray default, black on click */
   .add-bag-btn { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 7px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
   .add-bag-btn:hover { background: #111; color: #fff; }
-  .add-bag-btn:active { background: #111; color: #fff; }
   .add-bag-btn.out { background: #f5f5f5; color: #ccc; cursor: not-allowed; }
   .add-bag-btn.added { background: #2e7d32; color: #fff; }
   .empty-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.85rem; grid-column: 1/-1; }
@@ -174,14 +176,12 @@
   .back-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; color: #555; padding: 0; }
   .back-btn:hover { color: #111; }
   .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
-
-  /* detail image — 5:3 horizontal, white bg */
   .detail-img-wrap { aspect-ratio: 5/3; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; border-bottom: 1px solid #f0f0f0; }
   .detail-img { width: 104%; height: 104%; object-fit: contain; }
-
   .detail-info { padding: 14px 20px; }
   .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
   .badge-detail-new { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
+  .badge-detail-promo { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
   .badge-detail-men { background: #111; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; border-radius: 3px; }
   .badge-detail-women { background: #e91e8c; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; border-radius: 3px; }
   .badge-detail-unisex { background: #7b5ea7; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; border-radius: 3px; }
@@ -197,7 +197,10 @@
   .vol-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
   .vol-btn { border: 1px solid #e0e0e0; background: #fff; padding: 5px 12px; font-family: 'Open Sans', sans-serif; font-size: 0.7rem; cursor: pointer; border-radius: 5px; transition: all 0.2s; }
   .vol-btn.active { border-color: #111; background: #111; color: #fff; }
-  .detail-price { font-size: 1.15rem; font-weight: 700; color: #111; margin-bottom: 16px; }
+  .detail-price-wrap { margin-bottom: 16px; }
+  .detail-price { font-size: 1.15rem; font-weight: 700; color: #111; }
+  .detail-price-orig { font-size: 0.9rem; color: #bbb; text-decoration: line-through; margin-right: 6px; }
+  .detail-price-sale { font-size: 1.15rem; font-weight: 700; color: #e53935; }
   .detail-sold { font-size: 0.65rem; color: #ccc; margin-bottom: 4px; }
   .desc-text { font-size: 0.82rem; color: #555; line-height: 1.75; margin-top: 4px; }
   .detail-add-btn { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #111; color: #fff; border: none; padding: 16px 20px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
@@ -261,6 +264,7 @@
   <button class="menu-item" onclick="goTo('../home')">A Moment</button>
   <button class="menu-item" onclick="goTo('../shop')">Shop</button>
   <button class="menu-item" onclick="goTo('../catalog')">Catalog</button>
+  <button class="menu-item" onclick="goTo('../order')">Order</button>
   <button class="menu-item" onclick="goTo('../store')">Store</button>
   <button class="menu-item" onclick="goTo('../about')">About</button>
   <button class="menu-item" onclick="goTo('../contact')">Contact</button>
@@ -350,17 +354,14 @@
       </div>
       <div>
         <div class="footer-col-title">Customer Care</div>
+        <a class="footer-link" href="../order">Order Status</a>
         <a class="footer-link" href="#">Returns</a>
-        <a class="footer-link" href="#">Delivery</a>
-        <a class="footer-link" href="#">Shipping</a>
         <a class="footer-link" href="../contact">Contact Us</a>
       </div>
       <div>
         <div class="footer-col-title">About Suvanna</div>
         <a class="footer-link" href="../about">About Us</a>
         <a class="footer-link" href="#">Career Opportunities</a>
-        <a class="footer-link" href="#">Investors</a>
-        <a class="footer-link" href="#">Staff Training</a>
       </div>
     </div>
     <div class="footer-social">
@@ -373,7 +374,7 @@
 </footer>
 
 <script>
-const SHEET_URL="https://script.google.com/macros/s/AKfycbzmyuThMPBFMVrDqFp1QHneRzngPBhQsc_rOF2QHZBdfVBefv7fnVPduwE6arS0mSQj/exec";
+const SHEET_URL="https://script.google.com/macros/s/AKfycbyLkPlKGGsiAwJE4pVIpTGjYpkKZDRktZou_fLSypufAXvSHQTasn8uGYc1mBLNUU_d/exec";
 let allProducts=[];
 let currentFilter='all';
 let currentSearch='';
@@ -399,10 +400,12 @@ function addToCartDirect(id,volIdx){
   const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
   const vol=p.volumes[volIdx||0];
+  const finalPrice=vol.salePrice||vol.price;
   const cart=getCart();
   const key=id+'_'+vol.volume;
   const ex=cart.find(function(i){return i.key===key;});
-  if(ex){ex.qty+=1;}else{cart.push({key:key,id:id,name:p.name,brand:p.brand,type:p.type,volume:vol.volume,price:vol.price,image:p.image,qty:1});}
+  if(ex){ex.qty+=1;}
+  else{cart.push({key:key,id:id,name:p.name,brand:p.brand,type:p.type,volume:vol.volume,price:finalPrice,image:p.image,qty:1});}
   saveCart(cart);
 }
 function changeQty(key,delta){
@@ -423,7 +426,15 @@ function renderBagItems(){
     const imgSrc=item.image?'../catalog/images/'+item.image:null;
     const imgHtml=imgSrc?'<img class="bag-item-img" src="'+imgSrc+'" onerror="this.style.display=\'none\'">'
       :'<div class="bag-item-img-placeholder"><svg width="20" height="20" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg></div>';
-    return'<div class="bag-item">'+imgHtml+'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div><div class="bag-item-vol">'+item.volume+'</div><div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div><div class="bag-item-right"><div class="qty-row"><button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button></div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
+    return'<div class="bag-item">'+imgHtml
+      +'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div>'
+      +'<div class="bag-item-vol">'+item.volume+'</div>'
+      +'<div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div>'
+      +'<div class="bag-item-right"><div class="qty-row">'
+      +'<button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button>'
+      +'<span class="qty-num">'+item.qty+'</span>'
+      +'<button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button>'
+      +'</div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
   }).join('');
   document.getElementById('bagTotal').textContent=Number(total).toLocaleString()+' Ks';
 }
@@ -442,26 +453,38 @@ function openVolPopup(id){
   document.getElementById('volPopupOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
+
 function renderVolPopup(){
   const p=volPopupProduct;
-  let html='';
+  let bottleHtml='';
   p.volumes.forEach(function(v,i){
     const is10=v.volume&&v.volume.includes('10');
     const isActive=i===volPopupSelectedIdx;
-    html+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
-      +'<div class="bottle-svg-wrap">'+(isActive?(is10?SVG_10ML:SVG_30ML):(is10?SVG_10ML_DIM:SVG_30ML_DIM))+'</div>'
+    const svgA=is10?SVG_10ML:SVG_30ML;
+    const svgD=is10?SVG_10ML_DIM:SVG_30ML_DIM;
+    const hasSale=v.salePrice&&v.salePrice<v.price;
+    const priceHtml=hasSale
+      ?'<div class="bottle-sale-price">'+Number(v.salePrice).toLocaleString()+' Ks</div>'
+       +'<div class="bottle-orig-price">'+Number(v.price).toLocaleString()+'</div>'
+      :'<div class="bottle-price">'+Number(v.price).toLocaleString()+' Ks</div>';
+    bottleHtml+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
+      +'<div class="bottle-svg-wrap">'+(isActive?svgA:svgD)+'</div>'
       +'<div class="bottle-label">'+v.volume+'</div>'
-      +'<div class="bottle-price">'+Number(v.price).toLocaleString()+' Ks</div>'
-      +'</div>';
+      +priceHtml+'</div>';
   });
-  document.getElementById('bottleAnimWrap').innerHTML=html;
+  document.getElementById('bottleAnimWrap').innerHTML=bottleHtml;
   document.getElementById('volOptions').innerHTML=p.volumes.map(function(v,i){
+    const hasSale=v.salePrice&&v.salePrice<v.price;
+    const priceHtml=hasSale
+      ?'<span class="vol-orig">'+Number(v.price).toLocaleString()+'</span>'
+       +'<span class="vol-sale">'+Number(v.salePrice).toLocaleString()+' Ks</span>'
+      :'<span class="vol-p">'+Number(v.price).toLocaleString()+' Ks</span>';
     return'<button class="vol-opt-btn '+(i===volPopupSelectedIdx?'selected':'')+'" onclick="selectVolPopup('+i+')">'
       +'<span class="vol-size">'+v.volume+'</span>'
-      +'<span class="vol-p">'+Number(v.price).toLocaleString()+' Ks</span>'
-      +'</button>';
+      +priceHtml+'</button>';
   }).join('');
 }
+
 function selectVolPopup(idx){
   volPopupSelectedIdx=idx;
   document.getElementById('unavailMsg').classList.remove('show');
@@ -526,7 +549,12 @@ function groupByID(products){
   const map={};
   products.forEach(function(p){
     if(!map[p.id])map[p.id]=Object.assign({},p,{volumes:[]});
-    map[p.id].volumes.push({volume:p.volume,price:p.price,inStock:p.inStock,sold:p.sold,stockStatus:p.stockStatus,availability:p.availability});
+    map[p.id].volumes.push({
+      volume:p.volume,price:p.price,inStock:p.inStock,
+      sold:p.sold,stockStatus:p.stockStatus,
+      availability:p.availability,
+      promotion:p.promotion,percent:p.percent,salePrice:p.salePrice
+    });
   });
   return Object.values(map);
 }
@@ -536,18 +564,19 @@ function bottleSVGSmall(s){
 }
 function getFiltered(){
   var r=allProducts;
-  if(currentFilter==='new') r=r.filter(function(p){ return p.status==='New'; });
-  else if(currentFilter!=='all') r=r.filter(function(p){ return p.category&&p.category.toLowerCase()===currentFilter; });
+  if(currentFilter==='new')r=r.filter(function(p){return p.status==='New';});
+  else if(currentFilter!=='all')r=r.filter(function(p){return p.category&&typeof p.category==='string'&&p.category.toLowerCase()===currentFilter;});
   if(currentSearch.trim()){
     var q=currentSearch.toLowerCase();
     r=r.filter(function(p){
-      return (p.name&&typeof p.name==='string'&&p.name.toLowerCase().includes(q))||
+      return(p.name&&typeof p.name==='string'&&p.name.toLowerCase().includes(q))||
              (p.brand&&typeof p.brand==='string'&&p.brand.toLowerCase().includes(q))||
              (p.notes&&typeof p.notes==='string'&&p.notes.toLowerCase().includes(q));
     });
   }
   return r;
 }
+
 function renderGrid(){
   const grouped=groupByID(getFiltered());
   const grid=document.getElementById('catalogGrid');
@@ -558,17 +587,27 @@ function renderGrid(){
     const stock=getStockStatus(vol);
     const imgSrc=p.image?'../catalog/images/'+p.image:null;
     const newBadge=p.status==='New'?'<span class="badge badge-new">New</span>':'';
+    const hasPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
+    const promoBadge=hasPromo?'<span class="badge badge-promo">'+p.volumes.find(function(v){return v.salePrice;}).percent+'% OFF</span>':'';
     const catBadge=getCatBadge(p.category,false);
     const stockBadge=getStockBadge(stock,false);
     const imgHtml=imgSrc?'<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
       :'<div class="product-img-placeholder">'+bottleSVGSmall(52)+'</div>';
+
+    // price display
+    const hasSale=vol.salePrice&&vol.salePrice<vol.price;
+    const priceHtml=hasSale
+      ?'<div class="product-price-wrap"><span class="product-price-orig">'+Number(vol.price).toLocaleString()+'</span><span class="product-price-sale">'+Number(vol.salePrice).toLocaleString()+' Ks</span></div>'
+      :'<div class="product-price-wrap"><span class="product-price">'+Number(vol.price).toLocaleString()+' Ks</span></div>';
+
     let btnHtml;
     if(stock==='out')btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
     else btnHtml='<button class="add-bag-btn" onclick="event.stopPropagation();openVolPopup(\''+p.id+'\')">Add to Bag</button>';
+
     return'<div class="product-card" onclick="openDetail(\''+p.id+'\')">'
       +'<div class="product-img-wrap">'
         +'<div class="badge-top-row">'
-          +'<div class="badge-left">'+newBadge+catBadge+'</div>'
+          +'<div class="badge-left">'+newBadge+catBadge+promoBadge+'</div>'
           +'<div>'+stockBadge+'</div>'
         +'</div>'
         +imgHtml
@@ -576,11 +615,12 @@ function renderGrid(){
       +'<div class="product-info">'
         +'<div class="product-type">'+(p.type==='Inspired'?'inspired by':'suvanna')+'</div>'
         +'<div class="product-name">'+p.name+'</div>'
-        +'<div class="product-price">'+Number(vol.price).toLocaleString()+' Ks</div>'
+        +priceHtml
         +btnHtml
       +'</div></div>';
   }).join('');
 }
+
 function setFilter(f,btn){
   currentFilter=f;
   document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
@@ -601,6 +641,7 @@ function openDetail(id){
   document.body.style.overflow='hidden';
   history.pushState({id:id},'','?id='+id);
 }
+
 function renderDetail(p){
   const idx=selectedVol[p.id]||0;
   const vol=p.volumes[idx];
@@ -615,27 +656,35 @@ function renderDetail(p){
     return'<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
   }).join('');
   const newBadge=p.status==='New'?'<span class="badge-detail-new">New</span>':'';
+  const hasPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
+  const promoBadge=hasPromo?'<span class="badge-detail-promo">'+p.volumes.find(function(v){return v.percent;}).percent+'% OFF</span>':'';
   const catBadge=getCatBadge(p.category,true);
   const stockBadge=getStockBadge(stock,true);
+  const hasSale=vol.salePrice&&vol.salePrice<vol.price;
+  const priceHtml=hasSale
+    ?'<div class="detail-price-wrap"><span class="detail-price-orig">'+Number(vol.price).toLocaleString()+'</span><span class="detail-price-sale">'+Number(vol.salePrice).toLocaleString()+' Ks</span></div>'
+    :'<div class="detail-price-wrap"><span class="detail-price">'+Number(vol.price).toLocaleString()+' Ks</span></div>';
   let addBtn='';
   if(stock==='out')addBtn='<button class="detail-add-btn out" disabled>Out of Stock</button>';
   else if(isUnavail)addBtn='<button class="detail-add-btn unavail" disabled>Online Order မရနိုင်သေး</button>';
   else addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
+
   document.getElementById('detailContent').innerHTML=
     '<div class="detail-img-wrap">'+imgHtml+'</div>'+
     '<div class="detail-info">'+
-      '<div class="detail-badges">'+newBadge+catBadge+stockBadge+'</div>'+
+      '<div class="detail-badges">'+newBadge+catBadge+promoBadge+stockBadge+'</div>'+
       '<div class="detail-type">'+(p.type==='Inspired'?'inspired by':'suvanna original')+'</div>'+
       '<div class="detail-brand">'+(p.brand||'')+'</div>'+
       '<div class="detail-name">'+p.name+'</div>'+
       (p.notes?'<div class="detail-row"><div class="detail-label">Scent Notes</div><div class="detail-value">'+p.notes+'</div></div>':'')+
       (moodVal?'<div class="detail-row"><div class="detail-label">Mood</div><div class="detail-value">'+moodVal+'</div></div>':'')+
       '<div class="detail-row"><div class="detail-label">Volume</div><div class="vol-row">'+volBtns+'</div></div>'+
-      '<div class="detail-price">'+Number(vol.price).toLocaleString()+' Ks</div>'+
+      priceHtml+
       (vol.sold>0?'<div class="detail-sold">'+vol.sold+' sold</div>':'')+
       (desc?'<div class="detail-row"><div class="detail-label">Description</div><div class="desc-text">'+desc+'</div></div>':'')+
     '</div>'+addBtn;
 }
+
 function handleDetailAdd(id,vi){
   addToCartDirect(id,vi);
   const btn=document.getElementById('detailAddBtn');
@@ -657,12 +706,11 @@ function toggleMenu(){
   document.getElementById('dropdownMenu').classList.toggle('open');
   document.getElementById('menuOverlay').classList.toggle('open');
 }
-window.addEventListener('load', function(){
-  document.getElementById('searchInput').addEventListener('input', function(){
-    currentSearch = this.value;
-    document.getElementById('searchClear').classList.toggle('show', this.value.length > 0);
-    renderGrid();
-  });
+window.addEventListener('popstate',function(){
+  if(document.getElementById('detailPage').classList.contains('open')){
+    document.getElementById('detailPage').classList.remove('open');
+    document.body.style.overflow='';
+  }
 });
 
 async function loadProducts(){
@@ -687,11 +735,12 @@ async function loadProducts(){
 updateCartBadge();
 loadProducts();
 
-/* Search — inline attach, no DOMContentLoaded needed */
-document.getElementById('searchInput').addEventListener('input', function(){
-  currentSearch = this.value;
-  document.getElementById('searchClear').classList.toggle('show', this.value.length > 0);
-  renderGrid();
+window.addEventListener('load',function(){
+  document.getElementById('searchInput').addEventListener('input',function(){
+    currentSearch=this.value;
+    document.getElementById('searchClear').classList.toggle('show',this.value.length>0);
+    renderGrid();
+  });
 });
 </script>
 </body>
