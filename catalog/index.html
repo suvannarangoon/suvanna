@@ -88,22 +88,22 @@
   .loading-text { font-size: 0.72rem; color: #ccc; letter-spacing: 1px; }
 
   .bottle-anim-wrap { display: flex; justify-content: center; align-items: flex-end; gap: 32px; margin-bottom: 24px; height: 90px; }
-  .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
+  .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
   .bottle-svg-wrap { transition: transform 0.2s; }
   .bottle-label { font-size: 0.65rem; font-weight: 600; color: #999; letter-spacing: 1px; }
   .bottle-slot.active .bottle-label { color: #111; }
-  .bottle-price { font-size: 0.75rem; font-weight: 700; color: #111; }
+  .bottle-price { font-size: 0.72rem; font-weight: 700; color: #111; }
   .bottle-slot.inactive .bottle-price { color: #bbb; }
+  .bottle-sale-price { font-size: 0.72rem; color: #e53935; font-weight: 700; }
+  .bottle-orig-price { font-size: 0.6rem; color: #bbb; text-decoration: line-through; }
   .bottle-slot.active .bottle-svg-wrap { animation: floatUp 1.8s ease-in-out infinite; }
-  .bottle-sale-price { font-size: 0.68rem; color: #e53935; font-weight: 700; }
-  .bottle-orig-price { font-size: 0.62rem; color: #bbb; text-decoration: line-through; }
 
   .vol-options { display: flex; gap: 10px; margin-bottom: 20px; }
-  .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; position: relative; }
+  .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
   .vol-opt-btn.selected { border-color: #111; background: #111; color: #fff; }
   .vol-opt-btn .vol-size { font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 2px; }
   .vol-opt-btn .vol-p { font-size: 0.7rem; opacity: 0.8; }
-  .vol-opt-btn .vol-sale { font-size: 0.65rem; color: #e53935; font-weight: 700; }
+  .vol-opt-btn .vol-sale { font-size: 0.68rem; color: #e53935; font-weight: 700; }
   .vol-opt-btn.selected .vol-sale { color: #ffcdd2; }
   .vol-opt-btn .vol-orig { font-size: 0.62rem; text-decoration: line-through; opacity: 0.5; }
   .vol-confirm-btn { width: 100%; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; margin-bottom: 10px; }
@@ -141,15 +141,14 @@
   .product-card:hover .product-img { transform: scale(1.04); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  /* badge top row */
   .badge-top-row { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; align-items: flex-end; z-index: 1; }
   .badge-left { display: flex; flex-direction: column; gap: 3px; }
   .badge { font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .badge-new { background: #e53935; color: #fff; }
   .badge-promo { background: #e53935; color: #fff; }
-  .badge-cat-men { background: #111; color: #fff; border-radius: 3px; }
-  .badge-cat-women { background: #e91e8c; color: #fff; border-radius: 3px; }
-  .badge-cat-unisex { background: #7b5ea7; color: #fff; border-radius: 3px; }
+  .badge-cat-men { background: #111; color: #fff; }
+  .badge-cat-women { background: #e91e8c; color: #fff; }
+  .badge-cat-unisex { background: #7b5ea7; color: #fff; }
   .stock-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .stock-badge-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
   .stock-badge-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
@@ -158,10 +157,18 @@
   .product-info { padding: 8px 4px 12px; }
   .product-type { font-family: 'Courier New', monospace; font-size: 0.58rem; color: #ccc; margin-bottom: 2px; }
   .product-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
+
+  /* price — normal */
   .product-price-wrap { margin-bottom: 7px; }
   .product-price { font-size: 0.8rem; font-weight: 600; color: #111; }
-  .product-price-orig { font-size: 0.72rem; color: #bbb; text-decoration: line-through; margin-right: 4px; }
-  .product-price-sale { font-size: 0.8rem; font-weight: 700; color: #e53935; }
+
+  /* price — with promo: show both volumes */
+  .product-price-promo { margin-bottom: 7px; display: flex; flex-direction: column; gap: 2px; }
+  .price-vol-row { display: flex; align-items: center; gap: 5px; }
+  .price-vol-label { font-size: 0.55rem; color: #aaa; font-weight: 600; min-width: 24px; }
+  .price-orig { font-size: 0.68rem; color: #bbb; text-decoration: line-through; }
+  .price-sale { font-size: 0.75rem; color: #e53935; font-weight: 700; }
+  .price-normal { font-size: 0.75rem; color: #111; font-weight: 600; }
 
   .add-bag-btn { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 7px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
   .add-bag-btn:hover { background: #111; color: #fff; }
@@ -176,10 +183,12 @@
   .back-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; color: #555; padding: 0; }
   .back-btn:hover { color: #111; }
   .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
-  .detail-img-wrap { aspect-ratio: 5/3; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; border-bottom: 1px solid #f0f0f0; }
+
+  /* detail image — 5:3, white bg, badges overlay top-left */
+  .detail-img-wrap { aspect-ratio: 5/3; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; border-bottom: 1px solid #f0f0f0; position: relative; }
   .detail-img { width: 104%; height: 104%; object-fit: contain; }
-  .detail-info { padding: 14px 20px; }
-  .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
+  .detail-badges { position: absolute; top: 10px; left: 10px; display: flex; flex-wrap: wrap; gap: 4px; z-index: 2; }
+
   .badge-detail-new { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
   .badge-detail-promo { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
   .badge-detail-men { background: #111; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; border-radius: 3px; }
@@ -188,6 +197,8 @@
   .badge-detail-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
   .badge-detail-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
   .badge-detail-out { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; border-radius: 3px; }
+
+  .detail-info { padding: 14px 20px; }
   .detail-type { font-family: 'Courier New', monospace; font-size: 0.68rem; color: #bbb; margin-bottom: 2px; }
   .detail-brand { font-size: 0.78rem; color: #999; margin-bottom: 2px; }
   .detail-name { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 12px; line-height: 1.2; }
@@ -291,7 +302,6 @@
   </div>
 </nav>
 
-<!-- PAGE -->
 <div class="page-wrap">
   <div class="search-wrap">
     <div class="search-box">
@@ -325,7 +335,7 @@
   </div>
 </div>
 
-<!-- DETAIL PAGE -->
+<!-- DETAIL -->
 <div class="detail-page" id="detailPage">
   <div class="detail-nav">
     <button class="back-btn" onclick="closeDetail()">
@@ -375,42 +385,37 @@
 
 <script>
 const SHEET_URL="https://script.google.com/macros/s/AKfycbyLkPlKGGsiAwJE4pVIpTGjYpkKZDRktZou_fLSypufAXvSHQTasn8uGYc1mBLNUU_d/exec";
-let allProducts=[];
-let currentFilter='all';
-let currentSearch='';
-let selectedVol={};
-let volPopupProduct=null;
-let volPopupSelectedIdx=0;
+let allProducts=[],currentFilter='all',currentSearch='',selectedVol={},volPopupProduct=null,volPopupSelectedIdx=0;
 
 const SVG_30ML='<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
 const SVG_10ML='<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
 const SVG_30ML_DIM='<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
 const SVG_10ML_DIM='<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
 
-function goTo(url){window.location.href=url;}
+function goTo(u){window.location.href=u;}
 
+/* CART */
 function getCart(){try{return JSON.parse(localStorage.getItem('suvanna_cart')||'[]');}catch{return[];}}
 function saveCart(c){localStorage.setItem('suvanna_cart',JSON.stringify(c));updateCartBadge();}
 function updateCartBadge(){
-  const total=getCart().reduce(function(s,i){return s+i.qty;},0);
+  const t=getCart().reduce(function(s,i){return s+i.qty;},0);
   const b=document.getElementById('cartBadge');
-  if(total>0){b.textContent=total;b.classList.add('show');}else{b.classList.remove('show');}
+  if(t>0){b.textContent=t;b.classList.add('show');}else{b.classList.remove('show');}
 }
-function addToCartDirect(id,volIdx){
+function addToCartDirect(id,vi){
   const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
-  const vol=p.volumes[volIdx||0];
-  const finalPrice=vol.salePrice||vol.price;
+  const vol=p.volumes[vi||0];
+  const price=vol.salePrice||vol.price;
   const cart=getCart();
   const key=id+'_'+vol.volume;
   const ex=cart.find(function(i){return i.key===key;});
-  if(ex){ex.qty+=1;}
-  else{cart.push({key:key,id:id,name:p.name,brand:p.brand,type:p.type,volume:vol.volume,price:finalPrice,image:p.image,qty:1});}
+  if(ex){ex.qty+=1;}else{cart.push({key:key,id:id,name:p.name,brand:p.brand,type:p.type,volume:vol.volume,price:price,image:p.image,qty:1});}
   saveCart(cart);
 }
-function changeQty(key,delta){
-  const cart=getCart();const idx=cart.findIndex(function(i){return i.key===key;});
-  if(idx<0)return;cart[idx].qty+=delta;if(cart[idx].qty<=0)cart.splice(idx,1);
+function changeQty(key,d){
+  const cart=getCart();const i=cart.findIndex(function(x){return x.key===key;});
+  if(i<0)return;cart[i].qty+=d;if(cart[i].qty<=0)cart.splice(i,1);
   saveCart(cart);renderBagItems();
 }
 function removeItem(key){saveCart(getCart().filter(function(i){return i.key!==key;}));renderBagItems();}
@@ -418,30 +423,22 @@ function removeItem(key){saveCart(getCart().filter(function(i){return i.key!==ke
 function openBag(){renderBagItems();document.getElementById('bagOverlay').classList.add('open');document.getElementById('bagPanel').classList.add('open');document.body.style.overflow='hidden';}
 function closeBag(){document.getElementById('bagOverlay').classList.remove('open');document.getElementById('bagPanel').classList.remove('open');document.body.style.overflow='';}
 function renderBagItems(){
-  const cart=getCart();const container=document.getElementById('bagItems');const footer=document.getElementById('bagFooter');
-  if(!cart.length){container.innerHTML='<div class="bag-empty">Bag is empty</div>';footer.style.display='none';return;}
-  footer.style.display='block';let total=0;
-  container.innerHTML=cart.map(function(item){
+  const cart=getCart();const con=document.getElementById('bagItems');const foot=document.getElementById('bagFooter');
+  if(!cart.length){con.innerHTML='<div class="bag-empty">Bag is empty</div>';foot.style.display='none';return;}
+  foot.style.display='block';let total=0;
+  con.innerHTML=cart.map(function(item){
     total+=item.price*item.qty;
     const imgSrc=item.image?'../catalog/images/'+item.image:null;
-    const imgHtml=imgSrc?'<img class="bag-item-img" src="'+imgSrc+'" onerror="this.style.display=\'none\'">'
+    const img=imgSrc?'<img class="bag-item-img" src="'+imgSrc+'" onerror="this.style.display=\'none\'">'
       :'<div class="bag-item-img-placeholder"><svg width="20" height="20" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg></div>';
-    return'<div class="bag-item">'+imgHtml
-      +'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div>'
-      +'<div class="bag-item-vol">'+item.volume+'</div>'
-      +'<div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div>'
-      +'<div class="bag-item-right"><div class="qty-row">'
-      +'<button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button>'
-      +'<span class="qty-num">'+item.qty+'</span>'
-      +'<button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button>'
-      +'</div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
+    return'<div class="bag-item">'+img+'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div><div class="bag-item-vol">'+item.volume+'</div><div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div><div class="bag-item-right"><div class="qty-row"><button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button></div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
   }).join('');
   document.getElementById('bagTotal').textContent=Number(total).toLocaleString()+' Ks';
 }
 
+/* VOLUME POPUP */
 function openVolPopup(id){
-  const grouped=groupByID(allProducts);
-  const p=grouped.find(function(x){return x.id===id;});
+  const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
   volPopupProduct=p;volPopupSelectedIdx=0;
   document.getElementById('volPopupName').textContent=p.name;
@@ -453,38 +450,30 @@ function openVolPopup(id){
   document.getElementById('volPopupOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
 function renderVolPopup(){
   const p=volPopupProduct;
-  let bottleHtml='';
+  let bHtml='';
   p.volumes.forEach(function(v,i){
     const is10=v.volume&&v.volume.includes('10');
     const isActive=i===volPopupSelectedIdx;
-    const svgA=is10?SVG_10ML:SVG_30ML;
-    const svgD=is10?SVG_10ML_DIM:SVG_30ML_DIM;
     const hasSale=v.salePrice&&v.salePrice<v.price;
-    const priceHtml=hasSale
-      ?'<div class="bottle-sale-price">'+Number(v.salePrice).toLocaleString()+' Ks</div>'
-       +'<div class="bottle-orig-price">'+Number(v.price).toLocaleString()+'</div>'
+    const prHtml=hasSale
+      ?'<div class="bottle-sale-price">'+Number(v.salePrice).toLocaleString()+' Ks</div><div class="bottle-orig-price">'+Number(v.price).toLocaleString()+'</div>'
       :'<div class="bottle-price">'+Number(v.price).toLocaleString()+' Ks</div>';
-    bottleHtml+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
-      +'<div class="bottle-svg-wrap">'+(isActive?svgA:svgD)+'</div>'
-      +'<div class="bottle-label">'+v.volume+'</div>'
-      +priceHtml+'</div>';
+    bHtml+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
+      +'<div class="bottle-svg-wrap">'+(isActive?(is10?SVG_10ML:SVG_30ML):(is10?SVG_10ML_DIM:SVG_30ML_DIM))+'</div>'
+      +'<div class="bottle-label">'+v.volume+'</div>'+prHtml+'</div>';
   });
-  document.getElementById('bottleAnimWrap').innerHTML=bottleHtml;
+  document.getElementById('bottleAnimWrap').innerHTML=bHtml;
   document.getElementById('volOptions').innerHTML=p.volumes.map(function(v,i){
     const hasSale=v.salePrice&&v.salePrice<v.price;
-    const priceHtml=hasSale
-      ?'<span class="vol-orig">'+Number(v.price).toLocaleString()+'</span>'
-       +'<span class="vol-sale">'+Number(v.salePrice).toLocaleString()+' Ks</span>'
+    const prHtml=hasSale
+      ?'<span class="vol-orig">'+Number(v.price).toLocaleString()+'</span><span class="vol-sale">'+Number(v.salePrice).toLocaleString()+' Ks</span>'
       :'<span class="vol-p">'+Number(v.price).toLocaleString()+' Ks</span>';
     return'<button class="vol-opt-btn '+(i===volPopupSelectedIdx?'selected':'')+'" onclick="selectVolPopup('+i+')">'
-      +'<span class="vol-size">'+v.volume+'</span>'
-      +priceHtml+'</button>';
+      +'<span class="vol-size">'+v.volume+'</span>'+prHtml+'</button>';
   }).join('');
 }
-
 function selectVolPopup(idx){
   volPopupSelectedIdx=idx;
   document.getElementById('unavailMsg').classList.remove('show');
@@ -495,73 +484,42 @@ function selectVolPopup(idx){
 function closeVolPopup(e){
   if(!e||e.target===document.getElementById('volPopupOverlay')){
     document.getElementById('volPopupOverlay').classList.remove('open');
-    document.body.style.overflow='';
-    volPopupProduct=null;
+    document.body.style.overflow='';volPopupProduct=null;
   }
 }
 function confirmVolume(){
   if(!volPopupProduct)return;
-  if(volPopupProduct.availability!=='Active'){
-    document.getElementById('unavailMsg').classList.add('show');
-    return;
-  }
+  if(volPopupProduct.availability!=='Active'){document.getElementById('unavailMsg').classList.add('show');return;}
   addToCartDirect(volPopupProduct.id,volPopupSelectedIdx);
   const btn=document.getElementById('volConfirmBtn');
   btn.textContent='Added ✓';btn.classList.add('added');
   setTimeout(function(){
     btn.textContent='Add to Bag';btn.classList.remove('added');
     document.getElementById('volPopupOverlay').classList.remove('open');
-    document.body.style.overflow='';
-    volPopupProduct=null;
+    document.body.style.overflow='';volPopupProduct=null;
   },1200);
 }
 
-function getStockStatus(vol){
-  const n=parseInt(vol.inStock)||0;
-  if(n<=0)return'out';
-  if(n<=3)return'low';
-  return'ok';
+/* HELPERS */
+function getStockStatus(vol){const n=parseInt(vol.inStock)||0;if(n<=0)return'out';if(n<=3)return'low';return'ok';}
+function getCatBadge(cat,det){
+  if(!cat)return'';const c=cat.toLowerCase();
+  if(det){if(c==='men')return'<span class="badge-detail-men">Men</span>';if(c==='women')return'<span class="badge-detail-women">Women</span>';return'<span class="badge-detail-unisex">Unisex</span>';}
+  if(c==='men')return'<span class="badge badge-cat-men">Men</span>';if(c==='women')return'<span class="badge badge-cat-women">Women</span>';return'<span class="badge badge-cat-unisex">Unisex</span>';
 }
-function getCatBadge(cat,detail){
-  if(!cat)return'';
-  const c=cat.toLowerCase();
-  if(detail){
-    if(c==='men')return'<span class="badge-detail-men">Men</span>';
-    if(c==='women')return'<span class="badge-detail-women">Women</span>';
-    return'<span class="badge-detail-unisex">Unisex</span>';
-  }
-  if(c==='men')return'<span class="badge badge-cat-men">Men</span>';
-  if(c==='women')return'<span class="badge badge-cat-women">Women</span>';
-  return'<span class="badge badge-cat-unisex">Unisex</span>';
+function getStockBadge(stock,det){
+  if(det){if(stock==='out')return'<span class="badge-detail-out">Out of Stock</span>';if(stock==='low')return'<span class="badge-detail-low">Low Stock</span>';return'<span class="badge-detail-ok">In Stock</span>';}
+  if(stock==='out')return'<span class="stock-badge stock-badge-out">Out of Stock</span>';if(stock==='low')return'<span class="stock-badge stock-badge-low">Low Stock</span>';return'<span class="stock-badge stock-badge-ok">In Stock</span>';
 }
-function getStockBadge(stock,detail){
-  if(detail){
-    if(stock==='out')return'<span class="badge-detail-out">Out of Stock</span>';
-    if(stock==='low')return'<span class="badge-detail-low">Low Stock</span>';
-    return'<span class="badge-detail-ok">In Stock</span>';
-  }
-  if(stock==='out')return'<span class="stock-badge stock-badge-out">Out of Stock</span>';
-  if(stock==='low')return'<span class="stock-badge stock-badge-low">Low Stock</span>';
-  return'<span class="stock-badge stock-badge-ok">In Stock</span>';
-}
-
 function groupByID(products){
   const map={};
   products.forEach(function(p){
     if(!map[p.id])map[p.id]=Object.assign({},p,{volumes:[]});
-    map[p.id].volumes.push({
-      volume:p.volume,price:p.price,inStock:p.inStock,
-      sold:p.sold,stockStatus:p.stockStatus,
-      availability:p.availability,
-      promotion:p.promotion,percent:p.percent,salePrice:p.salePrice
-    });
+    map[p.id].volumes.push({volume:p.volume,price:p.price,inStock:p.inStock,sold:p.sold,stockStatus:p.stockStatus,availability:p.availability,promotion:p.promotion,percent:p.percent,salePrice:p.salePrice});
   });
   return Object.values(map);
 }
-function bottleSVGSmall(s){
-  var h=Math.round(s*1.4);
-  return'<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
-}
+function bottleSVGSmall(s){var h=Math.round(s*1.4);return'<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';}
 function getFiltered(){
   var r=allProducts;
   if(currentFilter==='new')r=r.filter(function(p){return p.status==='New';});
@@ -577,6 +535,7 @@ function getFiltered(){
   return r;
 }
 
+/* GRID */
 function renderGrid(){
   const grouped=groupByID(getFiltered());
   const grid=document.getElementById('catalogGrid');
@@ -587,18 +546,34 @@ function renderGrid(){
     const stock=getStockStatus(vol);
     const imgSrc=p.image?'../catalog/images/'+p.image:null;
     const newBadge=p.status==='New'?'<span class="badge badge-new">New</span>':'';
-    const hasPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
-    const promoBadge=hasPromo?'<span class="badge badge-promo">'+p.volumes.find(function(v){return v.salePrice;}).percent+'% OFF</span>':'';
+    const anyPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
+    const promoVol=anyPromo?p.volumes.find(function(v){return v.percent>0;}):null;
+    const promoBadge=promoVol?'<span class="badge badge-promo">'+promoVol.percent+'% OFF</span>':'';
     const catBadge=getCatBadge(p.category,false);
     const stockBadge=getStockBadge(stock,false);
     const imgHtml=imgSrc?'<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
       :'<div class="product-img-placeholder">'+bottleSVGSmall(52)+'</div>';
 
-    // price display
-    const hasSale=vol.salePrice&&vol.salePrice<vol.price;
-    const priceHtml=hasSale
-      ?'<div class="product-price-wrap"><span class="product-price-orig">'+Number(vol.price).toLocaleString()+'</span><span class="product-price-sale">'+Number(vol.salePrice).toLocaleString()+' Ks</span></div>'
-      :'<div class="product-price-wrap"><span class="product-price">'+Number(vol.price).toLocaleString()+' Ks</span></div>';
+    /* price block — show all volumes if any promo */
+    let priceHtml;
+    if(anyPromo){
+      priceHtml='<div class="product-price-promo">';
+      p.volumes.forEach(function(v){
+        const hasSale=v.salePrice&&v.salePrice<v.price;
+        priceHtml+='<div class="price-vol-row">'
+          +'<span class="price-vol-label">'+v.volume+'</span>';
+        if(hasSale){
+          priceHtml+='<span class="price-orig">'+Number(v.price).toLocaleString()+'</span>'
+            +'<span class="price-sale">'+Number(v.salePrice).toLocaleString()+' Ks</span>';
+        }else{
+          priceHtml+='<span class="price-normal">'+Number(v.price).toLocaleString()+' Ks</span>';
+        }
+        priceHtml+='</div>';
+      });
+      priceHtml+='</div>';
+    }else{
+      priceHtml='<div class="product-price-wrap"><span class="product-price">'+Number(vol.price).toLocaleString()+' Ks</span></div>';
+    }
 
     let btnHtml;
     if(stock==='out')btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
@@ -606,33 +581,21 @@ function renderGrid(){
 
     return'<div class="product-card" onclick="openDetail(\''+p.id+'\')">'
       +'<div class="product-img-wrap">'
-        +'<div class="badge-top-row">'
-          +'<div class="badge-left">'+newBadge+catBadge+promoBadge+'</div>'
-          +'<div>'+stockBadge+'</div>'
-        +'</div>'
+        +'<div class="badge-top-row"><div class="badge-left">'+newBadge+catBadge+promoBadge+'</div><div>'+stockBadge+'</div></div>'
         +imgHtml
       +'</div>'
       +'<div class="product-info">'
         +'<div class="product-type">'+(p.type==='Inspired'?'inspired by':'suvanna')+'</div>'
         +'<div class="product-name">'+p.name+'</div>'
-        +priceHtml
-        +btnHtml
+        +priceHtml+btnHtml
       +'</div></div>';
   }).join('');
 }
 
-function setFilter(f,btn){
-  currentFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
-  btn.classList.add('active');renderGrid();
-}
-function clearSearch(){
-  document.getElementById('searchInput').value='';
-  currentSearch='';
-  document.getElementById('searchClear').classList.remove('show');
-  renderGrid();
-}
+function setFilter(f,btn){currentFilter=f;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderGrid();}
+function clearSearch(){document.getElementById('searchInput').value='';currentSearch='';document.getElementById('searchClear').classList.remove('show');renderGrid();}
 
+/* DETAIL */
 function openDetail(id){
   const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
@@ -641,7 +604,6 @@ function openDetail(id){
   document.body.style.overflow='hidden';
   history.pushState({id:id},'','?id='+id);
 }
-
 function renderDetail(p){
   const idx=selectedVol[p.id]||0;
   const vol=p.volumes[idx];
@@ -656,8 +618,9 @@ function renderDetail(p){
     return'<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
   }).join('');
   const newBadge=p.status==='New'?'<span class="badge-detail-new">New</span>':'';
-  const hasPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
-  const promoBadge=hasPromo?'<span class="badge-detail-promo">'+p.volumes.find(function(v){return v.percent;}).percent+'% OFF</span>':'';
+  const anyPromo=p.volumes.some(function(v){return v.salePrice&&v.salePrice<v.price;});
+  const promoVol=anyPromo?p.volumes.find(function(v){return v.percent>0;}):null;
+  const promoBadge=promoVol?'<span class="badge-detail-promo">'+promoVol.percent+'% OFF</span>':'';
   const catBadge=getCatBadge(p.category,true);
   const stockBadge=getStockBadge(stock,true);
   const hasSale=vol.salePrice&&vol.salePrice<vol.price;
@@ -670,21 +633,22 @@ function renderDetail(p){
   else addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
 
   document.getElementById('detailContent').innerHTML=
-    '<div class="detail-img-wrap">'+imgHtml+'</div>'+
-    '<div class="detail-info">'+
-      '<div class="detail-badges">'+newBadge+catBadge+promoBadge+stockBadge+'</div>'+
-      '<div class="detail-type">'+(p.type==='Inspired'?'inspired by':'suvanna original')+'</div>'+
-      '<div class="detail-brand">'+(p.brand||'')+'</div>'+
-      '<div class="detail-name">'+p.name+'</div>'+
-      (p.notes?'<div class="detail-row"><div class="detail-label">Scent Notes</div><div class="detail-value">'+p.notes+'</div></div>':'')+
-      (moodVal?'<div class="detail-row"><div class="detail-label">Mood</div><div class="detail-value">'+moodVal+'</div></div>':'')+
-      '<div class="detail-row"><div class="detail-label">Volume</div><div class="vol-row">'+volBtns+'</div></div>'+
-      priceHtml+
-      (vol.sold>0?'<div class="detail-sold">'+vol.sold+' sold</div>':'')+
-      (desc?'<div class="detail-row"><div class="detail-label">Description</div><div class="desc-text">'+desc+'</div></div>':'')+
-    '</div>'+addBtn;
+    '<div class="detail-img-wrap">'
+      +'<div class="detail-badges">'+newBadge+catBadge+promoBadge+stockBadge+'</div>'
+      +imgHtml
+    +'</div>'
+    +'<div class="detail-info">'
+      +'<div class="detail-type">'+(p.type==='Inspired'?'inspired by':'suvanna original')+'</div>'
+      +'<div class="detail-brand">'+(p.brand||'')+'</div>'
+      +'<div class="detail-name">'+p.name+'</div>'
+      +(p.notes?'<div class="detail-row"><div class="detail-label">Scent Notes</div><div class="detail-value">'+p.notes+'</div></div>':'')+
+      (moodVal?'<div class="detail-row"><div class="detail-label">Mood</div><div class="detail-value">'+moodVal+'</div></div>':'')
+      +'<div class="detail-row"><div class="detail-label">Volume</div><div class="vol-row">'+volBtns+'</div></div>'
+      +priceHtml
+      +(vol.sold>0?'<div class="detail-sold">'+vol.sold+' sold</div>':'')
+      +(desc?'<div class="detail-row"><div class="detail-label">Description</div><div class="desc-text">'+desc+'</div></div>':'')
+    +'</div>'+addBtn;
 }
-
 function handleDetailAdd(id,vi){
   addToCartDirect(id,vi);
   const btn=document.getElementById('detailAddBtn');
@@ -718,18 +682,11 @@ async function loadProducts(){
     const res=await fetch(SHEET_URL);
     const data=await res.json();
     if(data.success&&data.products){
-      allProducts=data.products;
-      renderGrid();
-      const params=new URLSearchParams(window.location.search);
-      const id=params.get('id');
-      if(id){
-        const p=groupByID(allProducts).find(function(x){return x.id===id;});
-        if(p){selectedVol[id]=0;renderDetail(p);document.getElementById('detailPage').classList.add('open');document.body.style.overflow='hidden';}
-      }
+      allProducts=data.products;renderGrid();
+      const id=new URLSearchParams(window.location.search).get('id');
+      if(id){const p=groupByID(allProducts).find(function(x){return x.id===id;});if(p){selectedVol[id]=0;renderDetail(p);document.getElementById('detailPage').classList.add('open');document.body.style.overflow='hidden';}}
     }
-  }catch(err){
-    document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
-  }
+  }catch(err){document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';}
 }
 
 updateCartBadge();
