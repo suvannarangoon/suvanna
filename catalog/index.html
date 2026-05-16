@@ -80,12 +80,13 @@
   .vol-popup-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; margin-bottom: 4px; }
   .vol-popup-name { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
 
-  /* loading bottle animation */
-  @keyframes floatLoop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  /* LOADING — rotate loop */
+  @keyframes spinLoop { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-  .loading-bottle-wrap { display: flex; justify-content: center; align-items: center; padding: 40px 0; grid-column: 1/-1; }
-  .loading-bottle { animation: floatLoop 1.4s ease-in-out infinite; }
+  .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; grid-column: 1/-1; gap: 12px; }
+  .loading-spin { animation: spinLoop 1.6s linear infinite; }
+  .loading-text { font-size: 0.72rem; color: #ccc; letter-spacing: 1px; }
 
   .bottle-anim-wrap { display: flex; justify-content: center; align-items: flex-end; gap: 32px; margin-bottom: 24px; height: 90px; }
   .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
@@ -105,10 +106,11 @@
   .vol-confirm-btn:hover { background: #333; }
   .vol-confirm-btn.added { background: #2e7d32; }
 
-  .unavail-msg { background: #f9f9f9; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px; display: none; }
+  /* unavail shown AFTER volume selected */
+  .unavail-msg { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 16px; display: none; }
   .unavail-msg.show { display: block; }
-  .unavail-msg p { font-size: 0.85rem; color: #666; line-height: 1.7; }
-  .vol-popup-close { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; }
+  .unavail-msg p { font-size: 0.82rem; color: #c62828; line-height: 1.7; }
+  .vol-popup-close { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; margin-top: 10px; }
 
   /* PAGE */
   .page-wrap { margin-top: 52px; padding-bottom: 80px; }
@@ -135,7 +137,7 @@
   .product-card:hover .product-img { transform: scale(1.04); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  /* badges */
+  /* top-left badges */
   .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
   .badge { font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; }
   .badge-new { background: #e53935; color: #fff; }
@@ -143,8 +145,8 @@
   .badge-cat-women { background: #e91e8c; color: #fff; }
   .badge-cat-unisex { background: #7b5ea7; color: #fff; }
 
-  /* stock badges bottom right */
-  .stock-badge-wrap { position: absolute; bottom: 8px; right: 8px; z-index: 1; }
+  /* top-right stock badge */
+  .stock-badge-wrap { position: absolute; top: 8px; right: 8px; z-index: 1; }
   .stock-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .stock-badge-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
   .stock-badge-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
@@ -152,7 +154,7 @@
 
   .product-info { padding: 8px 10px 12px; }
   .product-type { font-family: 'Courier New', monospace; font-size: 0.58rem; color: #ccc; margin-bottom: 2px; }
-  .product-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; letter-spacing: 0; line-height: 1.2; }
+  .product-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
   .product-price { font-size: 0.8rem; font-weight: 600; color: #111; margin-bottom: 7px; }
   .add-bag-btn { width: 100%; background: #111; color: #fff; border: none; padding: 7px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
   .add-bag-btn:hover { background: #333; }
@@ -168,23 +170,22 @@
   .back-btn:hover { color: #111; }
   .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
 
-  /* detail image — 3:4, image ချုံ့ */
-  .detail-img-wrap { aspect-ratio: 3/4; background: #f9f9f9; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
-  .detail-img { width: 72%; height: 72%; object-fit: contain; }
+  /* detail image — horizontal 4:3 */
+  .detail-img-wrap { aspect-ratio: 4/3; background: #f9f9f9; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
+  .detail-img { width: 70%; height: 70%; object-fit: contain; }
 
-  /* detail info — ပုံနားကပ် */
   .detail-info { padding: 14px 20px; }
   .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
   .badge-detail-new { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
   .badge-detail-men { background: #111; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
   .badge-detail-women { background: #e91e8c; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
   .badge-detail-unisex { background: #7b5ea7; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
-  .badge-detail-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
-  .badge-detail-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
-  .badge-detail-out { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
+  .badge-detail-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; }
+  .badge-detail-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; }
+  .badge-detail-out { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; font-size: 0.48rem; padding: 3px 6px; font-weight: 700; }
   .detail-type { font-family: 'Courier New', monospace; font-size: 0.68rem; color: #bbb; margin-bottom: 2px; }
   .detail-brand { font-size: 0.78rem; color: #999; margin-bottom: 2px; }
-  .detail-name { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 12px; letter-spacing: 0; line-height: 1.2; }
+  .detail-name { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 12px; line-height: 1.2; }
   .detail-row { margin-bottom: 10px; }
   .detail-label { font-size: 0.55rem; letter-spacing: 2px; text-transform: uppercase; color: #ccc; margin-bottom: 3px; }
   .detail-value { font-size: 0.82rem; color: #444; line-height: 1.5; }
@@ -221,15 +222,13 @@
   <div class="vol-popup">
     <div class="vol-popup-title">Select Volume</div>
     <div class="vol-popup-name" id="volPopupName"></div>
+    <div class="bottle-anim-wrap" id="bottleAnimWrap"></div>
+    <div class="vol-options" id="volOptions"></div>
     <div class="unavail-msg" id="unavailMsg">
-      <p>မှာ မရသေးပါ။<br>Online Order မှာယူ၍ မရနိုင်သေးပါ။<br>ဆိုင်တွင် လာရောက်ဝယ်ယူနိုင်ပါသည်။</p>
+      <p>မှာ မရသေးပါ။<br>Online Order မှာယူ၍ မရနိုင်သေးပါ။</p>
     </div>
-    <div id="volSelectWrap">
-      <div class="bottle-anim-wrap" id="bottleAnimWrap"></div>
-      <div class="vol-options" id="volOptions"></div>
-      <button class="vol-confirm-btn" id="volConfirmBtn" onclick="confirmVolume()">Add to Bag</button>
-    </div>
-    <button class="vol-popup-close" id="volPopupCloseBtn" style="display:none;" onclick="closeVolPopup()">Close</button>
+    <button class="vol-confirm-btn" id="volConfirmBtn" onclick="confirmVolume()">Add to Bag</button>
+    <button class="vol-popup-close" onclick="closeVolPopup()">Close</button>
   </div>
 </div>
 
@@ -305,13 +304,14 @@
   </div>
   <div class="results-info" id="resultsInfo"></div>
   <div class="catalog-grid" id="catalogGrid">
-    <div class="loading-bottle-wrap">
-      <div class="loading-bottle">
+    <div class="loading-wrap">
+      <div class="loading-spin">
         <svg width="36" height="62" viewBox="0 0 48 82" fill="none">
-          <rect x="15" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/>
-          <rect x="3" y="30" width="42" height="48" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/>
+          <rect x="15" y="2" width="18" height="24" rx="4" stroke="#ddd" stroke-width="1.8" fill="none"/>
+          <rect x="3" y="30" width="42" height="48" rx="4" stroke="#ddd" stroke-width="1.8" fill="none"/>
         </svg>
       </div>
+      <div class="loading-text">Products ရှာနေသည်...</div>
     </div>
   </div>
 </div>
@@ -368,57 +368,54 @@
 </footer>
 
 <script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbzmyuThMPBFMVrDqFp1QHneRzngPBhQsc_rOF2QHZBdfVBefv7fnVPduwE6arS0mSQj/exec";
-let allProducts = [];
-let currentFilter = 'all';
-let currentSearch = '';
-let selectedVol = {};
-let volPopupProduct = null;
-let volPopupSelectedIdx = 0;
+const SHEET_URL="https://script.google.com/macros/s/AKfycbzmyuThMPBFMVrDqFp1QHneRzngPBhQsc_rOF2QHZBdfVBefv7fnVPduwE6arS0mSQj/exec";
+let allProducts=[];
+let currentFilter='all';
+let currentSearch='';
+let selectedVol={};
+let volPopupProduct=null;
+let volPopupSelectedIdx=0;
+let volPopupConfirmed=false;
 
-/* SVG */
-const SVG_30ML = '<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
-const SVG_10ML = '<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
-const SVG_30ML_DIM = '<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
-const SVG_10ML_DIM = '<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
+const SVG_30ML='<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
+const SVG_10ML='<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
+const SVG_30ML_DIM='<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
+const SVG_10ML_DIM='<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/></svg>';
 
-function goTo(url) { window.location.href = url; }
+function goTo(url){window.location.href=url;}
 
 /* CART */
-function getCart() { try { return JSON.parse(localStorage.getItem('suvanna_cart')||'[]'); } catch { return []; } }
-function saveCart(c) { localStorage.setItem('suvanna_cart', JSON.stringify(c)); updateCartBadge(); }
-function updateCartBadge() {
-  const total = getCart().reduce(function(s,i){ return s+i.qty; },0);
-  const b = document.getElementById('cartBadge');
-  if (total>0){ b.textContent=total; b.classList.add('show'); } else { b.classList.remove('show'); }
+function getCart(){try{return JSON.parse(localStorage.getItem('suvanna_cart')||'[]');}catch{return[];}}
+function saveCart(c){localStorage.setItem('suvanna_cart',JSON.stringify(c));updateCartBadge();}
+function updateCartBadge(){
+  const total=getCart().reduce(function(s,i){return s+i.qty;},0);
+  const b=document.getElementById('cartBadge');
+  if(total>0){b.textContent=total;b.classList.add('show');}else{b.classList.remove('show');}
 }
-function addToCartDirect(id, volIdx) {
-  const p = groupByID(allProducts).find(function(x){ return x.id===id; });
-  if (!p) return;
-  const vol = p.volumes[volIdx||0];
-  const cart = getCart();
-  const key = id+'_'+vol.volume;
-  const ex = cart.find(function(i){ return i.key===key; });
-  if (ex) { ex.qty+=1; } else {
-    cart.push({ key:key, id:id, name:p.name, brand:p.brand, type:p.type,
-      volume:vol.volume, price:vol.price, image:p.image, qty:1 });
-  }
+function addToCartDirect(id,volIdx){
+  const p=groupByID(allProducts).find(function(x){return x.id===id;});
+  if(!p)return;
+  const vol=p.volumes[volIdx||0];
+  const cart=getCart();
+  const key=id+'_'+vol.volume;
+  const ex=cart.find(function(i){return i.key===key;});
+  if(ex){ex.qty+=1;}else{cart.push({key:key,id:id,name:p.name,brand:p.brand,type:p.type,volume:vol.volume,price:vol.price,image:p.image,qty:1});}
   saveCart(cart);
 }
-function changeQty(key,delta) {
-  const cart=getCart(); const idx=cart.findIndex(function(i){ return i.key===key; });
-  if (idx<0) return; cart[idx].qty+=delta; if (cart[idx].qty<=0) cart.splice(idx,1);
-  saveCart(cart); renderBagItems();
+function changeQty(key,delta){
+  const cart=getCart();const idx=cart.findIndex(function(i){return i.key===key;});
+  if(idx<0)return;cart[idx].qty+=delta;if(cart[idx].qty<=0)cart.splice(idx,1);
+  saveCart(cart);renderBagItems();
 }
-function removeItem(key) { saveCart(getCart().filter(function(i){ return i.key!==key; })); renderBagItems(); }
+function removeItem(key){saveCart(getCart().filter(function(i){return i.key!==key;}));renderBagItems();}
 
 /* BAG */
-function openBag() { renderBagItems(); document.getElementById('bagOverlay').classList.add('open'); document.getElementById('bagPanel').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeBag() { document.getElementById('bagOverlay').classList.remove('open'); document.getElementById('bagPanel').classList.remove('open'); document.body.style.overflow=''; }
-function renderBagItems() {
-  const cart=getCart(); const container=document.getElementById('bagItems'); const footer=document.getElementById('bagFooter');
-  if (!cart.length) { container.innerHTML='<div class="bag-empty">Bag is empty</div>'; footer.style.display='none'; return; }
-  footer.style.display='block'; let total=0;
+function openBag(){renderBagItems();document.getElementById('bagOverlay').classList.add('open');document.getElementById('bagPanel').classList.add('open');document.body.style.overflow='hidden';}
+function closeBag(){document.getElementById('bagOverlay').classList.remove('open');document.getElementById('bagPanel').classList.remove('open');document.body.style.overflow='';}
+function renderBagItems(){
+  const cart=getCart();const container=document.getElementById('bagItems');const footer=document.getElementById('bagFooter');
+  if(!cart.length){container.innerHTML='<div class="bag-empty">Bag is empty</div>';footer.style.display='none';return;}
+  footer.style.display='block';let total=0;
   container.innerHTML=cart.map(function(item){
     total+=item.price*item.qty;
     const imgSrc=item.image?'../catalog/images/'+item.image:null;
@@ -430,32 +427,27 @@ function renderBagItems() {
 }
 
 /* VOLUME POPUP */
-function openVolPopup(id) {
+function openVolPopup(id){
   const grouped=groupByID(allProducts);
-  const p=grouped.find(function(x){ return x.id===id; });
-  if (!p) return;
-  volPopupProduct=p; volPopupSelectedIdx=0;
-  const isUnavail=(p.availability!=='Active');
+  const p=grouped.find(function(x){return x.id===id;});
+  if(!p)return;
+  volPopupProduct=p;
+  volPopupSelectedIdx=0;
+  volPopupConfirmed=false;
   document.getElementById('volPopupName').textContent=p.name;
-  if (isUnavail) {
-    document.getElementById('unavailMsg').classList.add('show');
-    document.getElementById('volSelectWrap').style.display='none';
-    document.getElementById('volPopupCloseBtn').style.display='block';
-  } else {
-    document.getElementById('unavailMsg').classList.remove('show');
-    document.getElementById('volSelectWrap').style.display='block';
-    document.getElementById('volPopupCloseBtn').style.display='none';
-    if (p.volumes.length===1) {
-      addToCartDirect(id,0);
-      return;
-    }
-    renderVolPopup();
+  document.getElementById('unavailMsg').classList.remove('show');
+  document.getElementById('volConfirmBtn').textContent='Add to Bag';
+  document.getElementById('volConfirmBtn').classList.remove('added');
+  if(p.volumes.length===1&&p.availability==='Active'){
+    addToCartDirect(id,0);
+    return;
   }
+  renderVolPopup();
   document.getElementById('volPopupOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
 
-function renderVolPopup() {
+function renderVolPopup(){
   const p=volPopupProduct;
   let bottleHTML='';
   p.volumes.forEach(function(v,i){
@@ -478,23 +470,37 @@ function renderVolPopup() {
   }).join('');
 }
 
-function selectVolPopup(idx) { volPopupSelectedIdx=idx; renderVolPopup(); }
+function selectVolPopup(idx){
+  volPopupSelectedIdx=idx;
+  volPopupConfirmed=false;
+  document.getElementById('unavailMsg').classList.remove('show');
+  document.getElementById('volConfirmBtn').textContent='Add to Bag';
+  document.getElementById('volConfirmBtn').classList.remove('added');
+  renderVolPopup();
+}
 
-function closeVolPopup(e) {
-  if (!e||e.target===document.getElementById('volPopupOverlay')) {
+function closeVolPopup(e){
+  if(!e||e.target===document.getElementById('volPopupOverlay')){
     document.getElementById('volPopupOverlay').classList.remove('open');
     document.body.style.overflow='';
     volPopupProduct=null;
+    volPopupConfirmed=false;
   }
 }
 
-function confirmVolume() {
-  if (!volPopupProduct) return;
+function confirmVolume(){
+  if(!volPopupProduct)return;
+  const isUnavail=(volPopupProduct.availability!=='Active');
+  if(isUnavail){
+    /* show unavail message */
+    document.getElementById('unavailMsg').classList.add('show');
+    return;
+  }
   addToCartDirect(volPopupProduct.id,volPopupSelectedIdx);
   const btn=document.getElementById('volConfirmBtn');
-  btn.textContent='Added ✓'; btn.classList.add('added');
+  btn.textContent='Added ✓';btn.classList.add('added');
   setTimeout(function(){
-    btn.textContent='Add to Bag'; btn.classList.remove('added');
+    btn.textContent='Add to Bag';btn.classList.remove('added');
     document.getElementById('volPopupOverlay').classList.remove('open');
     document.body.style.overflow='';
     volPopupProduct=null;
@@ -502,78 +508,70 @@ function confirmVolume() {
 }
 
 /* STOCK */
-function getStockStatus(vol) {
+function getStockStatus(vol){
   const n=parseInt(vol.inStock)||0;
-  if (n<=0) return 'out';
-  if (n<=3) return 'low';
+  if(n<=0)return 'out';
+  if(n<=3)return 'low';
   return 'ok';
 }
 
-function getCatBadge(cat, detail) {
-  if (!cat) return '';
+function getCatBadge(cat,detail){
+  if(!cat)return'';
   const c=cat.toLowerCase();
-  if (detail) {
-    if (c==='men') return '<span class="badge-detail-men">Men</span>';
-    if (c==='women') return '<span class="badge-detail-women">Women</span>';
-    return '<span class="badge-detail-unisex">Unisex</span>';
-  } else {
-    if (c==='men') return '<span class="badge badge-cat-men">Men</span>';
-    if (c==='women') return '<span class="badge badge-cat-women">Women</span>';
-    return '<span class="badge badge-cat-unisex">Unisex</span>';
+  if(detail){
+    if(c==='men')return'<span class="badge-detail-men">Men</span>';
+    if(c==='women')return'<span class="badge-detail-women">Women</span>';
+    return'<span class="badge-detail-unisex">Unisex</span>';
+  }else{
+    if(c==='men')return'<span class="badge badge-cat-men">Men</span>';
+    if(c==='women')return'<span class="badge badge-cat-women">Women</span>';
+    return'<span class="badge badge-cat-unisex">Unisex</span>';
   }
 }
 
-function getStockBadge(stock, detail) {
-  if (detail) {
-    if (stock==='out') return '<span class="badge-detail-out">Out of Stock</span>';
-    if (stock==='low') return '<span class="badge-detail-low">Low Stock</span>';
-    return '<span class="badge-detail-ok">In Stock</span>';
-  } else {
-    if (stock==='out') return '<span class="stock-badge stock-badge-out">Out of Stock</span>';
-    if (stock==='low') return '<span class="stock-badge stock-badge-low">Low Stock</span>';
-    return '<span class="stock-badge stock-badge-ok">In Stock</span>';
+function getStockBadge(stock,detail){
+  if(detail){
+    if(stock==='out')return'<span class="badge-detail-out">Out of Stock</span>';
+    if(stock==='low')return'<span class="badge-detail-low">Low Stock</span>';
+    return'<span class="badge-detail-ok">In Stock</span>';
+  }else{
+    if(stock==='out')return'<span class="stock-badge stock-badge-out">Out of Stock</span>';
+    if(stock==='low')return'<span class="stock-badge stock-badge-low">Low Stock</span>';
+    return'<span class="stock-badge stock-badge-ok">In Stock</span>';
   }
 }
 
 /* PRODUCTS */
-function groupByID(products) {
+function groupByID(products){
   const map={};
   products.forEach(function(p){
-    if (!map[p.id]) map[p.id]=Object.assign({},p,{volumes:[]});
+    if(!map[p.id])map[p.id]=Object.assign({},p,{volumes:[]});
     map[p.id].volumes.push({volume:p.volume,price:p.price,inStock:p.inStock,sold:p.sold,stockStatus:p.stockStatus,availability:p.availability});
   });
   return Object.values(map);
 }
-
-function bottleSVGSmall(s) {
+function bottleSVGSmall(s){
   var h=Math.round(s*1.4);
-  return '<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
+  return'<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
 }
-
-function getFiltered() {
+function getFiltered(){
   var r=allProducts;
-  if (currentFilter==='new') r=r.filter(function(p){ return p.status==='New'; });
-  else if (currentFilter!=='all') r=r.filter(function(p){ return p.category&&p.category.toLowerCase()===currentFilter; });
-  if (currentSearch.trim()) {
+  if(currentFilter==='new')r=r.filter(function(p){return p.status==='New';});
+  else if(currentFilter!=='all')r=r.filter(function(p){return p.category&&p.category.toLowerCase()===currentFilter;});
+  if(currentSearch.trim()){
     var q=currentSearch.toLowerCase();
-    r=r.filter(function(p){
-      return (p.name&&p.name.toLowerCase().includes(q))||
-             (p.brand&&p.brand.toLowerCase().includes(q))||
-             (p.notes&&p.notes.toLowerCase().includes(q));
-    });
+    r=r.filter(function(p){return(p.name&&p.name.toLowerCase().includes(q))||(p.brand&&p.brand.toLowerCase().includes(q))||(p.notes&&p.notes.toLowerCase().includes(q));});
   }
   return r;
 }
-
-function renderGrid() {
+function renderGrid(){
   const grouped=groupByID(getFiltered());
   const grid=document.getElementById('catalogGrid');
   document.getElementById('resultsInfo').textContent=grouped.length+' items';
-  if (!grouped.length){ grid.innerHTML='<div class="empty-state">Product မတွေ့ပါ</div>'; return; }
+  if(!grouped.length){grid.innerHTML='<div class="empty-state">Product မတွေ့ပါ</div>';return;}
   grid.innerHTML=grouped.map(function(p){
     const vol=p.volumes[0];
     const stock=getStockStatus(vol);
-    const isUnavail=(p.availability!=='Active');
     const imgSrc=p.image?'../catalog/images/'+p.image:null;
     const newBadge=p.status==='New'?'<span class="badge badge-new">New</span>':'';
     const catBadge=getCatBadge(p.category,false);
@@ -581,9 +579,9 @@ function renderGrid() {
     const imgHtml=imgSrc?'<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
       :'<div class="product-img-placeholder">'+bottleSVGSmall(52)+'</div>';
     let btnHtml;
-    if (stock==='out') btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
+    if(stock==='out')btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
     else btnHtml='<button class="add-bag-btn" onclick="event.stopPropagation();openVolPopup(\''+p.id+'\')">Add to Bag</button>';
-    return '<div class="product-card" onclick="openDetail(\''+p.id+'\')">'
+    return'<div class="product-card" onclick="openDetail(\''+p.id+'\')">'
       +'<div class="product-img-wrap">'
         +'<div class="badge-wrap">'+newBadge+catBadge+'</div>'
         +'<div class="stock-badge-wrap">'+stockBadge+'</div>'
@@ -597,14 +595,12 @@ function renderGrid() {
       +'</div></div>';
   }).join('');
 }
-
-function setFilter(f,btn) {
+function setFilter(f,btn){
   currentFilter=f;
-  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active'); renderGrid();
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');renderGrid();
 }
-
-function clearSearch() {
+function clearSearch(){
   document.getElementById('searchInput').value='';
   currentSearch='';
   document.getElementById('searchClear').classList.remove('show');
@@ -612,17 +608,16 @@ function clearSearch() {
 }
 
 /* DETAIL */
-function openDetail(id) {
-  const p=groupByID(allProducts).find(function(x){ return x.id===id; });
-  if (!p) return;
+function openDetail(id){
+  const p=groupByID(allProducts).find(function(x){return x.id===id;});
+  if(!p)return;
   selectedVol[id]=0;
   renderDetail(p);
   document.getElementById('detailPage').classList.add('open');
   document.body.style.overflow='hidden';
   history.pushState({id:id},'','?id='+id);
 }
-
-function renderDetail(p) {
+function renderDetail(p){
   const idx=selectedVol[p.id]||0;
   const vol=p.volumes[idx];
   const stock=getStockStatus(vol);
@@ -633,17 +628,15 @@ function renderDetail(p) {
   const imgHtml=imgSrc?'<img class="detail-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
     :'<div>'+bottleSVGSmall(80)+'</div>';
   const volBtns=p.volumes.map(function(v,i){
-    return '<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
+    return'<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
   }).join('');
   const newBadge=p.status==='New'?'<span class="badge-detail-new">New</span>':'';
   const catBadge=getCatBadge(p.category,true);
   const stockBadge=getStockBadge(stock,true);
-
   let addBtn='';
-  if (stock==='out') addBtn='<button class="detail-add-btn out" disabled>Out of Stock</button>';
-  else if (isUnavail) addBtn='<button class="detail-add-btn unavail" disabled>Online Order မရနိုင်သေး</button>';
+  if(stock==='out')addBtn='<button class="detail-add-btn out" disabled>Out of Stock</button>';
+  else if(isUnavail)addBtn='<button class="detail-add-btn unavail" disabled>Online Order မရနိုင်သေး</button>';
   else addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
-
   document.getElementById('detailContent').innerHTML=
     '<div class="detail-img-wrap">'+imgHtml+'</div>'+
     '<div class="detail-info">'+
@@ -659,65 +652,62 @@ function renderDetail(p) {
       (desc?'<div class="detail-row"><div class="detail-label">Description</div><div class="desc-text">'+desc+'</div></div>':'')+
     '</div>'+addBtn;
 }
-
-function handleDetailAdd(id,vi) {
+function handleDetailAdd(id,vi){
   addToCartDirect(id,vi);
   const btn=document.getElementById('detailAddBtn');
-  btn.textContent='Added ✓'; btn.classList.add('added');
-  setTimeout(function(){ btn.textContent='Add to Bag'; btn.classList.remove('added'); },1500);
+  btn.textContent='Added ✓';btn.classList.add('added');
+  setTimeout(function(){btn.textContent='Add to Bag';btn.classList.remove('added');},1500);
 }
-function selectVol(id,idx) {
+function selectVol(id,idx){
   selectedVol[id]=idx;
-  const p=groupByID(allProducts).find(function(x){ return x.id===id; });
-  if (p) renderDetail(p);
+  const p=groupByID(allProducts).find(function(x){return x.id===id;});
+  if(p)renderDetail(p);
 }
-function closeDetail() {
+function closeDetail(){
   document.getElementById('detailPage').classList.remove('open');
   document.body.style.overflow='';
   history.pushState({},'',window.location.pathname);
 }
-function toggleMenu() {
+function toggleMenu(){
   document.getElementById('burgerBtn').classList.toggle('open');
   document.getElementById('dropdownMenu').classList.toggle('open');
   document.getElementById('menuOverlay').classList.toggle('open');
 }
 window.addEventListener('popstate',function(){
-  if (document.getElementById('detailPage').classList.contains('open')){
+  if(document.getElementById('detailPage').classList.contains('open')){
     document.getElementById('detailPage').classList.remove('open');
     document.body.style.overflow='';
   }
 });
 
-async function loadProducts() {
-  try {
-    const res=await fetch(SHEET_URL);
-    const data=await res.json();
-    if (data.success&&data.products){
-      allProducts=data.products;
-      renderGrid();
-      const params=new URLSearchParams(window.location.search);
-      const id=params.get('id');
-      if (id){
-        const p=groupByID(allProducts).find(function(x){ return x.id===id; });
-        if (p){ selectedVol[id]=0; renderDetail(p); document.getElementById('detailPage').classList.add('open'); document.body.style.overflow='hidden'; }
-      }
-    }
-  } catch(err){
-    document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
-  }
-}
-
-/* Search — addEventListener */
-document.addEventListener('DOMContentLoaded', function() {
-  const input = document.getElementById('searchInput');
-  const clearBtn = document.getElementById('searchClear');
-  input.addEventListener('input', function() {
-    currentSearch = this.value;
-    clearBtn.classList.toggle('show', this.value.length > 0);
+/* SEARCH */
+document.addEventListener('DOMContentLoaded',function(){
+  const input=document.getElementById('searchInput');
+  const clearBtn=document.getElementById('searchClear');
+  input.addEventListener('input',function(){
+    currentSearch=this.value;
+    clearBtn.classList.toggle('show',this.value.length>0);
     renderGrid();
   });
 });
 
+async function loadProducts(){
+  try{
+    const res=await fetch(SHEET_URL);
+    const data=await res.json();
+    if(data.success&&data.products){
+      allProducts=data.products;renderGrid();
+      const params=new URLSearchParams(window.location.search);
+      const id=params.get('id');
+      if(id){
+        const p=groupByID(allProducts).find(function(x){return x.id===id;});
+        if(p){selectedVol[id]=0;renderDetail(p);document.getElementById('detailPage').classList.add('open');document.body.style.overflow='hidden';}
+      }
+    }
+  }catch(err){
+    document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
+  }
+}
 updateCartBadge();
 loadProducts();
 </script>
