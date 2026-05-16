@@ -49,7 +49,6 @@
   .bag-header { padding: 20px 20px 16px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
   .bag-title { font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
   .bag-close { background: none; border: none; cursor: pointer; color: #888; font-size: 1.2rem; padding: 4px; }
-  .bag-close:hover { color: #111; }
   .bag-items { flex: 1; overflow-y: auto; padding: 16px 20px; }
   .bag-empty { text-align: center; padding: 40px 0; color: #ccc; font-size: 0.82rem; }
   .bag-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; align-items: center; }
@@ -61,7 +60,7 @@
   .bag-item-price { font-size: 0.78rem; font-weight: 600; color: #111; }
   .bag-item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
   .qty-row { display: flex; align-items: center; gap: 6px; }
-  .qty-btn { background: none; border: 1px solid #e0e0e0; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; color: #333; }
+  .qty-btn { background: none; border: 1px solid #e0e0e0; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; }
   .qty-btn:hover { border-color: #111; }
   .qty-num { font-size: 0.78rem; font-weight: 600; min-width: 16px; text-align: center; }
   .bag-item-remove { background: none; border: none; cursor: pointer; color: #ccc; font-size: 0.7rem; }
@@ -80,16 +79,23 @@
   .vol-popup-overlay.open .vol-popup { transform: translateY(0); }
   .vol-popup-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; margin-bottom: 4px; }
   .vol-popup-name { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+
+  /* loading bottle animation */
+  @keyframes floatLoop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+  .loading-bottle-wrap { display: flex; justify-content: center; align-items: center; padding: 40px 0; grid-column: 1/-1; }
+  .loading-bottle { animation: floatLoop 1.4s ease-in-out infinite; }
+
   .bottle-anim-wrap { display: flex; justify-content: center; align-items: flex-end; gap: 32px; margin-bottom: 24px; height: 90px; }
   .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
   .bottle-svg-wrap { transition: transform 0.2s; }
-  .bottle-slot:hover .bottle-svg-wrap { transform: scale(1.08); }
   .bottle-label { font-size: 0.65rem; font-weight: 600; color: #999; letter-spacing: 1px; }
   .bottle-slot.active .bottle-label { color: #111; }
   .bottle-price { font-size: 0.75rem; font-weight: 700; color: #111; }
   .bottle-slot.inactive .bottle-price { color: #bbb; }
-  @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
   .bottle-slot.active .bottle-svg-wrap { animation: floatUp 1.8s ease-in-out infinite; }
+
   .vol-options { display: flex; gap: 10px; margin-bottom: 20px; }
   .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
   .vol-opt-btn.selected { border-color: #111; background: #111; color: #fff; }
@@ -99,16 +105,13 @@
   .vol-confirm-btn:hover { background: #333; }
   .vol-confirm-btn.added { background: #2e7d32; }
 
-  /* NOT AVAILABLE POPUP */
-  .unavail-msg { background: #f9f9f9; border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 16px; display: none; }
+  .unavail-msg { background: #f9f9f9; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 16px; display: none; }
   .unavail-msg.show { display: block; }
-  .unavail-msg p { font-size: 0.82rem; color: #888; line-height: 1.6; }
+  .unavail-msg p { font-size: 0.85rem; color: #666; line-height: 1.7; }
   .vol-popup-close { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; }
 
   /* PAGE */
   .page-wrap { margin-top: 52px; padding-bottom: 80px; }
-
-  /* SEARCH & FILTER — match nav padding */
   .search-wrap { padding: 14px 20px 0; max-width: 900px; margin: 0 auto; }
   .search-box { display: flex; align-items: center; gap: 8px; border: 1px solid #e8e8e8; border-radius: 8px; padding: 8px 12px; background: #f9f9f9; }
   .search-box svg { color: #bbb; flex-shrink: 0; }
@@ -127,19 +130,25 @@
   .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ececec; max-width: 900px; margin: 0 auto; }
   .product-card { background: #fff; cursor: pointer; }
   .product-card:active { background: #fafafa; }
-
-  /* image — 110% (5% smaller than 115%) */
   .product-img-wrap { background: #fff; aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 6px; overflow: hidden; }
   .product-img { width: 110%; height: 110%; object-fit: contain; transition: transform 0.3s ease; }
   .product-card:hover .product-img { transform: scale(1.04); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  /* badges on image */
+  /* badges */
   .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
   .badge { font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; }
   .badge-new { background: #e53935; color: #fff; }
-  .badge-lowstock { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
-  .badge-cat { background: rgba(0,0,0,0.55); color: #fff; backdrop-filter: blur(4px); }
+  .badge-cat-men { background: #111; color: #fff; }
+  .badge-cat-women { background: #e91e8c; color: #fff; }
+  .badge-cat-unisex { background: #7b5ea7; color: #fff; }
+
+  /* stock badges bottom right */
+  .stock-badge-wrap { position: absolute; bottom: 8px; right: 8px; z-index: 1; }
+  .stock-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
+  .stock-badge-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  .stock-badge-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
+  .stock-badge-out { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; }
 
   .product-info { padding: 8px 10px 12px; }
   .product-type { font-family: 'Courier New', monospace; font-size: 0.58rem; color: #ccc; margin-bottom: 2px; }
@@ -148,7 +157,6 @@
   .add-bag-btn { width: 100%; background: #111; color: #fff; border: none; padding: 7px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s; }
   .add-bag-btn:hover { background: #333; }
   .add-bag-btn.out { background: #f0f0f0; color: #bbb; cursor: not-allowed; }
-  .add-bag-btn.unavail { background: #f5f5f5; color: #aaa; cursor: pointer; }
   .add-bag-btn.added { background: #2e7d32; }
   .empty-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.85rem; grid-column: 1/-1; }
 
@@ -160,15 +168,20 @@
   .back-btn:hover { color: #111; }
   .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
 
-  /* detail image — smaller, square */
-  .detail-img-wrap { aspect-ratio: 1; background: #fff; display: flex; align-items: center; justify-content: center; padding: 32px; }
-  .detail-img { width: 85%; height: 85%; object-fit: contain; }
+  /* detail image — 3:4, image ချုံ့ */
+  .detail-img-wrap { aspect-ratio: 3/4; background: #f9f9f9; display: flex; align-items: center; justify-content: center; padding: 24px; overflow: hidden; }
+  .detail-img { width: 72%; height: 72%; object-fit: contain; }
 
-  .detail-info { padding: 12px 20px; }
+  /* detail info — ပုံနားကပ် */
+  .detail-info { padding: 14px 20px; }
   .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
   .badge-detail-new { background: #e53935; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
-  .badge-detail-cat { background: #f0f0f0; color: #555; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
+  .badge-detail-men { background: #111; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
+  .badge-detail-women { background: #e91e8c; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
+  .badge-detail-unisex { background: #7b5ea7; color: #fff; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 600; }
   .badge-detail-low { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
+  .badge-detail-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
+  .badge-detail-out { background: #fce4ec; color: #c62828; border: 1px solid #ef9a9a; font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 6px; font-weight: 700; }
   .detail-type { font-family: 'Courier New', monospace; font-size: 0.68rem; color: #bbb; margin-bottom: 2px; }
   .detail-brand { font-size: 0.78rem; color: #999; margin-bottom: 2px; }
   .detail-name { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 12px; letter-spacing: 0; line-height: 1.2; }
@@ -185,6 +198,7 @@
   .detail-add-btn:hover { background: #333; }
   .detail-add-btn.added { background: #2e7d32; }
   .detail-add-btn.unavail { background: #888; cursor: default; }
+  .detail-add-btn.out { background: #ccc; cursor: not-allowed; }
 
   footer { background: #000; padding: 40px 0 32px; }
   .footer-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; }
@@ -208,7 +222,7 @@
     <div class="vol-popup-title">Select Volume</div>
     <div class="vol-popup-name" id="volPopupName"></div>
     <div class="unavail-msg" id="unavailMsg">
-      <p>Online Order မှာယူ၍ မရနိုင်သေးပါ။<br>ဆိုင်တွင် လာရောက်ဝယ်ယူနိုင်ပါသည်။</p>
+      <p>မှာ မရသေးပါ။<br>Online Order မှာယူ၍ မရနိုင်သေးပါ။<br>ဆိုင်တွင် လာရောက်ဝယ်ယူနိုင်ပါသည်။</p>
     </div>
     <div id="volSelectWrap">
       <div class="bottle-anim-wrap" id="bottleAnimWrap"></div>
@@ -276,7 +290,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
       </svg>
-      <input class="search-input" type="text" id="searchInput" placeholder="Search perfumes..." oninput="onSearch(this.value)">
+      <input class="search-input" type="text" id="searchInput" placeholder="Search perfumes...">
       <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
     </div>
   </div>
@@ -291,7 +305,14 @@
   </div>
   <div class="results-info" id="resultsInfo"></div>
   <div class="catalog-grid" id="catalogGrid">
-    <div class="empty-state">Products ဖတ်နေသည်...</div>
+    <div class="loading-bottle-wrap">
+      <div class="loading-bottle">
+        <svg width="36" height="62" viewBox="0 0 48 82" fill="none">
+          <rect x="15" y="2" width="18" height="24" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/>
+          <rect x="3" y="30" width="42" height="48" rx="4" stroke="#ccc" stroke-width="1.8" fill="none"/>
+        </svg>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -354,7 +375,6 @@ let currentSearch = '';
 let selectedVol = {};
 let volPopupProduct = null;
 let volPopupSelectedIdx = 0;
-let volPopupIsUnavail = false;
 
 /* SVG */
 const SVG_30ML = '<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
@@ -411,26 +431,22 @@ function renderBagItems() {
 
 /* VOLUME POPUP */
 function openVolPopup(id) {
-  const grouped = groupByID(allProducts);
-  const p = grouped.find(function(x){ return x.id===id; });
+  const grouped=groupByID(allProducts);
+  const p=grouped.find(function(x){ return x.id===id; });
   if (!p) return;
-  volPopupProduct = p;
-  volPopupSelectedIdx = 0;
-  volPopupIsUnavail = (p.availability !== 'Active');
-  document.getElementById('volPopupName').textContent = p.name;
-
-  if (volPopupIsUnavail) {
+  volPopupProduct=p; volPopupSelectedIdx=0;
+  const isUnavail=(p.availability!=='Active');
+  document.getElementById('volPopupName').textContent=p.name;
+  if (isUnavail) {
     document.getElementById('unavailMsg').classList.add('show');
-    document.getElementById('volSelectWrap').style.display = 'none';
-    document.getElementById('volPopupCloseBtn').style.display = 'block';
+    document.getElementById('volSelectWrap').style.display='none';
+    document.getElementById('volPopupCloseBtn').style.display='block';
   } else {
     document.getElementById('unavailMsg').classList.remove('show');
-    document.getElementById('volSelectWrap').style.display = 'block';
-    document.getElementById('volPopupCloseBtn').style.display = 'none';
-    if (p.volumes.length === 1) {
-      addToCartDirect(id, 0);
-      document.getElementById('volPopupOverlay').classList.remove('open');
-      document.body.style.overflow='';
+    document.getElementById('volSelectWrap').style.display='block';
+    document.getElementById('volPopupCloseBtn').style.display='none';
+    if (p.volumes.length===1) {
+      addToCartDirect(id,0);
       return;
     }
     renderVolPopup();
@@ -440,23 +456,21 @@ function openVolPopup(id) {
 }
 
 function renderVolPopup() {
-  const p = volPopupProduct;
-  const wrap = document.getElementById('bottleAnimWrap');
-  const opts = document.getElementById('volOptions');
-  let bottleHTML = '';
+  const p=volPopupProduct;
+  let bottleHTML='';
   p.volumes.forEach(function(v,i){
-    const is10 = v.volume && v.volume.includes('10');
-    const isActive = i===volPopupSelectedIdx;
-    const svgActive = is10 ? SVG_10ML : SVG_30ML;
-    const svgDim = is10 ? SVG_10ML_DIM : SVG_30ML_DIM;
-    bottleHTML += '<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
-      +'<div class="bottle-svg-wrap">'+(isActive?svgActive:svgDim)+'</div>'
+    const is10=v.volume&&v.volume.includes('10');
+    const isActive=i===volPopupSelectedIdx;
+    const svgA=is10?SVG_10ML:SVG_30ML;
+    const svgD=is10?SVG_10ML_DIM:SVG_30ML_DIM;
+    bottleHTML+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
+      +'<div class="bottle-svg-wrap">'+(isActive?svgA:svgD)+'</div>'
       +'<div class="bottle-label">'+v.volume+'</div>'
       +'<div class="bottle-price">'+Number(v.price).toLocaleString()+' Ks</div>'
       +'</div>';
   });
-  wrap.innerHTML = bottleHTML;
-  opts.innerHTML = p.volumes.map(function(v,i){
+  document.getElementById('bottleAnimWrap').innerHTML=bottleHTML;
+  document.getElementById('volOptions').innerHTML=p.volumes.map(function(v,i){
     return '<button class="vol-opt-btn '+(i===volPopupSelectedIdx?'selected':'')+'" onclick="selectVolPopup('+i+')">'
       +'<span class="vol-size">'+v.volume+'</span>'
       +'<span class="vol-p">'+Number(v.price).toLocaleString()+' Ks</span>'
@@ -467,7 +481,7 @@ function renderVolPopup() {
 function selectVolPopup(idx) { volPopupSelectedIdx=idx; renderVolPopup(); }
 
 function closeVolPopup(e) {
-  if (!e || e.target===document.getElementById('volPopupOverlay')) {
+  if (!e||e.target===document.getElementById('volPopupOverlay')) {
     document.getElementById('volPopupOverlay').classList.remove('open');
     document.body.style.overflow='';
     volPopupProduct=null;
@@ -476,7 +490,7 @@ function closeVolPopup(e) {
 
 function confirmVolume() {
   if (!volPopupProduct) return;
-  addToCartDirect(volPopupProduct.id, volPopupSelectedIdx);
+  addToCartDirect(volPopupProduct.id,volPopupSelectedIdx);
   const btn=document.getElementById('volConfirmBtn');
   btn.textContent='Added ✓'; btn.classList.add('added');
   setTimeout(function(){
@@ -489,10 +503,36 @@ function confirmVolume() {
 
 /* STOCK */
 function getStockStatus(vol) {
-  const n = parseInt(vol.inStock)||0;
+  const n=parseInt(vol.inStock)||0;
   if (n<=0) return 'out';
   if (n<=3) return 'low';
   return 'ok';
+}
+
+function getCatBadge(cat, detail) {
+  if (!cat) return '';
+  const c=cat.toLowerCase();
+  if (detail) {
+    if (c==='men') return '<span class="badge-detail-men">Men</span>';
+    if (c==='women') return '<span class="badge-detail-women">Women</span>';
+    return '<span class="badge-detail-unisex">Unisex</span>';
+  } else {
+    if (c==='men') return '<span class="badge badge-cat-men">Men</span>';
+    if (c==='women') return '<span class="badge badge-cat-women">Women</span>';
+    return '<span class="badge badge-cat-unisex">Unisex</span>';
+  }
+}
+
+function getStockBadge(stock, detail) {
+  if (detail) {
+    if (stock==='out') return '<span class="badge-detail-out">Out of Stock</span>';
+    if (stock==='low') return '<span class="badge-detail-low">Low Stock</span>';
+    return '<span class="badge-detail-ok">In Stock</span>';
+  } else {
+    if (stock==='out') return '<span class="stock-badge stock-badge-out">Out of Stock</span>';
+    if (stock==='low') return '<span class="stock-badge stock-badge-low">Low Stock</span>';
+    return '<span class="stock-badge stock-badge-ok">In Stock</span>';
+  }
 }
 
 /* PRODUCTS */
@@ -535,24 +575,18 @@ function renderGrid() {
     const stock=getStockStatus(vol);
     const isUnavail=(p.availability!=='Active');
     const imgSrc=p.image?'../catalog/images/'+p.image:null;
-
     const newBadge=p.status==='New'?'<span class="badge badge-new">New</span>':'';
-    const catBadge=p.category?'<span class="badge badge-cat">'+p.category+'</span>':'';
-    const lowBadge=(!isUnavail&&stock==='low')?'<span class="badge badge-lowstock">Low Stock</span>':'';
-
+    const catBadge=getCatBadge(p.category,false);
+    const stockBadge=getStockBadge(stock,false);
     const imgHtml=imgSrc?'<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
       :'<div class="product-img-placeholder">'+bottleSVGSmall(52)+'</div>';
-
     let btnHtml;
-    if (stock==='out') {
-      btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
-    } else {
-      btnHtml='<button class="add-bag-btn'+(isUnavail?' unavail':'')+'" onclick="event.stopPropagation();openVolPopup(\''+p.id+'\')">Add to Bag</button>';
-    }
-
+    if (stock==='out') btnHtml='<button class="add-bag-btn out" disabled>Out of Stock</button>';
+    else btnHtml='<button class="add-bag-btn" onclick="event.stopPropagation();openVolPopup(\''+p.id+'\')">Add to Bag</button>';
     return '<div class="product-card" onclick="openDetail(\''+p.id+'\')">'
       +'<div class="product-img-wrap">'
-        +'<div class="badge-wrap">'+newBadge+catBadge+lowBadge+'</div>'
+        +'<div class="badge-wrap">'+newBadge+catBadge+'</div>'
+        +'<div class="stock-badge-wrap">'+stockBadge+'</div>'
         +imgHtml
       +'</div>'
       +'<div class="product-info">'
@@ -568,12 +602,6 @@ function setFilter(f,btn) {
   currentFilter=f;
   document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active'); renderGrid();
-}
-
-function onSearch(val) {
-  currentSearch=val;
-  document.getElementById('searchClear').classList.toggle('show',val.length>0);
-  renderGrid();
 }
 
 function clearSearch() {
@@ -602,29 +630,24 @@ function renderDetail(p) {
   const imgSrc=p.image?'../catalog/images/'+p.image:null;
   const desc=p.description||'';
   const moodVal=p.mood?p.mood.replace(/[,\/]+/g,' • ').trim():'';
-
   const imgHtml=imgSrc?'<img class="detail-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
     :'<div>'+bottleSVGSmall(80)+'</div>';
   const volBtns=p.volumes.map(function(v,i){
     return '<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
   }).join('');
   const newBadge=p.status==='New'?'<span class="badge-detail-new">New</span>':'';
-  const catBadge=p.category?'<span class="badge-detail-cat">'+p.category+'</span>':'';
-  const lowBadge=(!isUnavail&&stock==='low')?'<span class="badge-detail-low">Low Stock</span>':'';
+  const catBadge=getCatBadge(p.category,true);
+  const stockBadge=getStockBadge(stock,true);
 
   let addBtn='';
-  if (stock==='out') {
-    addBtn='<button class="detail-add-btn" style="background:#ccc;cursor:default;" disabled>Out of Stock</button>';
-  } else if (isUnavail) {
-    addBtn='<button class="detail-add-btn unavail" disabled>Online Order မရနိုင်သေး</button>';
-  } else {
-    addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
-  }
+  if (stock==='out') addBtn='<button class="detail-add-btn out" disabled>Out of Stock</button>';
+  else if (isUnavail) addBtn='<button class="detail-add-btn unavail" disabled>Online Order မရနိုင်သေး</button>';
+  else addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
 
   document.getElementById('detailContent').innerHTML=
     '<div class="detail-img-wrap">'+imgHtml+'</div>'+
     '<div class="detail-info">'+
-      '<div class="detail-badges">'+newBadge+catBadge+lowBadge+'</div>'+
+      '<div class="detail-badges">'+newBadge+catBadge+stockBadge+'</div>'+
       '<div class="detail-type">'+(p.type==='Inspired'?'inspired by':'suvanna original')+'</div>'+
       '<div class="detail-brand">'+(p.brand||'')+'</div>'+
       '<div class="detail-name">'+p.name+'</div>'+
@@ -664,12 +687,14 @@ window.addEventListener('popstate',function(){
     document.body.style.overflow='';
   }
 });
+
 async function loadProducts() {
   try {
     const res=await fetch(SHEET_URL);
     const data=await res.json();
     if (data.success&&data.products){
-      allProducts=data.products; renderGrid();
+      allProducts=data.products;
+      renderGrid();
       const params=new URLSearchParams(window.location.search);
       const id=params.get('id');
       if (id){
@@ -681,6 +706,18 @@ async function loadProducts() {
     document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
   }
 }
+
+/* Search — addEventListener */
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('searchClear');
+  input.addEventListener('input', function() {
+    currentSearch = this.value;
+    clearBtn.classList.toggle('show', this.value.length > 0);
+    renderGrid();
+  });
+});
+
 updateCartBadge();
 loadProducts();
 </script>
