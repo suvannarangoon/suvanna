@@ -88,11 +88,14 @@
   .filter-btn:hover { border-color: #111; color: #111; }
   .filter-btn.active { background: #111; color: #fff; border-color: #111; }
   .results-info { padding: 10px 14px 6px; max-width: 900px; margin: 0 auto; font-size: 0.68rem; color: #ccc; }
+
+  /* GRID */
   .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ececec; max-width: 900px; margin: 0 auto; }
   .product-card { background: #fff; cursor: pointer; }
   .product-card:active { background: #fafafa; }
-  .product-img-wrap { background: #fff; aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: hidden; border-bottom: 1px solid #f5f5f5; }
-  .product-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease; }
+  /* image 15% bigger — padding 6px instead of 16px, and scale up */
+  .product-img-wrap { background: #fff; aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 6px; overflow: hidden; border-bottom: 1px solid #f5f5f5; }
+  .product-img { width: 115%; height: 115%; object-fit: contain; transition: transform 0.3s ease; }
   .product-card:hover .product-img { transform: scale(1.05); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
   .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
@@ -110,18 +113,16 @@
   .add-bag-btn.added { background: #2e7d32; }
   .empty-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.85rem; grid-column: 1/-1; }
 
-  /* DETAIL PAGE */
+  /* DETAIL */
   .detail-page { display: none; position: fixed; inset: 0; background: #fff; z-index: 150; overflow-y: auto; }
   .detail-page.open { display: block; }
   .detail-nav { height: 52px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: #fff; z-index: 10; }
   .back-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; color: #555; padding: 0; }
   .back-btn:hover { color: #111; }
-  .detail-content { max-width: 480px; margin: 0 auto; }
-
-  /* Detail — compact layout */
+  .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
   .detail-img-wrap { aspect-ratio: 4/3; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid #f5f5f5; }
-  .detail-img { width: 100%; height: 100%; object-fit: contain; }
-  .detail-info { padding: 16px 20px 80px; }
+  .detail-img { width: 115%; height: 115%; object-fit: contain; }
+  .detail-info { padding: 16px 20px; }
   .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
   .detail-type { font-family: 'Courier New', monospace; font-size: 0.68rem; color: #bbb; margin-bottom: 2px; }
   .detail-brand { font-size: 0.78rem; color: #999; margin-bottom: 2px; }
@@ -136,7 +137,6 @@
   .detail-price { font-size: 1.15rem; font-weight: 700; color: #111; margin-bottom: 2px; }
   .detail-sold { font-size: 0.65rem; color: #ccc; margin-bottom: 10px; }
   .desc-text { font-size: 0.82rem; color: #555; line-height: 1.75; }
-  .read-more-btn { background: none; border: none; color: #111; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; cursor: pointer; text-decoration: underline; padding: 3px 0 0; display: block; }
   .detail-add-btn { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: #111; color: #fff; border: none; padding: 16px 20px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
   .detail-add-btn:hover { background: #333; }
   .detail-add-btn.added { background: #2e7d32; }
@@ -290,7 +290,7 @@ let currentFilter = 'all';
 let currentSearch = '';
 let selectedVol = {};
 
-/* ── CART ── */
+/* CART */
 function getCart() { try { return JSON.parse(localStorage.getItem('suvanna_cart')||'[]'); } catch { return []; } }
 function saveCart(c) { localStorage.setItem('suvanna_cart', JSON.stringify(c)); updateCartBadge(); }
 function updateCartBadge() {
@@ -316,17 +316,15 @@ function changeQty(key, delta) {
   const idx = cart.findIndex(function(i){ return i.key===key; });
   if (idx<0) return;
   cart[idx].qty += delta;
-  if (cart[idx].qty <= 0) cart.splice(idx,1);
-  saveCart(cart);
-  renderBagItems();
+  if (cart[idx].qty<=0) cart.splice(idx,1);
+  saveCart(cart); renderBagItems();
 }
 function removeItem(key) {
-  const cart = getCart().filter(function(i){ return i.key!==key; });
-  saveCart(cart);
+  saveCart(getCart().filter(function(i){ return i.key!==key; }));
   renderBagItems();
 }
 
-/* ── BAG PANEL ── */
+/* BAG PANEL */
 function openBag() {
   renderBagItems();
   document.getElementById('bagOverlay').classList.add('open');
@@ -342,10 +340,9 @@ function renderBagItems() {
   const cart = getCart();
   const container = document.getElementById('bagItems');
   const footer = document.getElementById('bagFooter');
-  if (cart.length === 0) {
+  if (!cart.length) {
     container.innerHTML = '<div class="bag-empty">Bag is empty</div>';
-    footer.style.display = 'none';
-    return;
+    footer.style.display = 'none'; return;
   }
   footer.style.display = 'block';
   let total = 0;
@@ -355,8 +352,7 @@ function renderBagItems() {
     const imgHtml = imgSrc
       ? '<img class="bag-item-img" src="'+imgSrc+'" onerror="this.style.display=\'none\'">'
       : '<div class="bag-item-img-placeholder"><svg width="24" height="24" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg></div>';
-    return '<div class="bag-item">'+
-      imgHtml+
+    return '<div class="bag-item">'+imgHtml+
       '<div class="bag-item-info">'+
         '<div class="bag-item-name">'+item.name+'</div>'+
         '<div class="bag-item-vol">'+item.volume+'</div>'+
@@ -375,12 +371,15 @@ function renderBagItems() {
   document.getElementById('bagTotal').textContent = Number(total).toLocaleString()+' Ks';
 }
 
-/* ── PRODUCTS ── */
+/* PRODUCTS */
 function groupByID(products) {
   const map = {};
   products.forEach(function(p) {
     if (!map[p.id]) map[p.id] = Object.assign({}, p, { volumes:[] });
-    map[p.id].volumes.push({ volume:p.volume, price:p.price, inStock:p.inStock, sold:p.sold, stockStatus:p.stockStatus, availability:p.availability });
+    map[p.id].volumes.push({
+      volume:p.volume, price:p.price, inStock:p.inStock,
+      sold:p.sold, stockStatus:p.stockStatus, availability:p.availability
+    });
   });
   return Object.values(map);
 }
@@ -388,33 +387,48 @@ function bottleSVG(s) {
   var h=Math.round(s*1.4);
   return '<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
 }
+
+/* Low stock = inStock <= 3 */
+function isLowStock(vol) {
+  return vol.stockStatus === 'Low Stock' && vol.inStock <= 3;
+}
+
 function getFiltered() {
   var r = allProducts;
   if (currentFilter==='new') r=r.filter(function(p){ return p.status==='New'; });
   else if (currentFilter!=='all') r=r.filter(function(p){ return p.category&&p.category.toLowerCase()===currentFilter; });
   if (currentSearch.trim()) {
     var q=currentSearch.toLowerCase();
-    r=r.filter(function(p){ return (p.name&&p.name.toLowerCase().includes(q))||(p.brand&&p.brand.toLowerCase().includes(q))||(p.notes&&p.notes.toLowerCase().includes(q)); });
+    r=r.filter(function(p){
+      return (p.name&&p.name.toLowerCase().includes(q))||
+             (p.brand&&p.brand.toLowerCase().includes(q))||
+             (p.notes&&p.notes.toLowerCase().includes(q));
+    });
   }
   return r;
 }
+
 function renderGrid() {
   const grouped = groupByID(getFiltered());
   const grid = document.getElementById('catalogGrid');
   document.getElementById('resultsInfo').textContent = grouped.length+' items';
   if (!grouped.length) { grid.innerHTML='<div class="empty-state">Product မတွေ့ပါ</div>'; return; }
   grid.innerHTML = grouped.map(function(p) {
-    const vol=p.volumes[0];
-    const isOut=vol.stockStatus==='Out of Stock';
-    const isHidden=p.availability==='Hidden';
-    const imgSrc=p.image?'../catalog/images/'+p.image:null;
-    const newBadge=p.status==='New'?'<span class="badge badge-new">New</span>':'';
-    const lowBadge=(!isHidden&&vol.stockStatus==='Low Stock')?'<span class="badge badge-lowstock">Low Stock</span>':'';
-    const imgHtml=imgSrc?'<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
-      :'<div class="product-img-placeholder">'+bottleSVG(52)+'</div>';
-    const btnHtml=isHidden?'<button class="add-bag-btn hidden-stock" disabled>Add to Bag</button>'
-      :isOut?'<button class="add-bag-btn out" disabled>Out of Stock</button>'
-      :'<button class="add-bag-btn" onclick="event.stopPropagation();handleAdd(\''+p.id+'\',0,this)">Add to Bag</button>';
+    const vol = p.volumes[0];
+    const isOut = vol.stockStatus==='Out of Stock';
+    const isHidden = p.availability==='Hidden';
+    const showLow = !isHidden && isLowStock(vol);
+    const imgSrc = p.image?'../catalog/images/'+p.image:null;
+    const newBadge = p.status==='New'?'<span class="badge badge-new">New</span>':'';
+    const lowBadge = showLow?'<span class="badge badge-lowstock">Low Stock</span>':'';
+    const imgHtml = imgSrc
+      ? '<img class="product-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
+      : '<div class="product-img-placeholder">'+bottleSVG(52)+'</div>';
+    const btnHtml = isHidden
+      ? '<button class="add-bag-btn hidden-stock" disabled>Add to Bag</button>'
+      : isOut
+        ? '<button class="add-bag-btn out" disabled>Out of Stock</button>'
+        : '<button class="add-bag-btn" onclick="event.stopPropagation();handleAdd(\''+p.id+'\',0,this)">Add to Bag</button>';
     return '<div class="product-card" onclick="openDetail(\''+p.id+'\')">'+
       '<div class="product-img-wrap"><div class="badge-wrap">'+newBadge+lowBadge+'</div>'+imgHtml+'</div>'+
       '<div class="product-info">'+
@@ -425,12 +439,14 @@ function renderGrid() {
       '</div></div>';
   }).join('');
 }
+
 function handleAdd(id, vi, btn) {
   addToCart(id, vi);
   btn.textContent='Added ✓'; btn.classList.add('added');
   setTimeout(function(){ btn.textContent='Add to Bag'; btn.classList.remove('added'); },1500);
 }
-function setFilter(f,btn) {
+
+function setFilter(f, btn) {
   currentFilter=f;
   document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active'); renderGrid();
@@ -447,39 +463,43 @@ function clearSearch() {
   renderGrid();
 }
 
-/* ── DETAIL ── */
+/* DETAIL */
 function openDetail(id) {
-  const p=groupByID(allProducts).find(function(x){ return x.id===id; });
+  const p = groupByID(allProducts).find(function(x){ return x.id===id; });
   if (!p) return;
   selectedVol[id]=0;
   renderDetail(p);
   document.getElementById('detailPage').classList.add('open');
   document.body.style.overflow='hidden';
 }
+
 function renderDetail(p) {
-  const idx=selectedVol[p.id]||0;
-  const vol=p.volumes[idx];
-  const isOut=vol.stockStatus==='Out of Stock';
-  const isHidden=p.availability==='Hidden';
-  const imgSrc=p.image?'../catalog/images/'+p.image:null;
-  const desc=p.description||'';
-  const short=desc.length>180?desc.substring(0,180)+'...':desc;
-  const hasMore=desc.length>180;
-  const imgHtml=imgSrc?'<img class="detail-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
-    :'<div>'+bottleSVG(80)+'</div>';
-  const volBtns=p.volumes.map(function(v,i){
+  const idx = selectedVol[p.id]||0;
+  const vol = p.volumes[idx];
+  const isOut = vol.stockStatus==='Out of Stock';
+  const isHidden = p.availability==='Hidden';
+  const showLow = !isHidden && isLowStock(vol);
+  const imgSrc = p.image?'../catalog/images/'+p.image:null;
+  const desc = p.description||'';
+
+  const imgHtml = imgSrc
+    ? '<img class="detail-img" src="'+imgSrc+'" alt="'+p.name+'" onerror="this.style.display=\'none\'">'
+    : '<div>'+bottleSVG(80)+'</div>';
+
+  const volBtns = p.volumes.map(function(v,i){
     return '<button class="vol-btn '+(i===idx?'active':'')+'" onclick="selectVol(\''+p.id+'\','+i+')">'+v.volume+'</button>';
   }).join('');
-  let addBtn='';
+
+  let addBtn = '';
   if (isHidden) addBtn='<button class="detail-add-btn hidden-stock" disabled>Add to Bag</button>';
   else if (!isOut) addBtn='<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\''+p.id+'\','+idx+')">Add to Bag</button>';
 
-  document.getElementById('detailContent').innerHTML=
+  document.getElementById('detailContent').innerHTML =
     '<div class="detail-img-wrap">'+imgHtml+'</div>'+
     '<div class="detail-info">'+
       '<div class="detail-badges">'+
         (p.status==='New'?'<span class="badge badge-new">New</span>':'')+
-        (!isHidden&&vol.stockStatus==='Low Stock'?'<span class="badge badge-lowstock">Low Stock</span>':'')+
+        (showLow?'<span class="badge badge-lowstock">Low Stock</span>':'')+
       '</div>'+
       '<div class="detail-type">'+(p.type==='Inspired'?'inspired by':'suvanna original')+'</div>'+
       '<div class="detail-brand">'+(p.brand||'')+'</div>'+
@@ -490,30 +510,20 @@ function renderDetail(p) {
       '<div class="detail-row"><div class="detail-label">Volume</div><div class="vol-row">'+volBtns+'</div></div>'+
       '<div class="detail-price">'+Number(vol.price).toLocaleString()+' Ks</div>'+
       (vol.sold>0?'<div class="detail-sold">'+vol.sold+' sold</div>':'')+
-      (desc?'<div class="detail-row"><div class="detail-label">Description</div>'+
-        '<div class="desc-text" id="descText">'+short+'</div>'+
-        (hasMore?'<button class="read-more-btn" onclick="toggleDesc()">Read more</button>':'')+
-      '</div>':'')+
+      (desc?'<div class="detail-row"><div class="detail-label">Description</div><div class="desc-text">'+desc+'</div></div>':'')+
     '</div>'+addBtn;
-
-  window._fullDesc=desc; window._shortDesc=short; window._descExpanded=false;
 }
-function handleDetailAdd(id,vi) {
-  addToCart(id,vi);
-  const btn=document.getElementById('detailAddBtn');
+
+function handleDetailAdd(id, vi) {
+  addToCart(id, vi);
+  const btn = document.getElementById('detailAddBtn');
   btn.textContent='Added ✓'; btn.classList.add('added');
   setTimeout(function(){ btn.textContent='Add to Bag'; btn.classList.remove('added'); },1500);
 }
-function selectVol(id,idx) {
+function selectVol(id, idx) {
   selectedVol[id]=idx;
-  const p=groupByID(allProducts).find(function(x){ return x.id===id; });
+  const p = groupByID(allProducts).find(function(x){ return x.id===id; });
   if (p) renderDetail(p);
-}
-function toggleDesc() {
-  const el=document.getElementById('descText');
-  const btn=document.querySelector('.read-more-btn');
-  if (!window._descExpanded){ el.textContent=window._fullDesc; btn.textContent='Read less'; window._descExpanded=true; }
-  else { el.textContent=window._shortDesc; btn.textContent='Read more'; window._descExpanded=false; }
 }
 function closeDetail() {
   document.getElementById('detailPage').classList.remove('open');
@@ -526,8 +536,8 @@ function toggleMenu() {
 }
 async function loadProducts() {
   try {
-    const res=await fetch(SHEET_URL);
-    const data=await res.json();
+    const res = await fetch(SHEET_URL);
+    const data = await res.json();
     if (data.success&&data.products){ allProducts=data.products; renderGrid(); }
   } catch(err) {
     document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
