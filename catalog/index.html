@@ -27,7 +27,9 @@
   .nav-logo { display: flex; align-items: center; text-decoration: none; }
   .nav-logo img { height: 16px; width: auto; display: block; }
   .nav-right { display: flex; align-items: center; gap: 16px; }
-  .nav-icon-btn { background: none; border: none; cursor: pointer; color: #333; display: flex; align-items: center; padding: 4px; }
+  .nav-icon-btn { background: none; border: none; cursor: pointer; color: #333; display: flex; align-items: center; padding: 4px; position: relative; }
+  .cart-badge { position: absolute; top: -4px; right: -4px; background: #111; color: #fff; width: 15px; height: 15px; border-radius: 50%; font-size: 0.55rem; display: flex; align-items: center; justify-content: center; font-weight: 700; display: none; }
+  .cart-badge.show { display: flex; }
   .burger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
   .burger span { display: block; width: 20px; height: 1.5px; background: #333; transition: all 0.3s ease; transform-origin: center; }
   .burger.open span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
@@ -44,100 +46,89 @@
   /* PAGE */
   .page-wrap { margin-top: 52px; padding-bottom: 80px; }
 
-  /* SEARCH BAR */
-  .search-wrap { padding: 16px 16px 0; max-width: 900px; margin: 0 auto; }
-  .search-box { display: flex; align-items: center; gap: 10px; border: 1px solid #e0e0e0; border-radius: 10px; padding: 10px 14px; background: #f9f9f9; }
-  .search-box svg { color: #aaa; flex-shrink: 0; }
-  .search-input { flex: 1; border: none; outline: none; font-family: 'Open Sans', sans-serif; font-size: 0.85rem; color: #222; background: transparent; }
-  .search-input::placeholder { color: #bbb; }
-  .search-clear { background: none; border: none; cursor: pointer; color: #bbb; font-size: 1rem; line-height: 1; display: none; }
+  /* SEARCH */
+  .search-wrap { padding: 14px 14px 0; max-width: 900px; margin: 0 auto; }
+  .search-box { display: flex; align-items: center; gap: 8px; border: 1px solid #e8e8e8; border-radius: 8px; padding: 8px 12px; background: #f9f9f9; }
+  .search-box svg { color: #bbb; flex-shrink: 0; }
+  .search-input { flex: 1; border: none; outline: none; font-family: 'Open Sans', sans-serif; font-size: 0.82rem; color: #222; background: transparent; }
+  .search-input::placeholder { color: #ccc; }
+  .search-clear { background: none; border: none; cursor: pointer; color: #ccc; font-size: 0.9rem; line-height: 1; display: none; }
   .search-clear.show { display: block; }
 
   /* FILTER */
-  .filter-wrap { padding: 12px 16px 0; max-width: 900px; margin: 0 auto; }
-  .filter-row { display: flex; gap: 6px; }
-  .filter-btn { flex: 1; border: 1px solid #e8e8e8; background: #fff; color: #666; padding: 6px 8px; font-family: 'Open Sans', sans-serif; font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 6px; transition: all 0.2s; text-align: center; }
+  .filter-wrap { padding: 10px 14px 0; max-width: 900px; margin: 0 auto; }
+  .filter-row { display: flex; gap: 5px; }
+  .filter-btn { flex: 1; border: 1px solid #e8e8e8; background: #fff; color: #777; padding: 5px 4px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border-radius: 5px; transition: all 0.2s; text-align: center; }
   .filter-btn:hover { border-color: #111; color: #111; }
   .filter-btn.active { background: #111; color: #fff; border-color: #111; }
 
-  /* RESULTS COUNT */
-  .results-info { padding: 12px 16px 8px; max-width: 900px; margin: 0 auto; font-size: 0.7rem; color: #bbb; letter-spacing: 0; }
+  /* RESULTS */
+  .results-info { padding: 10px 14px 6px; max-width: 900px; margin: 0 auto; font-size: 0.68rem; color: #ccc; }
 
   /* GRID */
   .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ececec; max-width: 900px; margin: 0 auto; }
 
-  .product-card { background: #fff; cursor: pointer; position: relative; }
+  /* CARD */
+  .product-card { background: #fff; cursor: pointer; }
   .product-card:active { background: #fafafa; }
 
-  .product-img-wrap { overflow: hidden; aspect-ratio: 3/4; background: #f5f5f5; position: relative; }
-  .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-  .product-card:hover .product-img { transform: scale(1.03); }
-  .product-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f5f5f5; }
+  /* IMAGE — contained, white bg, padding */
+  .product-img-wrap { background: #f8f8f8; aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 16px; overflow: hidden; }
+  .product-img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.3s ease; }
+  .product-card:hover .product-img { transform: scale(1.05); }
+  .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 4px; z-index: 1; }
-  .badge { font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; font-weight: 600; display: inline-block; }
+  /* BADGES */
+  .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
+  .badge { font-size: 0.5rem; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; font-weight: 700; display: inline-block; }
   .badge-new { background: #111; color: #fff; }
   .badge-lowstock { background: #fff8e1; color: #e65100; border: 1px solid #ffcc02; }
 
-  .product-info { padding: 10px 12px 14px; }
-  .product-type { font-family: 'Courier New', monospace; font-size: 0.6rem; color: #bbb; margin-bottom: 2px; letter-spacing: 0; }
-  .product-name { font-size: 0.82rem; font-weight: 700; color: #111; margin-bottom: 6px; letter-spacing: 0; line-height: 1.25; }
-  .product-price { font-size: 0.85rem; font-weight: 600; color: #111; margin-bottom: 8px; }
-
-  .add-bag-btn { width: 100%; background: #111; color: #fff; border: none; padding: 8px; font-family: 'Open Sans', sans-serif; font-size: 0.6rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 5px; transition: background 0.2s; }
+  /* INFO */
+  .product-info { padding: 8px 10px 12px; }
+  .product-type { font-family: 'Courier New', monospace; font-size: 0.58rem; color: #ccc; margin-bottom: 2px; }
+  .product-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; letter-spacing: 0; line-height: 1.2; }
+  .product-price { font-size: 0.8rem; font-weight: 600; color: #111; margin-bottom: 7px; }
+  .add-bag-btn { width: 100%; background: #111; color: #fff; border: none; padding: 7px; font-family: 'Open Sans', sans-serif; font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
   .add-bag-btn:hover { background: #333; }
   .add-bag-btn.out { background: #f0f0f0; color: #bbb; cursor: not-allowed; }
+  .add-bag-btn.added { background: #2e7d32; }
 
-  /* EMPTY */
+  /* EMPTY / LOADING */
   .empty-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.85rem; grid-column: 1/-1; }
-
-  /* LOADING */
-  .loading-state { text-align: center; padding: 60px 20px; color: #bbb; font-size: 0.85rem; grid-column: 1/-1; }
 
   /* DETAIL PAGE */
   .detail-page { display: none; position: fixed; inset: 0; background: #fff; z-index: 150; overflow-y: auto; }
   .detail-page.open { display: block; }
-
-  .detail-nav { height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: #fff; z-index: 10; }
+  .detail-nav { height: 52px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; background: #fff; z-index: 10; }
   .back-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; color: #555; padding: 0; }
   .back-btn:hover { color: #111; }
-
   .detail-content { max-width: 600px; margin: 0 auto; padding-bottom: 80px; }
-
-  .detail-img-wrap { aspect-ratio: 1; background: #f9f9f9; overflow: hidden; }
-  .detail-img { width: 100%; height: 100%; object-fit: cover; }
-  .detail-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-
+  .detail-img-wrap { aspect-ratio: 1; background: #f8f8f8; display: flex; align-items: center; justify-content: center; padding: 32px; }
+  .detail-img { width: 100%; height: 100%; object-fit: contain; }
+  .detail-img-placeholder { display: flex; align-items: center; justify-content: center; }
   .detail-info { padding: 20px 20px 0; }
-
-  .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-
-  .detail-type { font-family: 'Courier New', monospace; font-size: 0.72rem; color: #aaa; margin-bottom: 4px; }
-  .detail-brand { font-size: 0.8rem; color: #888; margin-bottom: 4px; }
-  .detail-name { font-size: 1.4rem; font-weight: 700; color: #111; margin-bottom: 4px; letter-spacing: 0; line-height: 1.2; }
-  .detail-category { font-size: 0.7rem; color: #bbb; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
-
-  .detail-section { margin-bottom: 16px; }
-  .detail-label { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: #bbb; margin-bottom: 6px; }
-  .detail-value { font-size: 0.88rem; color: #444; line-height: 1.6; letter-spacing: 0; }
-
-  .vol-row { display: flex; gap: 8px; flex-wrap: wrap; }
-  .vol-btn { border: 1px solid #e0e0e0; background: #fff; padding: 7px 14px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 6px; transition: all 0.2s; }
+  .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .detail-type { font-family: 'Courier New', monospace; font-size: 0.7rem; color: #bbb; margin-bottom: 3px; }
+  .detail-brand { font-size: 0.8rem; color: #999; margin-bottom: 3px; }
+  .detail-name { font-size: 1.3rem; font-weight: 700; color: #111; margin-bottom: 4px; letter-spacing: 0; line-height: 1.2; }
+  .detail-category { font-size: 0.65rem; color: #ccc; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .detail-section { margin-bottom: 14px; }
+  .detail-label { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: #ccc; margin-bottom: 5px; }
+  .detail-value { font-size: 0.85rem; color: #444; line-height: 1.6; }
+  .vol-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .vol-btn { border: 1px solid #e0e0e0; background: #fff; padding: 6px 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; cursor: pointer; border-radius: 5px; transition: all 0.2s; }
   .vol-btn.active { border-color: #111; background: #111; color: #fff; }
-  .vol-btn:hover:not(.active) { border-color: #999; }
-
-  .detail-price { font-size: 1.3rem; font-weight: 700; color: #111; }
-  .detail-sold { font-size: 0.7rem; color: #bbb; margin-top: 2px; }
-
-  .stock-ok { color: #2e7d32; font-size: 0.72rem; }
-  .stock-low { color: #e65100; font-size: 0.72rem; }
-  .stock-out { color: #c62828; font-size: 0.72rem; }
-
-  .desc-text { font-size: 0.88rem; color: #555; line-height: 1.8; }
-  .read-more-btn { background: none; border: none; color: #111; font-family: 'Open Sans', sans-serif; font-size: 0.78rem; cursor: pointer; text-decoration: underline; padding: 4px 0 0; display: block; }
-
-  .detail-add-btn { width: calc(100% - 40px); margin: 20px 20px 0; background: #111; color: #fff; border: none; padding: 15px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; }
+  .detail-price { font-size: 1.2rem; font-weight: 700; color: #111; margin-bottom: 2px; }
+  .detail-sold { font-size: 0.68rem; color: #ccc; margin-bottom: 4px; }
+  .stock-ok { color: #2e7d32; font-size: 0.7rem; }
+  .stock-low { color: #e65100; font-size: 0.7rem; }
+  .stock-out { color: #c62828; font-size: 0.7rem; }
+  .desc-text { font-size: 0.85rem; color: #555; line-height: 1.8; }
+  .read-more-btn { background: none; border: none; color: #111; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; text-decoration: underline; padding: 4px 0 0; display: block; }
+  .detail-add-btn { width: calc(100% - 40px); margin: 20px 20px 0; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 7px; transition: background 0.2s; }
   .detail-add-btn:hover { background: #333; }
+  .detail-add-btn.added { background: #2e7d32; }
 
   /* FOOTER */
   footer { background: #000; padding: 40px 0 32px; }
@@ -156,20 +147,25 @@
 </head>
 <body>
 
-<!-- MENU -->
 <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 <div class="dropdown-menu" id="dropdownMenu">
   <button class="menu-item" onclick="window.location.href='../home'">Home</button>
   <button class="menu-item" onclick="window.location.href='../catalog'">Catalog</button>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <a class="nav-logo" href="https://suvannarangoon.github.io/suvanna/home">
       <img src="../home/logo.PNG" alt="Suvanna">
     </a>
     <div class="nav-right">
+      <!-- Cart Icon -->
+      <button class="nav-icon-btn" onclick="goToCart()" title="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
       <button class="burger" id="burgerBtn" onclick="toggleMenu()">
         <span></span>
         <span></span>
@@ -178,13 +174,10 @@
   </div>
 </nav>
 
-<!-- PAGE -->
 <div class="page-wrap">
-
-  <!-- SEARCH -->
   <div class="search-wrap">
     <div class="search-box">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
       </svg>
       <input class="search-input" type="text" id="searchInput" placeholder="Search perfumes..." oninput="onSearch(this.value)">
@@ -192,7 +185,6 @@
     </div>
   </div>
 
-  <!-- FILTER -->
   <div class="filter-wrap">
     <div class="filter-row">
       <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
@@ -202,14 +194,11 @@
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div class="results-info" id="resultsInfo"></div>
 
-  <!-- GRID -->
   <div class="catalog-grid" id="catalogGrid">
-    <div class="loading-state">Products ဖတ်နေသည်...</div>
+    <div class="empty-state">Products ဖတ်နေသည်...</div>
   </div>
-
 </div>
 
 <!-- DETAIL PAGE -->
@@ -225,7 +214,6 @@
   <div class="detail-content" id="detailContent"></div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">Suvanna</div>
@@ -256,15 +244,9 @@
       </div>
     </div>
     <div class="footer-social">
-      <button class="social-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-      </button>
-      <button class="social-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
-      </button>
-      <button class="social-icon">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-      </button>
+      <button class="social-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></button>
+      <button class="social-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></button>
+      <button class="social-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.17 8.17 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg></button>
     </div>
     <div class="footer-bottom">© 2026 Suvanna Rangoon. All rights reserved.</div>
   </div>
@@ -278,48 +260,95 @@ let currentFilter = 'all';
 let currentSearch = '';
 let selectedVol = {};
 
+// ── CART (localStorage) ──────────────────────
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('suvanna_cart') || '[]'); } catch { return []; }
+}
+function saveCart(cart) {
+  localStorage.setItem('suvanna_cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+function updateCartBadge() {
+  const cart = getCart();
+  const total = cart.reduce(function(s, i) { return s + i.qty; }, 0);
+  const badge = document.getElementById('cartBadge');
+  if (total > 0) {
+    badge.textContent = total;
+    badge.classList.add('show');
+  } else {
+    badge.classList.remove('show');
+  }
+}
+function addToCart(id, volIdx) {
+  const grouped = groupByID(allProducts);
+  const p = grouped.find(function(x) { return x.id === id; });
+  if (!p) return;
+  const vol = p.volumes[volIdx || 0];
+  const cart = getCart();
+  const key = id + '_' + vol.volume;
+  const existing = cart.find(function(i) { return i.key === key; });
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      key: key,
+      id: id,
+      name: p.name,
+      brand: p.brand,
+      type: p.type,
+      volume: vol.volume,
+      price: vol.price,
+      image: p.image,
+      qty: 1
+    });
+  }
+  saveCart(cart);
+}
+function goToCart() {
+  window.location.href = '../cart';
+}
+
+// ── PRODUCTS ─────────────────────────────────
 function groupByID(products) {
   const map = {};
-  products.forEach(p => {
-    if (!map[p.id]) map[p.id] = { ...p, volumes: [] };
+  products.forEach(function(p) {
+    if (!map[p.id]) map[p.id] = Object.assign({}, p, { volumes: [] });
     map[p.id].volumes.push({
-      volume: p.volume,
-      price: p.price,
-      inStock: p.inStock,
-      sold: p.sold,
-      stockStatus: p.stockStatus
+      volume: p.volume, price: p.price,
+      inStock: p.inStock, sold: p.sold, stockStatus: p.stockStatus
     });
   });
   return Object.values(map);
 }
 
 function bottleSVG(size) {
-  const h = Math.round(size * 1.5);
-  return '<svg width="' + size + '" height="' + h + '" viewBox="0 0 48 72" fill="none"><rect x="16" y="2" width="16" height="18" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="24" width="42" height="44" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
+  var h = Math.round(size * 1.4);
+  return '<svg width="' + size + '" height="' + h + '" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';
 }
 
 function getFiltered() {
-  let result = allProducts;
+  var result = allProducts;
   if (currentFilter !== 'all') {
-    result = result.filter(p => p.category && p.category.toLowerCase() === currentFilter);
+    result = result.filter(function(p) {
+      return p.category && p.category.toLowerCase() === currentFilter;
+    });
   }
   if (currentSearch.trim()) {
-    const q = currentSearch.toLowerCase();
-    result = result.filter(p =>
-      (p.name && p.name.toLowerCase().includes(q)) ||
-      (p.brand && p.brand.toLowerCase().includes(q)) ||
-      (p.notes && p.notes.toLowerCase().includes(q))
-    );
+    var q = currentSearch.toLowerCase();
+    result = result.filter(function(p) {
+      return (p.name && p.name.toLowerCase().includes(q)) ||
+             (p.brand && p.brand.toLowerCase().includes(q)) ||
+             (p.notes && p.notes.toLowerCase().includes(q));
+    });
   }
   return result;
 }
 
 function renderGrid() {
-  const filtered = getFiltered();
-  const grouped = groupByID(filtered);
-  const grid = document.getElementById('catalogGrid');
-  const info = document.getElementById('resultsInfo');
-
+  var filtered = getFiltered();
+  var grouped = groupByID(filtered);
+  var grid = document.getElementById('catalogGrid');
+  var info = document.getElementById('resultsInfo');
   info.textContent = grouped.length + ' items';
 
   if (grouped.length === 0) {
@@ -327,36 +356,51 @@ function renderGrid() {
     return;
   }
 
-  grid.innerHTML = grouped.map(p => {
-    const vol = p.volumes[0];
-    const isOut = vol.stockStatus === 'Out of Stock';
-    const imgSrc = p.image ? '../catalog/images/' + p.image : null;
-    const typeLabel = p.type === 'Inspired' ? 'inspired by' : 'suvanna';
-    const newBadge = p.status === 'New' ? '<span class="badge badge-new">New</span>' : '';
-    const lowBadge = vol.stockStatus === 'Low Stock' ? '<span class="badge badge-lowstock">Low Stock</span>' : '';
+  grid.innerHTML = grouped.map(function(p) {
+    var vol = p.volumes[0];
+    var isOut = vol.stockStatus === 'Out of Stock';
+    var imgSrc = p.image ? '../catalog/images/' + p.image : null;
+    var typeLabel = p.type === 'Inspired' ? 'inspired by' : 'suvanna';
+    var newBadge = p.status === 'New' ? '<span class="badge badge-new">New</span>' : '';
+    var lowBadge = vol.stockStatus === 'Low Stock' ? '<span class="badge badge-lowstock">Low Stock</span>' : '';
+
+    var imgHtml = imgSrc
+      ? '<img class="product-img" src="' + imgSrc + '" alt="' + p.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+        '<div class="product-img-placeholder" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;">' + bottleSVG(52) + '</div>'
+      : '<div class="product-img-placeholder">' + bottleSVG(52) + '</div>';
+
+    var btnHtml = isOut
+      ? '<button class="add-bag-btn out" disabled>Out of Stock</button>'
+      : '<button class="add-bag-btn" onclick="event.stopPropagation();handleAddToCart(\'' + p.id + '\',0,this)">Add to Bag</button>';
 
     return '<div class="product-card" onclick="openDetail(\'' + p.id + '\')">' +
       '<div class="product-img-wrap">' +
         '<div class="badge-wrap">' + newBadge + lowBadge + '</div>' +
-        (imgSrc
-          ? '<img class="product-img" src="' + imgSrc + '" alt="' + p.name + '" onerror="this.parentElement.innerHTML=\'<div class=\\\'product-img-placeholder\\\'>\' + bottleSVG(48) + \'</div>\'">'
-          : '<div class="product-img-placeholder">' + bottleSVG(48) + '</div>') +
+        imgHtml +
       '</div>' +
       '<div class="product-info">' +
         '<div class="product-type">' + typeLabel + '</div>' +
         '<div class="product-name">' + p.name + '</div>' +
         '<div class="product-price">' + Number(vol.price).toLocaleString() + ' Ks</div>' +
-        (isOut
-          ? '<button class="add-bag-btn out" disabled>Out of Stock</button>'
-          : '<button class="add-bag-btn" onclick="event.stopPropagation()">Add to Bag</button>') +
+        btnHtml +
       '</div>' +
     '</div>';
   }).join('');
 }
 
+function handleAddToCart(id, volIdx, btn) {
+  addToCart(id, volIdx);
+  btn.textContent = 'Added ✓';
+  btn.classList.add('added');
+  setTimeout(function() {
+    btn.textContent = 'Add to Bag';
+    btn.classList.remove('added');
+  }, 1500);
+}
+
 function setFilter(f, btn) {
   currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   renderGrid();
 }
@@ -374,9 +418,10 @@ function clearSearch() {
   renderGrid();
 }
 
+// ── DETAIL ───────────────────────────────────
 function openDetail(id) {
-  const grouped = groupByID(allProducts);
-  const p = grouped.find(x => x.id === id);
+  var grouped = groupByID(allProducts);
+  var p = grouped.find(function(x) { return x.id === id; });
   if (!p) return;
   selectedVol[id] = 0;
   renderDetail(p);
@@ -385,22 +430,30 @@ function openDetail(id) {
 }
 
 function renderDetail(p) {
-  const idx = selectedVol[p.id] || 0;
-  const vol = p.volumes[idx];
-  const isOut = vol.stockStatus === 'Out of Stock';
-  const imgSrc = p.image ? '../catalog/images/' + p.image : null;
-  const typeLabel = p.type === 'Inspired' ? 'inspired by' : 'suvanna original';
-  const stockClass = isOut ? 'stock-out' : vol.stockStatus === 'Low Stock' ? 'stock-low' : 'stock-ok';
-  const desc = p.description || '';
-  const short = desc.length > 160 ? desc.substring(0, 160) + '...' : desc;
-  const hasMore = desc.length > 160;
+  var idx = selectedVol[p.id] || 0;
+  var vol = p.volumes[idx];
+  var isOut = vol.stockStatus === 'Out of Stock';
+  var imgSrc = p.image ? '../catalog/images/' + p.image : null;
+  var typeLabel = p.type === 'Inspired' ? 'inspired by' : 'suvanna original';
+  var stockClass = isOut ? 'stock-out' : vol.stockStatus === 'Low Stock' ? 'stock-low' : 'stock-ok';
+  var desc = p.description || '';
+  var short = desc.length > 160 ? desc.substring(0, 160) + '...' : desc;
+  var hasMore = desc.length > 160;
+
+  var imgHtml = imgSrc
+    ? '<img class="detail-img" src="' + imgSrc + '" alt="' + p.name + '" onerror="this.style.display=\'none\'">'
+    : '<div class="detail-img-placeholder">' + bottleSVG(100) + '</div>';
+
+  var volBtns = p.volumes.map(function(v, i) {
+    return '<button class="vol-btn ' + (i === idx ? 'active' : '') + '" onclick="selectVol(\'' + p.id + '\',' + i + ')">' + v.volume + '</button>';
+  }).join('');
+
+  var addBtn = isOut
+    ? ''
+    : '<button class="detail-add-btn" id="detailAddBtn" onclick="handleDetailAdd(\'' + p.id + '\',' + idx + ')">Add to Bag</button>';
 
   document.getElementById('detailContent').innerHTML =
-    '<div class="detail-img-wrap">' +
-      (imgSrc
-        ? '<img class="detail-img" src="' + imgSrc + '" alt="' + p.name + '" onerror="this.parentElement.innerHTML=\'<div class=\\\'detail-img-placeholder\\\'>\' + bottleSVG(80) + \'</div>\'">'
-        : '<div class="detail-img-placeholder">' + bottleSVG(80) + '</div>') +
-    '</div>' +
+    '<div class="detail-img-wrap">' + imgHtml + '</div>' +
     '<div class="detail-info">' +
       '<div class="detail-badges">' +
         (p.status === 'New' ? '<span class="badge badge-new">New</span>' : '') +
@@ -410,45 +463,43 @@ function renderDetail(p) {
       '<div class="detail-brand">' + (p.brand || '') + '</div>' +
       '<div class="detail-name">' + p.name + '</div>' +
       '<div class="detail-category">' + (p.category || '') + '</div>' +
-
       (p.notes ? '<div class="detail-section"><div class="detail-label">Scent Notes</div><div class="detail-value">' + p.notes + '</div></div>' : '') +
-
       (p.mood ? '<div class="detail-section"><div class="detail-label">Mood</div><div class="detail-value">' + p.mood + '</div></div>' : '') +
-
-      '<div class="detail-section"><div class="detail-label">Volume</div>' +
-        '<div class="vol-row">' +
-          p.volumes.map((v, i) =>
-            '<button class="vol-btn ' + (i === idx ? 'active' : '') + '" onclick="selectVol(\'' + p.id + '\',' + i + ')">' + v.volume + '</button>'
-          ).join('') +
-        '</div>' +
-      '</div>' +
-
+      '<div class="detail-section"><div class="detail-label">Volume</div><div class="vol-row">' + volBtns + '</div></div>' +
       '<div class="detail-price">' + Number(vol.price).toLocaleString() + ' Ks</div>' +
       (vol.sold > 0 ? '<div class="detail-sold">' + vol.sold + ' sold</div>' : '') +
       '<div class="' + stockClass + '">' + vol.stockStatus + '</div>' +
-
       (desc ? '<div class="detail-section"><div class="detail-label">Description</div><div class="desc-text" id="descText">' + short + '</div>' +
-        (hasMore ? '<button class="read-more-btn" onclick="toggleDesc()">Read more</button>' : '') +
-      '</div>' : '') +
-
+        (hasMore ? '<button class="read-more-btn" onclick="toggleDesc()">Read more</button>' : '') + '</div>' : '') +
     '</div>' +
-    (!isOut ? '<button class="detail-add-btn">Add to Bag</button>' : '');
+    addBtn;
 
   window._fullDesc = desc;
   window._shortDesc = short;
   window._descExpanded = false;
 }
 
+function handleDetailAdd(id, volIdx) {
+  addToCart(id, volIdx);
+  var btn = document.getElementById('detailAddBtn');
+  btn.textContent = 'Added ✓';
+  btn.classList.add('added');
+  setTimeout(function() {
+    btn.textContent = 'Add to Bag';
+    btn.classList.remove('added');
+  }, 1500);
+}
+
 function selectVol(id, idx) {
   selectedVol[id] = idx;
-  const grouped = groupByID(allProducts);
-  const p = grouped.find(x => x.id === id);
+  var grouped = groupByID(allProducts);
+  var p = grouped.find(function(x) { return x.id === id; });
   if (p) renderDetail(p);
 }
 
 function toggleDesc() {
-  const el = document.getElementById('descText');
-  const btn = document.querySelector('.read-more-btn');
+  var el = document.getElementById('descText');
+  var btn = document.querySelector('.read-more-btn');
   if (!window._descExpanded) {
     el.textContent = window._fullDesc;
     btn.textContent = 'Read less';
@@ -473,18 +524,19 @@ function toggleMenu() {
 
 async function loadProducts() {
   try {
-    const res = await fetch(SHEET_URL);
-    const data = await res.json();
+    var res = await fetch(SHEET_URL);
+    var data = await res.json();
     if (data.success && data.products) {
       allProducts = data.products;
       renderGrid();
     }
-  } catch (err) {
+  } catch(err) {
     document.getElementById('catalogGrid').innerHTML =
       '<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
   }
 }
 
+updateCartBadge();
 loadProducts();
 </script>
 </body>
