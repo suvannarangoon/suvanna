@@ -41,7 +41,7 @@
   .menu-item { display: block; padding: 13px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #222; cursor: pointer; background: none; border-left: none; border-right: none; border-top: none; text-align: left; width: 100%; font-family: 'Open Sans', sans-serif; transition: color 0.2s; }
   .menu-item:hover { color: #888; }
 
-  /* BAG PANEL */
+  /* BAG */
   .bag-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
   .bag-overlay.open { opacity: 1; pointer-events: all; }
   .bag-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: #fff; z-index: 201; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
@@ -80,14 +80,19 @@
   .vol-popup-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; margin-bottom: 4px; }
   .vol-popup-name { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
 
-  /* LOADING — rotate loop */
-  @keyframes spinLoop { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-  .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; grid-column: 1/-1; gap: 12px; }
-  .loading-spin { animation: spinLoop 1.6s linear infinite; }
+  /* LOADING ANIMATION — spin then pause */
+  @keyframes spinPause {
+    0%   { transform: rotate(0deg); }
+    70%  { transform: rotate(360deg); }
+    85%  { transform: rotate(360deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; grid-column: 1/-1; gap: 14px; }
+  .loading-spin { animation: spinPause 2s ease-in-out infinite; }
   .loading-text { font-size: 0.72rem; color: #ccc; letter-spacing: 1px; }
 
+  /* BOTTLE ANIMATION */
+  @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
   .bottle-anim-wrap { display: flex; justify-content: center; align-items: flex-end; gap: 32px; margin-bottom: 24px; height: 90px; }
   .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; }
   .bottle-svg-wrap { transition: transform 0.2s; }
@@ -102,15 +107,13 @@
   .vol-opt-btn.selected { border-color: #111; background: #111; color: #fff; }
   .vol-opt-btn .vol-size { font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 2px; }
   .vol-opt-btn .vol-p { font-size: 0.7rem; opacity: 0.8; }
-  .vol-confirm-btn { width: 100%; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; }
+  .vol-confirm-btn { width: 100%; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; margin-bottom: 10px; }
   .vol-confirm-btn:hover { background: #333; }
   .vol-confirm-btn.added { background: #2e7d32; }
-
-  /* unavail shown AFTER volume selected */
-  .unavail-msg { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 8px; padding: 16px; text-align: center; margin-bottom: 16px; display: none; }
+  .unavail-msg { background: #fff8f8; border: 1px solid #ffcdd2; border-radius: 8px; padding: 14px; text-align: center; margin-bottom: 12px; display: none; }
   .unavail-msg.show { display: block; }
-  .unavail-msg p { font-size: 0.82rem; color: #c62828; line-height: 1.7; }
-  .vol-popup-close { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; margin-top: 10px; }
+  .unavail-msg p { font-size: 0.82rem; color: #c62828; line-height: 1.6; }
+  .vol-popup-close { width: 100%; background: #f0f0f0; color: #555; border: none; padding: 12px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; }
 
   /* PAGE */
   .page-wrap { margin-top: 52px; padding-bottom: 80px; }
@@ -128,8 +131,10 @@
   .filter-btn.active { background: #111; color: #fff; border-color: #111; }
   .results-info { padding: 10px 20px 6px; max-width: 900px; margin: 0 auto; font-size: 0.68rem; color: #ccc; }
 
-  /* GRID */
-  .catalog-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #ececec; max-width: 900px; margin: 0 auto; }
+  /* GRID — 2col mobile, 4col desktop */
+  .catalog-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: #ececec; max-width: 900px; margin: 0 auto; }
+  @media (min-width: 600px) { .catalog-grid { grid-template-columns: repeat(4, 1fr); } }
+
   .product-card { background: #fff; cursor: pointer; }
   .product-card:active { background: #fafafa; }
   .product-img-wrap { background: #fff; aspect-ratio: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 6px; overflow: hidden; }
@@ -137,7 +142,6 @@
   .product-card:hover .product-img { transform: scale(1.04); }
   .product-img-placeholder { display: flex; align-items: center; justify-content: center; }
 
-  /* top-left badges */
   .badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
   .badge { font-size: 0.48rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; }
   .badge-new { background: #e53935; color: #fff; }
@@ -145,7 +149,6 @@
   .badge-cat-women { background: #e91e8c; color: #fff; }
   .badge-cat-unisex { background: #7b5ea7; color: #fff; }
 
-  /* top-right stock badge */
   .stock-badge-wrap { position: absolute; top: 8px; right: 8px; z-index: 1; }
   .stock-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .stock-badge-ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
@@ -170,9 +173,9 @@
   .back-btn:hover { color: #111; }
   .detail-content { max-width: 480px; margin: 0 auto; padding-bottom: 80px; }
 
-  /* detail image — horizontal 4:3 */
-  .detail-img-wrap { aspect-ratio: 4/3; background: #f9f9f9; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
-  .detail-img { width: 70%; height: 70%; object-fit: contain; }
+  /* detail image — 5:3 horizontal, white bg */
+  .detail-img-wrap { aspect-ratio: 5/3; background: #fff; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; border-bottom: 1px solid #f0f0f0; }
+  .detail-img { width: 65%; height: 65%; object-fit: contain; }
 
   .detail-info { padding: 14px 20px; }
   .detail-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; align-items: center; }
@@ -375,7 +378,6 @@ let currentSearch='';
 let selectedVol={};
 let volPopupProduct=null;
 let volPopupSelectedIdx=0;
-let volPopupConfirmed=false;
 
 const SVG_30ML='<svg width="36" height="62" viewBox="0 0 48 82" fill="none"><rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
 const SVG_10ML='<svg width="28" height="72" viewBox="0 0 40 97" fill="none"><rect x="11" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/><rect x="10" y="30" width="20" height="67" rx="4" stroke="#111" stroke-width="1.8" fill="none"/></svg>';
@@ -421,7 +423,7 @@ function renderBagItems(){
     const imgSrc=item.image?'../catalog/images/'+item.image:null;
     const imgHtml=imgSrc?'<img class="bag-item-img" src="'+imgSrc+'" onerror="this.style.display=\'none\'">'
       :'<div class="bag-item-img-placeholder"><svg width="20" height="20" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg></div>';
-    return '<div class="bag-item">'+imgHtml+'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div><div class="bag-item-vol">'+item.volume+'</div><div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div><div class="bag-item-right"><div class="qty-row"><button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button></div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
+    return'<div class="bag-item">'+imgHtml+'<div class="bag-item-info"><div class="bag-item-name">'+item.name+'</div><div class="bag-item-vol">'+item.volume+'</div><div class="bag-item-price">'+Number(item.price).toLocaleString()+' Ks</div></div><div class="bag-item-right"><div class="qty-row"><button class="qty-btn" onclick="changeQty(\''+item.key+'\',-1)">−</button><span class="qty-num">'+item.qty+'</span><button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button></div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
   }).join('');
   document.getElementById('bagTotal').textContent=Number(total).toLocaleString()+' Ks';
 }
@@ -431,68 +433,58 @@ function openVolPopup(id){
   const grouped=groupByID(allProducts);
   const p=grouped.find(function(x){return x.id===id;});
   if(!p)return;
-  volPopupProduct=p;
-  volPopupSelectedIdx=0;
-  volPopupConfirmed=false;
+  volPopupProduct=p;volPopupSelectedIdx=0;
   document.getElementById('volPopupName').textContent=p.name;
   document.getElementById('unavailMsg').classList.remove('show');
   document.getElementById('volConfirmBtn').textContent='Add to Bag';
   document.getElementById('volConfirmBtn').classList.remove('added');
   if(p.volumes.length===1&&p.availability==='Active'){
-    addToCartDirect(id,0);
-    return;
+    addToCartDirect(id,0);return;
   }
   renderVolPopup();
   document.getElementById('volPopupOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
 function renderVolPopup(){
   const p=volPopupProduct;
-  let bottleHTML='';
+  let html='';
   p.volumes.forEach(function(v,i){
     const is10=v.volume&&v.volume.includes('10');
     const isActive=i===volPopupSelectedIdx;
     const svgA=is10?SVG_10ML:SVG_30ML;
     const svgD=is10?SVG_10ML_DIM:SVG_30ML_DIM;
-    bottleHTML+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
+    html+='<div class="bottle-slot '+(isActive?'active':'inactive')+'" onclick="selectVolPopup('+i+')">'
       +'<div class="bottle-svg-wrap">'+(isActive?svgA:svgD)+'</div>'
       +'<div class="bottle-label">'+v.volume+'</div>'
       +'<div class="bottle-price">'+Number(v.price).toLocaleString()+' Ks</div>'
       +'</div>';
   });
-  document.getElementById('bottleAnimWrap').innerHTML=bottleHTML;
+  document.getElementById('bottleAnimWrap').innerHTML=html;
   document.getElementById('volOptions').innerHTML=p.volumes.map(function(v,i){
-    return '<button class="vol-opt-btn '+(i===volPopupSelectedIdx?'selected':'')+'" onclick="selectVolPopup('+i+')">'
+    return'<button class="vol-opt-btn '+(i===volPopupSelectedIdx?'selected':'')+'" onclick="selectVolPopup('+i+')">'
       +'<span class="vol-size">'+v.volume+'</span>'
       +'<span class="vol-p">'+Number(v.price).toLocaleString()+' Ks</span>'
       +'</button>';
   }).join('');
 }
-
 function selectVolPopup(idx){
   volPopupSelectedIdx=idx;
-  volPopupConfirmed=false;
   document.getElementById('unavailMsg').classList.remove('show');
   document.getElementById('volConfirmBtn').textContent='Add to Bag';
   document.getElementById('volConfirmBtn').classList.remove('added');
   renderVolPopup();
 }
-
 function closeVolPopup(e){
   if(!e||e.target===document.getElementById('volPopupOverlay')){
     document.getElementById('volPopupOverlay').classList.remove('open');
     document.body.style.overflow='';
     volPopupProduct=null;
-    volPopupConfirmed=false;
   }
 }
-
 function confirmVolume(){
   if(!volPopupProduct)return;
   const isUnavail=(volPopupProduct.availability!=='Active');
   if(isUnavail){
-    /* show unavail message */
     document.getElementById('unavailMsg').classList.add('show');
     return;
   }
@@ -510,11 +502,10 @@ function confirmVolume(){
 /* STOCK */
 function getStockStatus(vol){
   const n=parseInt(vol.inStock)||0;
-  if(n<=0)return 'out';
-  if(n<=3)return 'low';
-  return 'ok';
+  if(n<=0)return'out';
+  if(n<=3)return'low';
+  return'ok';
 }
-
 function getCatBadge(cat,detail){
   if(!cat)return'';
   const c=cat.toLowerCase();
@@ -528,7 +519,6 @@ function getCatBadge(cat,detail){
     return'<span class="badge badge-cat-unisex">Unisex</span>';
   }
 }
-
 function getStockBadge(stock,detail){
   if(detail){
     if(stock==='out')return'<span class="badge-detail-out">Out of Stock</span>';
@@ -560,7 +550,11 @@ function getFiltered(){
   else if(currentFilter!=='all')r=r.filter(function(p){return p.category&&p.category.toLowerCase()===currentFilter;});
   if(currentSearch.trim()){
     var q=currentSearch.toLowerCase();
-    r=r.filter(function(p){return(p.name&&p.name.toLowerCase().includes(q))||(p.brand&&p.brand.toLowerCase().includes(q))||(p.notes&&p.notes.toLowerCase().includes(q));});
+    r=r.filter(function(p){
+      return(p.name&&p.name.toLowerCase().includes(q))||
+             (p.brand&&p.brand.toLowerCase().includes(q))||
+             (p.notes&&p.notes.toLowerCase().includes(q));
+    });
   }
   return r;
 }
@@ -611,8 +605,7 @@ function clearSearch(){
 function openDetail(id){
   const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
-  selectedVol[id]=0;
-  renderDetail(p);
+  selectedVol[id]=0;renderDetail(p);
   document.getElementById('detailPage').classList.add('open');
   document.body.style.overflow='hidden';
   history.pushState({id:id},'','?id='+id);
@@ -680,17 +673,6 @@ window.addEventListener('popstate',function(){
   }
 });
 
-/* SEARCH */
-document.addEventListener('DOMContentLoaded',function(){
-  const input=document.getElementById('searchInput');
-  const clearBtn=document.getElementById('searchClear');
-  input.addEventListener('input',function(){
-    currentSearch=this.value;
-    clearBtn.classList.toggle('show',this.value.length>0);
-    renderGrid();
-  });
-});
-
 async function loadProducts(){
   try{
     const res=await fetch(SHEET_URL);
@@ -708,8 +690,16 @@ async function loadProducts(){
     document.getElementById('catalogGrid').innerHTML='<div class="empty-state">ချိတ်ဆက်မရပါ၊ ထပ်ကြိုးစားပါ</div>';
   }
 }
+
 updateCartBadge();
 loadProducts();
+
+/* SEARCH — attach after DOM ready */
+document.getElementById('searchInput').addEventListener('input',function(){
+  currentSearch=this.value;
+  document.getElementById('searchClear').classList.toggle('show',this.value.length>0);
+  renderGrid();
+});
 </script>
 </body>
 </html>
