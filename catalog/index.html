@@ -536,14 +536,14 @@ function bottleSVGSmall(s){
 }
 function getFiltered(){
   var r=allProducts;
-  if(currentFilter==='new')r=r.filter(function(p){return p.status==='New';});
-  else if(currentFilter!=='all')r=r.filter(function(p){return p.category&&p.category.toLowerCase()===currentFilter;});
+  if(currentFilter==='new') r=r.filter(function(p){ return p.status==='New'; });
+  else if(currentFilter!=='all') r=r.filter(function(p){ return p.category&&p.category.toLowerCase()===currentFilter; });
   if(currentSearch.trim()){
     var q=currentSearch.toLowerCase();
     r=r.filter(function(p){
-      return(p.name&&p.name.toLowerCase().includes(q))||
-             (p.brand&&p.brand.toLowerCase().includes(q))||
-             (p.notes&&p.notes.toLowerCase().includes(q));
+      return (p.name&&typeof p.name==='string'&&p.name.toLowerCase().includes(q))||
+             (p.brand&&typeof p.brand==='string'&&p.brand.toLowerCase().includes(q))||
+             (p.notes&&typeof p.notes==='string'&&p.notes.toLowerCase().includes(q));
     });
   }
   return r;
@@ -657,11 +657,12 @@ function toggleMenu(){
   document.getElementById('dropdownMenu').classList.toggle('open');
   document.getElementById('menuOverlay').classList.toggle('open');
 }
-window.addEventListener('popstate',function(){
-  if(document.getElementById('detailPage').classList.contains('open')){
-    document.getElementById('detailPage').classList.remove('open');
-    document.body.style.overflow='';
-  }
+window.addEventListener('load', function(){
+  document.getElementById('searchInput').addEventListener('input', function(){
+    currentSearch = this.value;
+    document.getElementById('searchClear').classList.toggle('show', this.value.length > 0);
+    renderGrid();
+  });
 });
 
 async function loadProducts(){
