@@ -605,6 +605,14 @@ document.addEventListener('keydown',function(e){
  }
 });
 
+function scrollCollection(dir){
+  const row = document.querySelector('.collection-scroll');
+  if(!row) return;
+  const card = row.querySelector('.col-card');
+  const amount = card ? (card.offsetWidth+12)*2 : 340;
+  row.scrollBy({left: amount*dir, behavior:'smooth'});
+}
+
 updateCartBadge();
 loadCollection();
 </script>
