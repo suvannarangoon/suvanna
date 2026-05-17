@@ -192,8 +192,14 @@
  .footer-bottom { text-align: center; font-size: 0.72rem; color: #555; border-top: 1px solid #222; padding-top: 20px; }
  
  /* SCROLL BUTTON */
+ @keyframes nudge {
+  0%,100% { transform: translateX(0); opacity: 1; }
+  30%      { transform: translateX(4px); opacity: 1; }
+  60%      { transform: translateX(0); opacity: 0.5; }
+}
  .scroll-btn { background: none; border: 1.5px solid #e0e0e0; color: #555; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; }
- .scroll-btn:hover { background: #111; color: #fff; border-color: #111; }
+ .scroll-btn.right { animation: nudge 2s ease-in-out infinite; }
+ .scroll-btn:hover { background: #111; color: #fff; border-color: #111; animation: none; }
 </style>
 </head>
 <body>
