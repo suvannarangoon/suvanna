@@ -34,7 +34,6 @@
  .burger.open span:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
  .burger.open span:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
 
- /* MENU */
  .menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
  .menu-overlay.open { opacity: 1; pointer-events: all; }
  .dropdown-menu { position: fixed; top: 0; right: 0; bottom: 0; width: 260px; background: #fff; z-index: 95; padding: 72px 28px 32px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; overflow-y: auto; }
@@ -42,7 +41,7 @@
  .menu-item { display: block; padding: 13px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: #222; cursor: pointer; background: none; border-left: none; border-right: none; border-top: none; text-align: left; width: 100%; font-family: 'Open Sans', sans-serif; transition: color 0.2s; }
  .menu-item:hover { color: #888; }
 
- /* BAG PANEL */
+ /* BAG */
  .bag-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
  .bag-overlay.open { opacity: 1; pointer-events: all; }
  .bag-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; max-width: 90vw; background: #fff; z-index: 201; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
@@ -120,24 +119,31 @@
  @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
  .cta-animated { animation: fadeInUp 0.8s ease forwards, shimmer 3s ease-in-out 0.8s infinite; }
 
- /* COLLECTION SECTION */
+ /* COLLECTION */
  .collection-section { max-width: 900px; margin: 0 auto; padding: 48px 0 0; }
- .collection-header { padding: 0 20px; margin-bottom: 8px; }
+ .collection-header { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; margin-bottom: 8px; }
+ .collection-header-left { }
  .collection-eyebrow { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: #bbb; margin-bottom: 6px; }
- .collection-title { font-size: 1rem; font-weight: 700; color: #111; letter-spacing: 2px; text-transform: uppercase; }
+ .collection-title { font-size: 0.72rem; font-weight: 700; color: #111; letter-spacing: 2px; text-transform: uppercase; }
+ .collection-btns { display: flex; gap: 8px; }
 
- @keyframes spinPause {
-   0%   { transform: rotate(0deg); }
-   70%  { transform: rotate(360deg); }
-   100% { transform: rotate(360deg); }
- }
+ @keyframes spinPause { 0% { transform: rotate(0deg); } 70% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
  .collection-loading { display: flex; align-items: center; justify-content: center; padding: 48px 0; gap: 10px; }
  .collection-loading-spin { animation: spinPause 1.4s ease-in-out infinite; }
  .collection-loading-text { font-size: 0.7rem; color: #ccc; letter-spacing: 1px; }
 
- /* COLLECTION SCROLL ROW */
  .collection-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 16px 0 12px 20px; scroll-snap-type: x mandatory; scroll-padding-left: 20px; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-behavior: smooth; }
  .collection-scroll::-webkit-scrollbar { display: none; }
+
+ /* SCROLL BUTTONS */
+ @keyframes nudge {
+   0%,100% { transform: translateX(0); opacity: 1; }
+   30%      { transform: translateX(4px); opacity: 1; }
+   60%      { transform: translateX(0); opacity: 0.5; }
+ }
+ .scroll-btn { background: none; border: 1.5px solid #e0e0e0; color: #555; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; flex-shrink: 0; }
+ .scroll-btn.right { animation: nudge 2s ease-in-out infinite; }
+ .scroll-btn:hover { background: #111; color: #fff; border-color: #111; animation: none; }
 
  /* COLLECTION CARD */
  .col-card { flex: 0 0 155px; scroll-snap-align: start; cursor: pointer; background: #fff; }
@@ -159,13 +165,13 @@
  .col-card-btn:hover { background: #111; color: #fff; }
  .col-card-btn.out { background: #f5f5f5; color: #ccc; cursor: not-allowed; }
 
- /* SEE ALL CTA */
+ /* SEE ALL */
  .see-all-wrap { padding: 28px 20px 48px; max-width: 900px; margin: 0 auto; }
  .see-all-btn { display: block; width: 100%; background: #111; color: #fff; border: none; padding: 14px; font-family: 'Open Sans', sans-serif; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 8px; transition: background 0.2s; text-align: center; }
  .see-all-btn:hover { background: #333; }
 
  /* STORE */
- .store-section { margin: 48px auto; max-width: 900px; padding: 0 24px; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
+ .store-section { margin: 0 auto 0; max-width: 900px; padding: 0 24px; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; }
  .store-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 22px 0; background: none; border: none; cursor: pointer; font-family: 'Open Sans', sans-serif; }
  .store-toggle-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: #111; }
  .store-arrow { width: 16px; height: 16px; transition: transform 0.3s; }
@@ -190,16 +196,6 @@
  .social-icon { background: none; border: none; cursor: pointer; color: #666; display: flex; align-items: center; transition: color 0.2s; padding: 4px; }
  .social-icon:hover { color: #fff; }
  .footer-bottom { text-align: center; font-size: 0.72rem; color: #555; border-top: 1px solid #222; padding-top: 20px; }
- 
- /* SCROLL BUTTON */
- @keyframes nudge {
-  0%,100% { transform: translateX(0); opacity: 1; }
-  30%      { transform: translateX(4px); opacity: 1; }
-  60%      { transform: translateX(0); opacity: 0.5; }
-}
- .scroll-btn { background: none; border: 1.5px solid #e0e0e0; color: #555; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.2s; }
- .scroll-btn.right { animation: nudge 2s ease-in-out infinite; }
- .scroll-btn:hover { background: #111; color: #fff; border-color: #111; animation: none; }
 </style>
 </head>
 <body>
@@ -242,8 +238,8 @@
        <span class="sparkle">✨</span>
        <div class="bottle-icon">
          <svg width="36" height="62" viewBox="0 0 48 82" fill="none">
-             <rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/>
-             <rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/>
+           <rect x="15" y="2" width="18" height="24" rx="4" stroke="#111" stroke-width="1.8" fill="none"/>
+           <rect x="3" y="30" width="42" height="48" rx="4" stroke="#111" stroke-width="1.8" fill="none"/>
          </svg>
        </div>
      </div>
@@ -251,8 +247,8 @@
    <div class="amoment-sub">Suvanna 1st Own Product</div>
    <div class="amoment-title">A Moment</div>
    <div class="amoment-text">
-     A Moment သည် Suvanna ၏ own product ဖြစ်ပြီး မကြာမီ အားလုံးထံ မိတ်ဆကပေးသွားမည် ဖြစ်ပါသည်။<br><br>
-     Online Order ဖြင့်လည်း အလွယ်တကူ မှာယူနိုင်တာ့မည် ဖြစ်ပါသည်။
+     A Moment သည် Suvanna ၏ own product ဖြစ်ပြီး မကြာမီ အားလုံးထံ မိတ်ဆက်ပေးသွားမည် ဖြစ်ပါသည်။<br><br>
+     Online Order ဖြင့်လည်း အလွယ်တကူ မှာယူနိုင်တော့မည် ဖြစ်ပါသည်။
    </div>
    <button class="amoment-close" onclick="closeAMoment()">Close</button>
  </div>
@@ -311,17 +307,17 @@
    </div>
  </div>
 
-<!-- COLLECTION SECTION -->
+ <!-- COLLECTION SECTION -->
  <div class="collection-section">
-   <div class="collection-header" style="display:flex;justify-content:space-between;align-items:center;">
-        <div>
-          <div class="collection-eyebrow">Suvanna Rangoon</div>
-          <div class="collection-title" id="collectionTitle">Loading...</div>
-        </div>
-        <div style="display:flex;gap:8px;padding-right:20px;">
-          <button class="scroll-btn" onclick="scrollCollection(-1)">‹</button>
-          <button class="scroll-btn right" onclick="scrollCollection(1)">›</button>
-        </div>
+   <div class="collection-header">
+     <div class="collection-header-left">
+       <div class="collection-eyebrow">Suvanna Rangoon</div>
+       <div class="collection-title" id="collectionTitle">Loading...</div>
+     </div>
+     <div class="collection-btns">
+       <button class="scroll-btn" onclick="scrollCollection(-1)">‹</button>
+       <button class="scroll-btn right" onclick="scrollCollection(1)">›</button>
+     </div>
    </div>
    <div id="collectionWrap">
      <div class="collection-loading">
@@ -407,7 +403,7 @@
    </div>
  </div>
 
-</div><!-- end content-wrap -->
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -446,59 +442,55 @@
 </footer>
 
 <script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLkPlKGGsiAwJE4pVIpTGjYpkKZDRktZou_fLSypufAXvSHQTasn8uGYc1mBLNUU_d/exec";
+const SHEET_URL="https://script.google.com/macros/s/AKfycbyLkPlKGGsiAwJE4pVIpTGjYpkKZDRktZou_fLSypufAXvSHQTasn8uGYc1mBLNUU_d/exec";
 
-function goTo(u){ window.location.href = u; }
+function goTo(u){ window.location.href=u; }
 
-/* ── MENU ── */
 function toggleMenu(){
  document.getElementById('burgerBtn').classList.toggle('open');
  document.getElementById('dropdownMenu').classList.toggle('open');
  document.getElementById('menuOverlay').classList.toggle('open');
 }
 
-/* ── SEARCH ── */
 function toggleSearch(){
- const o = document.getElementById('searchOverlay');
+ const o=document.getElementById('searchOverlay');
  o.classList.toggle('open');
- if(o.classList.contains('open')) setTimeout(()=>document.getElementById('searchInput').focus(),100);
+ if(o.classList.contains('open')) setTimeout(function(){ document.getElementById('searchInput').focus(); },100);
 }
 
-/* ── A MOMENT ── */
 function openAMoment(){
  document.getElementById('burgerBtn').classList.remove('open');
  document.getElementById('dropdownMenu').classList.remove('open');
  document.getElementById('menuOverlay').classList.remove('open');
  setTimeout(function(){
-   const overlay = document.getElementById('amomentPopup');
+   const overlay=document.getElementById('amomentPopup');
    overlay.classList.add('open');
-   const bottle = overlay.querySelector('.bottle-icon');
-   const text = overlay.querySelector('.amoment-text');
-   bottle.style.animation = 'none'; text.style.animation = 'none';
+   const bottle=overlay.querySelector('.bottle-icon');
+   const text=overlay.querySelector('.amoment-text');
+   bottle.style.animation='none'; text.style.animation='none';
    setTimeout(function(){
-     bottle.style.animation = 'bottleOpen 1.2s ease forwards';
-     text.style.animation = 'fadeInText 0.8s ease 1.2s forwards';
-   }, 10);
- }, 300);
+     bottle.style.animation='bottleOpen 1.2s ease forwards';
+     text.style.animation='fadeInText 0.8s ease 1.2s forwards';
+   },10);
+ },300);
 }
 function closeAMoment(e){
- if(!e || e.target === document.getElementById('amomentPopup')){
+ if(!e||e.target===document.getElementById('amomentPopup')){
    document.getElementById('amomentPopup').classList.remove('open');
  }
 }
 
-/* ── STORE ── */
 function toggleStore(){
  document.getElementById('storeList').classList.toggle('open');
  document.getElementById('storeArrow').classList.toggle('open');
 }
 
-/* ── BAG ── */
+/* BAG */
 function getCart(){ try{ return JSON.parse(localStorage.getItem('suvanna_cart')||'[]'); }catch{ return []; } }
-function saveCart(c){ localStorage.setItem('suvanna_cart', JSON.stringify(c)); updateCartBadge(); }
+function saveCart(c){ localStorage.setItem('suvanna_cart',JSON.stringify(c)); updateCartBadge(); }
 function updateCartBadge(){
- const t = getCart().reduce(function(s,i){ return s+i.qty; },0);
- const b = document.getElementById('cartBadge');
+ const t=getCart().reduce(function(s,i){ return s+i.qty; },0);
+ const b=document.getElementById('cartBadge');
  if(t>0){ b.textContent=t; b.classList.add('show'); } else { b.classList.remove('show'); }
 }
 function changeQty(key,d){
@@ -528,20 +520,20 @@ function renderBagItems(){
      +'<button class="qty-btn" onclick="changeQty(\''+item.key+'\',1)">+</button>'
      +'</div><button class="bag-item-remove" onclick="removeItem(\''+item.key+'\')">Remove</button></div></div>';
  }).join('');
- document.getElementById('bagTotal').textContent = Number(total).toLocaleString()+' Ks';
+ document.getElementById('bagTotal').textContent=Number(total).toLocaleString()+' Ks';
 }
 
-/* ── COLLECTION ── */
-const SECTIONS = [
- { key:'new',       title:'New Arrivals',           filter: function(p){ return p.status==='New'; } },
- { key:'bestseller',title:'Best Sellers',            filter: function(p){ return hasTag(p,'Best Seller'); } },
- { key:'men',       title:'All-Time For Men',        filter: function(p){ return isCat(p,'Men')&&hasTag(p,'All Time'); } },
- { key:'women',     title:'All-Time For Women',      filter: function(p){ return isCat(p,'Women')&&hasTag(p,'All Time'); } },
- { key:'rainy',     title:'Rainy Essentials',        filter: function(p){ return hasTag(p,'Rainy'); } },
- { key:'datemen',   title:'Night Out For Him',       filter: function(p){ return isCat(p,'Men')&&hasTag(p,'Date'); } },
- { key:'datewomen', title:'Night Out For Her',       filter: function(p){ return isCat(p,'Women')&&hasTag(p,'Date'); } },
- { key:'sweet',     title:'Candy Sweet For Cute Girls', filter: function(p){ return isCat(p,'Women')&&hasTag(p,'Sweet'); } },
- { key:'coffee',    title:'For Coffee Lovers',       filter: function(p){ return hasTag(p,'Coffee'); } },
+/* COLLECTION */
+const SECTIONS=[
+ {key:'new',       title:'New Arrivals',            filter:function(p){ return p.status==='New'; }},
+ {key:'bestseller',title:'Best Sellers',             filter:function(p){ return hasTag(p,'Best Seller'); }},
+ {key:'men',       title:'All-Time For Men',         filter:function(p){ return isCat(p,'Men')&&hasTag(p,'All Time'); }},
+ {key:'women',     title:'All-Time For Women',       filter:function(p){ return isCat(p,'Women')&&hasTag(p,'All Time'); }},
+ {key:'rainy',     title:'Rainy Essentials',         filter:function(p){ return hasTag(p,'Rainy'); }},
+ {key:'datemen',   title:'Night Out For Him',        filter:function(p){ return isCat(p,'Men')&&hasTag(p,'Date'); }},
+ {key:'datewomen', title:'Night Out For Her',        filter:function(p){ return isCat(p,'Women')&&hasTag(p,'Date'); }},
+ {key:'sweet',     title:'Candy Sweet For Cute Girls',filter:function(p){ return isCat(p,'Women')&&hasTag(p,'Sweet'); }},
+ {key:'coffee',    title:'For Coffee Lovers',        filter:function(p){ return hasTag(p,'Coffee'); }},
 ];
 
 function hasTag(p,t){ return p.tags&&p.tags.toLowerCase().includes(t.toLowerCase()); }
@@ -551,7 +543,7 @@ function groupByID(products){
  const map={};
  products.forEach(function(p){
    if(!map[p.id]) map[p.id]=Object.assign({},p,{volumes:[]});
-   map[p.id].volumes.push({volume:p.volume,price:p.price,inStock:p.inStock,sold:p.sold,availability:p.availability,salePrice:p.salePrice});
+   map[p.id].volumes.push({volume:p.volume,price:p.price,inStock:p.inStock,availability:p.availability,salePrice:p.salePrice});
  });
  return Object.values(map);
 }
@@ -563,9 +555,16 @@ function getCatBadge(cat){
  return'<span class="col-badge col-badge-unisex">Unisex</span>';
 }
 
+function scrollCollection(dir){
+ const row=document.querySelector('.collection-scroll');
+ if(!row)return;
+ const card=row.querySelector('.col-card');
+ const amount=card?(card.offsetWidth+12)*2:340;
+ row.scrollBy({left:amount*dir,behavior:'smooth'});
+}
+
 function renderCollection(allProducts){
  const grouped=groupByID(allProducts);
- /* pick random section that has products */
  const filled=SECTIONS.filter(function(s){ return grouped.filter(s.filter).length>0; });
  if(!filled.length){ document.getElementById('collectionWrap').innerHTML=''; return; }
  const chosen=filled[Math.floor(Math.random()*filled.length)];
@@ -614,14 +613,6 @@ document.addEventListener('keydown',function(e){
    document.getElementById('amomentPopup').classList.remove('open');
  }
 });
-
-function scrollCollection(dir){
-  const row = document.querySelector('.collection-scroll');
-  if(!row) return;
-  const card = row.querySelector('.col-card');
-  const amount = card ? (card.offsetWidth+12)*2 : 340;
-  row.scrollBy({left: amount*dir, behavior:'smooth'});
-}
 
 updateCartBadge();
 loadCollection();
