@@ -663,7 +663,9 @@ function selectVol(id,idx){
 function closeDetail(){
   document.getElementById('detailPage').classList.remove('open');
   document.body.style.overflow='';
-  history.pushState({},'',window.location.pathname);
+  if(history.length>1){
+    history.back();
+  }
 }
 function toggleMenu(){
   document.getElementById('burgerBtn').classList.toggle('open');
