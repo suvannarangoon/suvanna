@@ -79,9 +79,7 @@
   .vol-popup-overlay.open .vol-popup { transform: translateY(0); }
   .vol-popup-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #111; margin-bottom: 4px; }
   .vol-popup-name { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
-
   @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
   .bottle-anim-wrap { display: flex; justify-content: center; align-items: flex-end; gap: 32px; margin-bottom: 24px; height: 90px; }
   .bottle-slot { display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
   .bottle-svg-wrap { transition: transform 0.2s; }
@@ -92,7 +90,6 @@
   .bottle-sale-price { font-size: 0.72rem; color: #e53935; font-weight: 700; }
   .bottle-orig-price { font-size: 0.6rem; color: #bbb; text-decoration: line-through; }
   .bottle-slot.active .bottle-svg-wrap { animation: floatUp 1.8s ease-in-out infinite; }
-
   .vol-options { display: flex; gap: 10px; margin-bottom: 20px; }
   .vol-opt-btn { flex: 1; border: 1.5px solid #e0e0e0; background: #fff; padding: 10px; font-family: 'Open Sans', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; }
   .vol-opt-btn.selected { border-color: #111; background: #111; color: #fff; }
@@ -111,32 +108,30 @@
 
   /* PAGE */
   .page-wrap { margin-top: 52px; padding-bottom: 80px; }
-
-  /* HERO */
   .shop-hero { padding: 48px 20px 32px; text-align: center; max-width: 900px; margin: 0 auto; }
   .shop-hero-title { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: #bbb; margin-bottom: 8px; }
   .shop-hero-name { font-size: 2rem; font-weight: 700; letter-spacing: 1px; color: #111; }
 
   /* SECTION */
-  .shop-section { max-width: 900px; margin: 0 auto; padding: 0 0 48px; }
+  .shop-section { max-width: 900px; margin: 0 auto; padding: 0 0 40px; display: none; }
+  .shop-section.visible { display: block; }
   .section-header { display: flex; justify-content: space-between; align-items: baseline; padding: 0 20px; margin-bottom: 16px; }
   .section-title { font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #111; }
-  .section-link { font-size: 0.65rem; letter-spacing: 1px; color: #888; text-decoration: none; cursor: pointer; }
+  .section-link { font-size: 0.65rem; letter-spacing: 1px; color: #888; text-decoration: none; cursor: pointer; background: none; border: none; font-family: 'Open Sans', sans-serif; }
   .section-link:hover { color: #111; }
+  .section-divider { border: none; border-top: 1px solid #f0f0f0; margin: 0 20px 40px; }
 
-  /* HORIZONTAL SCROLL */
+  /* SCROLL ROW */
   .scroll-row { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .scroll-row::-webkit-scrollbar { display: none; }
 
   /* SHOP CARD */
-  .shop-card { flex: 0 0 160px; scroll-snap-align: start; cursor: pointer; background: #fff; }
-  @media (min-width: 600px) { .shop-card { flex: 0 0 200px; } }
+  .shop-card { flex: 0 0 155px; scroll-snap-align: start; cursor: pointer; background: #fff; }
+  @media (min-width: 600px) { .shop-card { flex: 0 0 195px; } }
   .shop-card-img-wrap { aspect-ratio: 1; background: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; margin-bottom: 8px; }
   .shop-card-img { width: 110%; height: 110%; object-fit: contain; transition: transform 0.3s; }
   .shop-card:hover .shop-card-img { transform: scale(1.04); }
   .shop-card-img-placeholder { display: flex; align-items: center; justify-content: center; }
-
-  /* card badges */
   .shop-card-badge-wrap { position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; gap: 3px; z-index: 1; }
   .sc-badge { font-size: 0.45rem; letter-spacing: 0.8px; text-transform: uppercase; padding: 2px 5px; font-weight: 700; display: inline-block; border-radius: 3px; }
   .sc-badge-new { background: #e53935; color: #fff; }
@@ -144,9 +139,8 @@
   .sc-badge-men { background: #111; color: #fff; }
   .sc-badge-women { background: #e91e8c; color: #fff; }
   .sc-badge-unisex { background: #7b5ea7; color: #fff; }
-
   .shop-card-type { font-family: 'Courier New', monospace; font-size: 0.55rem; color: #ccc; margin-bottom: 2px; }
-  .shop-card-name { font-size: 0.78rem; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
+  .shop-card-name { font-size: 0.75rem; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
   .shop-card-price { font-size: 0.75rem; font-weight: 600; color: #111; margin-bottom: 6px; }
   .shop-card-price-orig { font-size: 0.65rem; color: #bbb; text-decoration: line-through; margin-right: 3px; }
   .shop-card-price-sale { font-size: 0.75rem; color: #e53935; font-weight: 700; }
@@ -154,15 +148,6 @@
   .shop-card-btn:hover { background: #111; color: #fff; }
   .shop-card-btn.out { background: #f5f5f5; color: #ccc; cursor: not-allowed; }
   .shop-card-btn.added { background: #2e7d32; color: #fff; }
-
-  /* loading */
-  @keyframes spinPause { 0% { transform: rotate(0deg); } 70% { transform: rotate(360deg); } 100% { transform: rotate(360deg); } }
-  .loading-row { display: flex; align-items: center; justify-content: center; padding: 40px 20px; gap: 12px; }
-  .loading-spin { animation: spinPause 2s ease-in-out infinite; }
-  .loading-text { font-size: 0.72rem; color: #ccc; }
-
-  /* divider */
-  .section-divider { border: none; border-top: 1px solid #f0f0f0; margin: 0 20px 40px; max-width: 860px; }
 
   footer { background: #000; padding: 40px 0 32px; }
   .footer-inner { max-width: 900px; margin: 0 auto; padding: 0 24px; }
@@ -253,23 +238,121 @@
     <div class="shop-hero-name">Shop</div>
   </div>
 
-  <!-- NEW ARRIVALS -->
-  <div class="shop-section" id="newArrivalsSection">
+  <!-- SECTIONS — hidden by default, shown if products exist -->
+  <div class="shop-section" id="sec-new">
     <div class="section-header">
       <span class="section-title">New Arrivals</span>
-      <a class="section-link" onclick="goTo('../catalog?filter=new')">See all →</a>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
     </div>
-    <div class="scroll-row" id="newArrivalsRow">
-      <div class="loading-row">
-        <div class="loading-spin">
-          <svg width="28" height="48" viewBox="0 0 48 82" fill="none">
-            <rect x="15" y="2" width="18" height="24" rx="4" stroke="#ddd" stroke-width="1.8" fill="none"/>
-            <rect x="3" y="30" width="42" height="48" rx="4" stroke="#ddd" stroke-width="1.8" fill="none"/>
-          </svg>
-        </div>
-        <span class="loading-text">Loading...</span>
-      </div>
+    <div class="scroll-row" id="row-new"></div>
+  </div>
+  <hr class="section-divider" id="div-new" style="display:none;">
+
+  <div class="shop-section" id="sec-bestseller">
+    <div class="section-header">
+      <span class="section-title">Best Sellers</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
     </div>
+    <div class="scroll-row" id="row-bestseller"></div>
+  </div>
+  <hr class="section-divider" id="div-bestseller" style="display:none;">
+
+  <div class="shop-section" id="sec-alltimemen">
+    <div class="section-header">
+      <span class="section-title">All-Time For Men</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-alltimemen"></div>
+  </div>
+  <hr class="section-divider" id="div-alltimemen" style="display:none;">
+
+  <div class="shop-section" id="sec-alltimewomen">
+    <div class="section-header">
+      <span class="section-title">All-Time For Women</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-alltimewomen"></div>
+  </div>
+  <hr class="section-divider" id="div-alltimewomen" style="display:none;">
+
+  <div class="shop-section" id="sec-rainy">
+    <div class="section-header">
+      <span class="section-title">Rainy Essentials</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-rainy"></div>
+  </div>
+  <hr class="section-divider" id="div-rainy" style="display:none;">
+
+  <div class="shop-section" id="sec-datemen">
+    <div class="section-header">
+      <span class="section-title">Night Out For Him</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-datemen"></div>
+  </div>
+  <hr class="section-divider" id="div-datemen" style="display:none;">
+
+  <div class="shop-section" id="sec-datewomen">
+    <div class="section-header">
+      <span class="section-title">Night Out For Her</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-datewomen"></div>
+  </div>
+  <hr class="section-divider" id="div-datewomen" style="display:none;">
+
+  <div class="shop-section" id="sec-sexy">
+    <div class="section-header">
+      <span class="section-title">Sexy Girl Collection</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-sexy"></div>
+  </div>
+  <hr class="section-divider" id="div-sexy" style="display:none;">
+
+  <div class="shop-section" id="sec-sweet">
+    <div class="section-header">
+      <span class="section-title">Candy Sweet For Cute Girls</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-sweet"></div>
+  </div>
+  <hr class="section-divider" id="div-sweet" style="display:none;">
+
+  <div class="shop-section" id="sec-elegant">
+    <div class="section-header">
+      <span class="section-title">Classy &amp; Graceful For Her</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-elegant"></div>
+  </div>
+  <hr class="section-divider" id="div-elegant" style="display:none;">
+
+  <div class="shop-section" id="sec-coffee">
+    <div class="section-header">
+      <span class="section-title">For Coffee Lovers</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-coffee"></div>
+  </div>
+  <hr class="section-divider" id="div-coffee" style="display:none;">
+
+  <div class="shop-section" id="sec-adminmen">
+    <div class="section-header">
+      <span class="section-title">Admin's Picks For Men</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-adminmen"></div>
+  </div>
+  <hr class="section-divider" id="div-adminmen" style="display:none;">
+
+  <div class="shop-section" id="sec-adminwomen">
+    <div class="section-header">
+      <span class="section-title">Admin's Picks For Women</span>
+      <button class="section-link" onclick="goTo('../catalog')">See all →</button>
+    </div>
+    <div class="scroll-row" id="row-adminwomen"></div>
   </div>
 </div>
 
@@ -320,7 +403,6 @@ const SVG_10ML_DIM='<svg width="28" height="72" viewBox="0 0 40 97" fill="none">
 
 function goTo(u){window.location.href=u;}
 
-/* CART */
 function getCart(){try{return JSON.parse(localStorage.getItem('suvanna_cart')||'[]');}catch{return[];}}
 function saveCart(c){localStorage.setItem('suvanna_cart',JSON.stringify(c));updateCartBadge();}
 function updateCartBadge(){
@@ -370,7 +452,6 @@ function renderBagItems(){
   document.getElementById('bagTotal').textContent=Number(total).toLocaleString()+' Ks';
 }
 
-/* VOLUME POPUP */
 function openVolPopup(id){
   const p=groupByID(allProducts).find(function(x){return x.id===id;});
   if(!p)return;
@@ -434,7 +515,6 @@ function confirmVolume(){
   },1200);
 }
 
-/* HELPERS */
 function groupByID(products){
   const map={};
   products.forEach(function(p){
@@ -451,11 +531,21 @@ function getCatBadge(cat){
   if(c==='women')return'<span class="sc-badge sc-badge-women">Women</span>';
   return'<span class="sc-badge sc-badge-unisex">Unisex</span>';
 }
+function hasTag(p,tag){
+  if(!p.tags)return false;
+  return p.tags.toLowerCase().includes(tag.toLowerCase());
+}
+function isCat(p,cat){
+  if(!p.category)return false;
+  return p.category.toLowerCase()===cat.toLowerCase();
+}
 
-/* RENDER SECTION */
-function renderSection(rowId,products){
+function renderSection(secId,divId,products){
+  if(!products.length)return;
+  document.getElementById(secId).classList.add('visible');
+  if(divId)document.getElementById(divId).style.display='block';
+  const rowId=secId.replace('sec-','row-');
   const row=document.getElementById(rowId);
-  if(!products.length){row.innerHTML='<div style="padding:20px;color:#ccc;font-size:0.8rem;">Products မရှိသေးပါ</div>';return;}
   row.innerHTML=products.map(function(p){
     const vol=p.volumes[0];
     const stock=getStockStatus(vol);
@@ -469,7 +559,7 @@ function renderSection(rowId,products){
       :'<div class="shop-card-img-placeholder">'+bottleSVGSmall(48)+'</div>';
     const hasSale=vol.salePrice&&vol.salePrice<vol.price;
     const priceHtml=hasSale
-      ?'<div><span class="shop-card-price-orig">'+Number(vol.price).toLocaleString()+'</span><span class="shop-card-price-sale">'+Number(vol.salePrice).toLocaleString()+' Ks</span></div>'
+      ?'<div style="margin-bottom:6px;"><span class="shop-card-price-orig">'+Number(vol.price).toLocaleString()+'</span><span class="shop-card-price-sale">'+Number(vol.salePrice).toLocaleString()+' Ks</span></div>'
       :'<div class="shop-card-price">'+Number(vol.price).toLocaleString()+' Ks</div>';
     let btnHtml;
     if(stock==='out')btnHtml='<button class="shop-card-btn out" disabled>Out of Stock</button>';
@@ -481,8 +571,7 @@ function renderSection(rowId,products){
       +'</div>'
       +'<div class="shop-card-type">'+(p.type==='Inspired'?'inspired by':'suvanna')+'</div>'
       +'<div class="shop-card-name">'+p.name+'</div>'
-      +priceHtml
-      +btnHtml
+      +priceHtml+btnHtml
       +'</div>';
   }).join('');
 }
@@ -499,12 +588,49 @@ async function loadProducts(){
     const data=await res.json();
     if(data.success&&data.products){
       allProducts=data.products;
-      const grouped=groupByID(allProducts);
-      const newArrivals=grouped.filter(function(p){return p.status==='New';});
-      renderSection('newArrivalsRow',newArrivals);
+      const g=groupByID(allProducts);
+
+      renderSection('sec-new','div-new',
+        g.filter(function(p){return p.status==='New';}));
+
+      renderSection('sec-bestseller','div-bestseller',
+        g.filter(function(p){return hasTag(p,'Best Seller');}));
+
+      renderSection('sec-alltimemen','div-alltimemen',
+        g.filter(function(p){return isCat(p,'Men')&&hasTag(p,'All Time');}));
+
+      renderSection('sec-alltimewomen','div-alltimewomen',
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'All Time');}));
+
+      renderSection('sec-rainy','div-rainy',
+        g.filter(function(p){return hasTag(p,'Rainy');}));
+
+      renderSection('sec-datemen','div-datemen',
+        g.filter(function(p){return isCat(p,'Men')&&hasTag(p,'Date');}));
+
+      renderSection('sec-datewomen','div-datewomen',
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'Date');}));
+
+      renderSection('sec-sexy','div-sexy',
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'Sexy');}));
+
+      renderSection('sec-sweet','div-sweet',
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'Sweet');}));
+
+      renderSection('sec-elegant','div-elegant',
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'Elegant');}));
+
+      renderSection('sec-coffee','div-coffee',
+        g.filter(function(p){return hasTag(p,'Coffee');}));
+
+      renderSection('sec-adminmen','div-adminmen',
+        g.filter(function(p){return isCat(p,'Men')&&hasTag(p,'Admin');}));
+
+      renderSection('sec-adminwomen',null,
+        g.filter(function(p){return isCat(p,'Women')&&hasTag(p,'Admin');}));
     }
   }catch(err){
-    document.getElementById('newArrivalsRow').innerHTML='<div style="padding:20px;color:#ccc;font-size:0.8rem;">ချိတ်ဆက်မရပါ</div>';
+    console.error(err);
   }
 }
 
