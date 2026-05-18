@@ -313,12 +313,14 @@
     </div>
   </div>
   <div class="filter-wrap">
-    <div class="filter-row">
+    <div class="filter-wrap">
+     <div class="filter-row">
       <button class="filter-btn active" onclick="setFilter('new',this)">New</button>
-      <button class="filter-btn" onclick="setFilter('bestseller',this)">Best Seller</button>
+      <button class="filter-btn" onclick="setFilter('bestseller',this)">Best</button>
       <button class="filter-btn" onclick="setFilter('men',this)">Men</button>
       <button class="filter-btn" onclick="setFilter('women',this)">Women</button>
       <button class="filter-btn" onclick="setFilter('unisex',this)">Unisex</button>
+     </div>
     </div>
   </div>
   <div class="results-info" id="resultsInfo"></div>
@@ -521,11 +523,14 @@ function groupByID(products){
 }
 function bottleSVGSmall(s){var h=Math.round(s*1.4);return'<svg width="'+s+'" height="'+h+'" viewBox="0 0 48 68" fill="none"><rect x="16" y="2" width="16" height="16" rx="4" stroke="#ddd" stroke-width="1.5" fill="none"/><rect x="3" y="22" width="42" height="42" rx="8" stroke="#ddd" stroke-width="1.5" fill="none"/></svg>';}
 function getFiltered(){
-  function getFiltered(){
   var r=allProducts;
-  if(currentFilter==='new')r=r.filter(function(p){return p.status==='New';});
-  else if(currentFilter==='bestseller')r=r.filter(function(p){return p.tags&&typeof p.tags==='string'&&p.tags.toLowerCase().includes('best seller');});
-  else if(currentFilter!=='all')r=r.filter(function(p){return p.category&&typeof p.category==='string'&&p.category.toLowerCase()===currentFilter;});
+  if(currentFilter==='new'){
+    r=r.filter(function(p){return p.status==='New';});
+  }else if(currentFilter==='bestseller'){
+    r=r.filter(function(p){return p.tags&&typeof p.tags==='string'&&p.tags.toLowerCase().includes('best seller');});
+  }else if(currentFilter!=='all'){
+    r=r.filter(function(p){return p.category&&typeof p.category==='string'&&p.category.toLowerCase()===currentFilter;});
+  }
   if(currentSearch.trim()){
     var q=currentSearch.toLowerCase();
     r=r.filter(function(p){
